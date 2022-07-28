@@ -24,7 +24,7 @@
         <url-pattern>/InitializeServlet</url-pattern>
     </servlet-mapping>
 
-    <security-constraint>
+    <!--<security-constraint>
         <web-resource-collection>
             <web-resource-name>Whole app authentication</web-resource-name>
             <url-pattern>/*</url-pattern>
@@ -44,7 +44,7 @@
             <form-login-page>/day2/AuthPractice/login.jsp</form-login-page>
             <form-error-page>/day2/AuthPractice/loginFailed.jsp</form-error-page>
         </form-login-config>
-    </login-config>
+    </login-config>-->
 
     <!--<error-page>
         <error-code>404</error-code>
@@ -55,5 +55,15 @@
         <error-code>500</error-code>
         <location>/day3/ErrorsJsp/error500.jsp</location>
     </error-page>-->
+
+    <filter>
+        <filter-name>f1</filter-name>
+        <filter-class>day4.Session.filterClass</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>f1</filter-name>
+        <url-pattern>/SessionServlet</url-pattern>
+    </filter-mapping>
+
 
 </web-app>

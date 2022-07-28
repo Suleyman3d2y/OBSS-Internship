@@ -17,6 +17,10 @@
     if(number == null) {
         number = (String) request.getAttribute("number");
     }
+    if(number == null || name == null) {
+        name = "";
+        number = "";
+    }
 %>
 <div align="center">
     <jsp:include page="searchContact.jsp"/>

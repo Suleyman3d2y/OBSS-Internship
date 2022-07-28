@@ -11,7 +11,6 @@
     <title>Footer</title>
 </head>
 <body>
-<h2> Footer Page </h2>
 <a href="about.jsp">About</a>
 </body>
 </html>
