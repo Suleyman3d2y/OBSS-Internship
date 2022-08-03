@@ -7,10 +7,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 public class Week3SpringApplication {
-    /*con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/OBSS",
-                "postgres", "16798520");*/
 
     public static void main(String[] args) {
         SpringApplication.run(Week3SpringApplication.class, args);

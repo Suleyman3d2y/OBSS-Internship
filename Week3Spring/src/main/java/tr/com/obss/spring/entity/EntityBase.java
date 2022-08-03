@@ -1,6 +1,7 @@
 package tr.com.obss.spring.entity;
 
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
