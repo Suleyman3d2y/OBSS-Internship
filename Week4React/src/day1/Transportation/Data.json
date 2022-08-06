@@ -1,0 +1,29 @@
+{
+  "Convertibles": {
+    "Cars": [
+      { "Year": 2013, "Model": "A", "Price": "$32000" },
+      { "Year": 2011, "Model": "B", "Price": "$44000" },
+      { "Year": 2016, "Model": "B", "Price": "$15500" }
+    ],
+    "Trucks": [
+      { "Year": 2015, "Model": "D", "Price": "$18000" },
+      { "Year": 2013, "Model": "E", "Price": "$5200" },
+      { "Year": 2012, "Model": "E", "Price": "$5200" }
+    ]
+  },
+  "Roadster": {
+
+    "Cars": [
+      { "Year": 2016, "Model": "E", "Price": "$54000" },
+      { "Year": 2014, "Model": "A", "Price": "$67000" },
+      { "Year": 2018, "Model": "V", "Price": "$34000" }
+    ],
+    "Trucks": [
+      { "Year": 2015, "Model": "F", "Price": "$24000" },
+      { "Year": 2014, "Model": "B", "Price": "$59000" },
+      { "Year": 2019, "Model": "G", "Price": "$42000" }
+    ]
+
+
+  }
+}
