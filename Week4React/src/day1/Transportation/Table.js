@@ -8,13 +8,24 @@ export const Table = () => {
     const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(true);
     const [Type, setType] = useState("Convertible");
-    const [ConvertibleCar] = useState(Data.Convertibles.Cars);
-    const [ConvertibleTruck] = useState(Data.Convertibles.Trucks);
-    const [DisplayCar, setDisplayCar] = useState(Data.Convertibles.Cars);
-    const [DisplayTruck, setDisplayTruck] = useState(Data.Convertibles.Trucks);
-    const [RoadsterCar] = useState(Data.Roadster.Cars);
-    const [RoadsterTruck] = useState(Data.Roadster.Trucks);
-
+    const [Convertibles] = useState(
+        {
+            Cars: Data.Convertibles.Cars,
+            Trucks: Data.Convertibles.Trucks
+        }
+    )
+    const [Roadsters] = useState(
+        {
+            Cars: Data.Roadster.Cars,
+            Trucks: Data.Roadster.Trucks
+        }
+    )
+    const [Display, setDisplay] = useState(
+        {
+            Cars: Data.Convertibles.Cars,
+            Trucks: Data.Convertibles.Trucks
+        }
+    )
 
     const navigateTo = (Type, year, model, price) => {
         navigate("/BuyNow?type=" + Type + "&year=" + year + "&model=" + model + "&price=" + price);
@@ -23,39 +34,32 @@ export const Table = () => {
     const getType = () => {
         let value = document.getElementById("typeSelect").value;
         if (value === "Convertible") {
-            setDisplayCar(ConvertibleCar);
-            setDisplayTruck(ConvertibleTruck);
+            setDisplay(Convertibles)
             setType("Convertible");
         } else if (value === "Roadster") {
-            setDisplayCar(RoadsterCar);
-            setDisplayTruck(RoadsterTruck);
+            setDisplay(Roadsters)
             setType("Roadster");
         }
     }
 
     const getNews = (year) => {
         if (isChecked) {
-            setDisplayCar(current =>
-                current.filter(car => {
-                    return car.Year >= year
-                }))
 
-            setDisplayTruck(current =>
-                current.filter(trucks => {
-                    return trucks.Year >= year
-                }))
+            let Cars = Display.Cars.filter(car => car.Year >= year)
+            let Trucks = Display.Trucks.filter(truck => truck.Year >= year)
+            console.log(Cars)
+            console.log(Trucks)
+            setDisplay({Cars: Cars, Trucks: Trucks})
+            console.log(Display)
+
         } else {
             if (Type === "Convertible") {
-                setDisplayCar(ConvertibleCar);
-                setDisplayTruck(ConvertibleTruck);
+                setDisplay(Convertibles)
             } else {
-                setDisplayCar(RoadsterCar);
-                setDisplayTruck(RoadsterTruck);
+                setDisplay(Roadsters)
             }
 
         }
-
-
         setIsChecked(current => !current);
     }
 
@@ -85,7 +89,7 @@ export const Table = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {DisplayCar.map((car) => (
+                    {Display.Cars.map((car) => (
                         <tr>
                             <td>{car.Year}</td>
                             <td>{car.Model}</td>
@@ -113,7 +117,7 @@ export const Table = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {DisplayTruck.map((truck) => (
+                    {Display.Trucks.map((truck) => (
                         <tr>
                             <td>{truck.Year}</td>
                             <td>{truck.Model}</td>
