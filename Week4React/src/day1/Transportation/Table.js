@@ -104,8 +104,8 @@ export const Table = () => {
                 </table>
                 <br/>
             </div>
+            
             <h2>Trucks</h2>
-
             <div>
                 <table border="1" cellPadding="10">
                     <thead>
