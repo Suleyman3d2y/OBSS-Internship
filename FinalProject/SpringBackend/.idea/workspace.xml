@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4cc3f260-ec81-40c8-9d07-eaa847104778" name="Changes" comment="JIP day 13 (SpringBoot day3)">
+      <change afterPath="$PROJECT_DIR$/../Java Ignite 2022.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Spring/Week3Spring.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_jsonwebtoken_jjwt_0_9_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/LibraryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/Author.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/AuthorDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/AuthorUpdateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/BookDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/BookUpdateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/AuthorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/BookRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/AuthorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/Week3SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/Week3SpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/CryptoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/CryptoConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebMvcConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="module-info" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Cl0W8ltKJmVKF7F5rFhCQ5ioUS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.29425287" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\service" />
+      <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\model" />
+      <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\config" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Week3SpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="Spring" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="tr.com.obss.spring.Week3SpringApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateResources" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4cc3f260-ec81-40c8-9d07-eaa847104778" name="Changes" comment="" />
+      <created>1659361894287</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1659361894287</updated>
+      <workItem from="1659361896894" duration="291000" />
+      <workItem from="1659362224523" duration="317000" />
+      <workItem from="1659362595128" duration="632000" />
+      <workItem from="1659419792790" duration="22234000" />
+      <workItem from="1659506339381" duration="21982000" />
+      <workItem from="1659593448328" duration="21110000" />
+      <workItem from="1659679369741" duration="596000" />
+      <workItem from="1659799465240" duration="71000" />
+      <workItem from="1659799750636" duration="7000" />
+      <workItem from="1659896525521" duration="12124000" />
+      <workItem from="1659923603853" duration="789000" />
+      <workItem from="1659966583180" duration="560000" />
+      <workItem from="1659967186982" duration="4000" />
+      <workItem from="1660027536947" duration="11936000" />
+      <workItem from="1660111488920" duration="16277000" />
+      <workItem from="1660197465075" duration="21222000" />
+    </task>
+    <task id="LOCAL-00001" summary="JIP day 11 (SpringBoot day1)">
+      <created>1659362809837</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659362809837</updated>
+    </task>
+    <task id="LOCAL-00002" summary="JIP day 12 (SpringBoot day2)">
+      <created>1659447791462</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1659447791462</updated>
+    </task>
+    <task id="LOCAL-00003" summary="JIP day 12 (SpringBoot day2)">
+      <created>1659447909532</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1659447909532</updated>
+    </task>
+    <task id="LOCAL-00004" summary="JIP day 13 (SpringBoot day3)">
+      <created>1659537046674</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1659537046674</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate:hibernate-core" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="JIP day 11 (SpringBoot day1)" />
+    <MESSAGE value="JIP day 12 (SpringBoot day2)" />
+    <MESSAGE value="JIP day 13 (SpringBoot day3)" />
+    <option name="LAST_COMMIT_MESSAGE" value="JIP day 13 (SpringBoot day3)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint type="java-exception">
+          <properties class="org.springframework.beans.factory.UnsatisfiedDependencyException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.security.authentication.InternalAuthenticationServiceException" package="org.springframework.security.authentication" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+        <line-breakpoint type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.3.22/spring-beans-5.3.22.jar!/org/springframework/beans/factory/support/ConstructorResolver.class</url>
+          <line>618</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.7.2/spring-security-core-5.7.2.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.class</url>
+          <line>64</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
