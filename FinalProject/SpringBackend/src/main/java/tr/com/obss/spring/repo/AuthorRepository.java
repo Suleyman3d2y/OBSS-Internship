@@ -11,6 +11,8 @@ import tr.com.obss.spring.entity.Author;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
 
+    Author findAuthorByName(String name);
+
     Author findAuthorById(long id);
 
 

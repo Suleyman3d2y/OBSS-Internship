@@ -28,15 +28,15 @@ public class BookDTO {
 
     @NotBlank
     @Size(max = 255, min = 1, message = "Please enter a valid author")
-    private String authorId;
+    private String authorName;
 
 
 
 
-    public BookDTO(String name, String genre,String authorId, String pageCount) {
+    public BookDTO(String name, String genre,String authorName, String pageCount) {
         this.name = name;
         this.genre = genre;
-        this.authorId = authorId;
+        this.authorName = authorName;
         this.pageCount = pageCount;
     }
 
@@ -56,12 +56,12 @@ public class BookDTO {
         this.isbn = isbn;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setAuthorName(String authorId) {
+        this.authorName = authorId;
     }
 
     public String getName() {

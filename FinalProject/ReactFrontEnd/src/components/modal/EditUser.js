@@ -25,7 +25,6 @@ const EditUser = (props) => {
         )
             .then(() => {
                 setSubmitText("User updated successfully")
-                console.log(e)
                 setLoading(true);
                 setTimeout(() => {
                     setLoading(false);

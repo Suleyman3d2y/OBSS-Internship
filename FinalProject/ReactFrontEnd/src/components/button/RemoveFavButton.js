@@ -6,7 +6,6 @@ const RemoveFavButton = (props) => {
     const url = `http://localhost:8080/api/v1/library/user/removefavlist/${props.userId}/${props.bookId}`
 
     const OnClick = () => {
-        console.log(props)
         axios.delete(url,{withCredentials:true})
             .then((response) => {
                 alert("Book succesfully removed from Favorite List")

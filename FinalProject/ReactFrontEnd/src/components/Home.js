@@ -4,7 +4,6 @@ import {HomeOutlined,BookOutlined,UserOutlined,ReadOutlined} from "@ant-design/i
 import Title from 'antd/lib/typography/Title';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import {Link, useSearchParams} from "react-router-dom";
-import axios from "axios";
 import AddBook from "./modal/AddBook";
 import AddUserModal from "./modal/AddUserModal";
 import AddAuthorModal from "./modal/AddAuthor";
@@ -16,26 +15,7 @@ const {Header, Footer, Sider, Content} = Layout;
 
 function Home() {
 
-
-    const [searchParams] = useSearchParams();
-    const id = searchParams.get("id");
-    const [role,setRole] = useState("");
-
-    if(role === ""){
-        axios.get(`http://localhost:8080/api/v1/users/${id}`,{
-            withCredentials : true
-        })
-            .then((response) => {
-                if(response.data.roles.length >1) {
-                    setRole("ADMIN");
-                }
-                else {
-                    setRole("USER")
-                }
-            })
-            .catch(() => {console.log("error in Home")})
-    }
-
+    let role = sessionStorage.getItem("role");
 
     return (
         <div>
@@ -62,7 +42,7 @@ function Home() {
                             mode="inline"
                         >
                             <Menu.Item key="home" icon={<HomeOutlined />}>
-                                <Link to={{pathname: `/home?id=${id}`}}>
+                                <Link to={{pathname: `/home`}}>
                                     Home
                                 </Link>
                             </Menu.Item>
@@ -75,7 +55,7 @@ function Home() {
                             >
                                 <Menu.ItemGroup>
                                     <Menu.Item key='bookList'>
-                                        <Link to={{pathname: `/book-list?id=${id}`}}>
+                                        <Link to={{pathname: `/book-list`}}>
                                             Book List
                                         </Link>
                                     </Menu.Item>
@@ -96,7 +76,7 @@ function Home() {
                             >
                                 <Menu.ItemGroup>
                                     <Menu.Item key='userList'>
-                                        <Link to={{pathname: `/user-list?id=${id}`}}>
+                                        <Link to={{pathname: `/user-list`}}>
                                             User List
                                         </Link>
                                     </Menu.Item>
@@ -116,7 +96,7 @@ function Home() {
                             >
                                 <Menu.ItemGroup>
                                     <Menu.Item key='authorList'>
-                                        <Link to={{pathname: `/author-list?id=${id}`}}>
+                                        <Link to={{pathname: `/author-list`}}>
                                             Author List
                                         </Link>
                                     </Menu.Item>
@@ -135,12 +115,12 @@ function Home() {
                                      }
                             >
                                 <Menu.Item key='readList' >
-                                    <Link to={{pathname: `/read-list?id=${id}`}}>
+                                    <Link to={{pathname: `/read-list`}}>
                                         Read List
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item key='favList'>
-                                    <Link to={{pathname: `/fav-list?id=${id}`}}>
+                                    <Link to={{pathname: `/fav-list`}}>
                                         Favorite List
                                     </Link>
                                 </Menu.Item>

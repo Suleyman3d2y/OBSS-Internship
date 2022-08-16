@@ -30,13 +30,13 @@ const AddBook = () => {
         data.rating = e.rating;
         data.isbn = e.isbn;
         data.authorId = e.authorId;
-        console.log(data)
+
 
         axios.post(url, data, {withCredentials: true}
         )
             .then(() => {
                 setSubmitText("Book added successfully")
-                console.log(e)
+
                 setLoading(true);
                 setTimeout(() => {
                     setLoading(false);
@@ -46,7 +46,7 @@ const AddBook = () => {
             })
 
             .catch((err) => {
-                console.log(err)
+
                 if(err.response.status === 401){
                     setSubmitText(
                         "You are unauthorized. If you are an admin please log in with admin account."
@@ -154,12 +154,12 @@ const AddBook = () => {
                         <Input/>
                     </Form.Item>
                     <Form.Item
-                        id="authorId"
-                        label="Author ID"
-                        name="authorId"
+                        id="authorName"
+                        label="Author Name"
+                        name="authorName"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid author ID!'
+                            message: 'Please input a valid author name!'
                         }]}
                     >
                         <Input/>

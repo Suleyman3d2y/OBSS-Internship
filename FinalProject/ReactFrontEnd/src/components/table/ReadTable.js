@@ -7,7 +7,7 @@ import RemoveReadButton from "../button/RemoveReadButton";
 import BookService from "../../service/BookService";
 
 const bookservice = new BookService();
-const paramId = new URLSearchParams(window.location.search).get("id");
+
 const columns = [
 
     {
@@ -106,7 +106,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <RemoveReadButton userId={paramId} bookId={record.id} />
+                <RemoveReadButton userId={sessionStorage.getItem("id")} bookId={record.id} />
             </Space>
         ),
     },
@@ -115,8 +115,6 @@ const columns = [
 
 class ReadTable extends React.Component {
     state = {
-        id: new URLSearchParams(window.location.search).get("id"),
-        role: "",
         data: [],
         pagination: {
             current: 1,
@@ -127,41 +125,12 @@ class ReadTable extends React.Component {
 
     componentDidMount() {
 
-
-            axios.get(`http://localhost:8080/api/v1/users/${this.state.id}`, {
-                withCredentials: true
-            })
-                .then((response) => {
-                    if (response.data.roles.length > 1) {
-                        return this.setState({role: "ADMIN"});
-                    } else {
-                        return this.setState({role: "USER"});
-                    }
-                })
-                .catch((err) => {
-                    if(err.response.status === 401){
-                        alert(
-                            "You are unauthorized. If you are an admin or user please log in."
-                        )
-                        setTimeout(() => {
-                            window.location.set("/login")
-                        },2000)
-                    }
-                    else {
-                        alert("An error ocurred.")
-
-                    }
-                })
-
-
         const {pagination} = this.state;
-        const {id} = this.state
-        this.fetch({pagination,id}, []);
+        this.fetch({pagination}, []);
     }
 
     handleTableChange = (newPagination) => {
         this.fetch({
-            id:this.state.id,
             pagination: newPagination
         });
     };
@@ -179,16 +148,14 @@ class ReadTable extends React.Component {
     };
 
     render() {
-        const {data, pagination, loading,role,id} = this.state;
+        const {data, pagination, loading} = this.state;
 
         return (
             <TableComponent
-                role ={role}
                 columns = {columns}
                 dataSource = {data}
                 pagination = {pagination}
                 loading = {loading}
-                id = {id}
                 handleTableChange = {this.handleTableChange}
                 name = {"Read Table"}
             />

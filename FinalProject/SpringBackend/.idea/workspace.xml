@@ -23,17 +23,20 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/Week3SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/Week3SpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/cache/UserCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/cache/UserCache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/CryptoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/CryptoConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebMvcConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/MyUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/MyUserDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/com/obss/day3/BusReservation/BusReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/com/obss/day3/BusReservation/BusReservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/com/obss/day5/OccurencesOfWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/com/obss/day5/OccurencesOfWords.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +95,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29425287" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
@@ -139,7 +142,11 @@
       <workItem from="1659967186982" duration="4000" />
       <workItem from="1660027536947" duration="11936000" />
       <workItem from="1660111488920" duration="16277000" />
-      <workItem from="1660197465075" duration="21222000" />
+      <workItem from="1660197465075" duration="21596000" />
+      <workItem from="1660264190015" duration="352000" />
+      <workItem from="1660283380333" duration="3815000" />
+      <workItem from="1660493159735" duration="430000" />
+      <workItem from="1660630207711" duration="19214000" />
     </task>
     <task id="LOCAL-00001" summary="JIP day 11 (SpringBoot day1)">
       <created>1659362809837</created>

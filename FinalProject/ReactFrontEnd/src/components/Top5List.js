@@ -4,48 +4,13 @@ import BookService from "../service/BookService";
 import axios from "axios";
 
 const bookservice = new BookService();
-
 class Top5List extends React.Component {
 
     state = {
-        id: new URLSearchParams(window.location.search).get("id"),
-        role: "",
         data: [],
     };
 
     componentDidMount() {
-
-        if (this.state.role === "") {
-            axios.get(`http://localhost:8080/api/v1/users/${this.state.id}`, {
-                withCredentials: true
-            })
-                .then((response) => {
-                    if (response.data.roles.length > 1) {
-                        return this.setState({role: "ADMIN"});
-                    } else {
-                        return this.setState({role: "USER"});
-                    }
-                })
-                .catch((err) => {
-                    if(err.response.status === 401){
-                        alert(
-                            "You are unauthorized. If you are an admin please log in with admin account."
-                        )
-                        setTimeout(() => {
-                            window.location.set("/login")
-                        },2000)
-
-                    }
-                    else if(err.response.status === 500 && err.response.data.error === "Access is denied") {
-                        alert("User TableComponent is only for admins. If you are an admin please log in with admin account.")
-
-                    }
-                    else {
-                        alert("An error occured.")
-
-                    }
-                })
-        }
 
         this.fetch();
     }
@@ -56,7 +21,6 @@ class Top5List extends React.Component {
         this.setState({
             data: bookData
             })
-
     }
 
     render() {

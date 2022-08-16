@@ -1,8 +1,7 @@
 package tr.com.obss.spring.cache;
 
-import tr.com.obss.spring.model.UserDTO;
-
 import java.util.Map;
+import tr.com.obss.spring.model.UserDTO;
 
 public interface UserCache {
 

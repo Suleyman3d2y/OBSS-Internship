@@ -23,7 +23,7 @@ const AddUserModal = () => {
         data.username = e.username
         data.password = e.password
         data.role = e.role
-        console.log(data)
+
 
         axios.post(url, data, {withCredentials: true}
         )

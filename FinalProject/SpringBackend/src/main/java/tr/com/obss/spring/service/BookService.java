@@ -33,7 +33,7 @@ public class BookService {
         book.setPageCount(Integer.parseInt(bookDTO.getPageCount()));
         book.setIsbn(Long.parseLong(bookDTO.getIsbn()));
         book.setRating(Integer.parseInt(bookDTO.getRating()));
-        var author = authorRepository.findAuthorById(Integer.parseInt(bookDTO.getAuthorId()));
+        var author = authorRepository.findAuthorByName(bookDTO.getAuthorName());
         if (Objects.nonNull(author)) {
             book.setAuthor(author);
         }
@@ -47,7 +47,10 @@ public class BookService {
         book.setGenre(dto.getGenre());
         book.setPageCount(Integer.parseInt(dto.getPageCount()));
         book.setRating(Integer.parseInt(dto.getRating()));
-        book.setAuthor(authorRepository.findAuthorById(Long.parseLong(dto.getAuthorId())));
+        var author = authorRepository.findAuthorByName(dto.getAuthorName());
+        if (Objects.nonNull(author)) {
+            book.setAuthor(author);
+        }
         return bookRepository.save(book);
 
     }

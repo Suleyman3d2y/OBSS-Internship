@@ -11,7 +11,7 @@ const UserService = (function () {
             }
         })
             .catch((err) => {
-                console.log(err.response.data)
+
                 alert("You need to be an admin to see/edit Admin table.")
                 if(err.response.status === 500 && err.response.data === "Access is denied"){
 

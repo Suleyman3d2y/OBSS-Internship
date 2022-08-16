@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const id = localStorage.getItem("id");
+
 class BookService {
 
     fetchBookData = async (params) => {
@@ -28,7 +30,7 @@ class BookService {
             }
         })
             .catch((err) => {
-                console.log(err.response.data)
+
                 alert("You need to be an admin to see/edit Author table.")
                 if (err.response.status === 500 && err.response.data === "Access is denied") {
 
@@ -42,7 +44,7 @@ class BookService {
     };
 
     fetchFavListData = async (params) => {
-        const response = await axios.get(`http://localhost:8080/api/v1/library/favlist/${params.id}`,{
+        const response = await axios.get(`http://localhost:8080/api/v1/library/favlist/${id}`,{
             withCredentials : true,
             params: {
                 pageSize: params.pagination.pageSize,
@@ -58,7 +60,7 @@ class BookService {
     };
 
     fetchReadListData = async (params) => {
-        const response = await axios.get(`http://localhost:8080/api/v1/library/readlist/${params.id}`,{
+        const response = await axios.get(`http://localhost:8080/api/v1/library/readlist/${id}`,{
             withCredentials : true,
             params: {
                 pageSize: params.pagination.pageSize,

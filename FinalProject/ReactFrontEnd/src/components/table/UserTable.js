@@ -1,11 +1,9 @@
 import React from "react";
 import {Input, Space} from 'antd';
-import axios from "axios";
 import EditUser from "../modal/EditUser";
 import UserService from "../../service/UserService";
 import TableComponent from "./TableComponent";
 import {SearchOutlined} from "@ant-design/icons";
-
 
 const columns = [
 
@@ -17,8 +15,7 @@ const columns = [
         title: "Username",
         dataIndex: "username",
         filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
-            console.log(selectedKeys)
-            console.log(selectedKeys)
+
             return (
                 <Input
                     autoFocus
@@ -38,8 +35,7 @@ const columns = [
             return<SearchOutlined />
         },
         onFilter:(value,record) => {
-            console.log(value)
-            console.log(record)
+
             return String(record.username).toLowerCase().includes(String(value).toLowerCase())
         }
     },
@@ -67,8 +63,6 @@ const columns = [
 
 class UserTable extends React.Component {
     state = {
-        id: new URLSearchParams(window.location.search).get("id"),
-        role: "",
         data: [],
         pagination: {
             current: 1,
@@ -78,37 +72,6 @@ class UserTable extends React.Component {
     };
 
     componentDidMount() {
-
-            axios.get(`http://localhost:8080/api/v1/users/${this.state.id}`, {
-                withCredentials: true
-            })
-                .then((response) => {
-                    if (response.data.roles.length > 1) {
-                        return this.setState({role: "ADMIN"});
-                    } else {
-                        return this.setState({role: "USER"});
-                    }
-                })
-                .catch((err) => {
-                    if(err.response.status === 401){
-                        alert(
-                            "You are unauthorized. If you are an admin please log in with admin account."
-                        )
-                        setTimeout(() => {
-                            window.location.set("/login")
-                        },2000)
-
-                    }
-                    else if(err.response.status === 500 && err.response.data.error === "Access is denied") {
-                        alert("User TableComponent is only for admins. If you are an admin please log in with admin account.")
-
-                    }
-                    else {
-                        alert("An error occured.")
-
-                    }
-                })
-
 
         const {pagination} = this.state;
         this.fetch({pagination}, []);
@@ -135,16 +98,14 @@ class UserTable extends React.Component {
     };
 
     render() {
-        const {data, pagination, loading, role, id} = this.state;
+        const {data, pagination, loading} = this.state;
 
         return (
             <TableComponent
-                role ={role}
                 columns = {columns}
                 dataSource = {data}
                 pagination = {pagination}
                 loading = {loading}
-                id = {id}
                 handleTableChange = {this.handleTableChange}
                 name = {"User Table"}
             />

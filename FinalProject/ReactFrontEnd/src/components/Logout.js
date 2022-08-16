@@ -9,6 +9,10 @@ function Logout() {
         axios.get(url,{withCredentials: true}
         )
             .then(() => {
+                sessionStorage.removeItem("id")
+                sessionStorage.removeItem("role")
+                sessionStorage.removeItem("jwt")
+
                 navigate("/")
 
             })

@@ -12,12 +12,9 @@ import tr.com.obss.spring.model.BookUpdateDTO;
 import tr.com.obss.spring.service.AuthorService;
 import tr.com.obss.spring.service.BookService;
 import tr.com.obss.spring.service.UserService;
-
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/library")
@@ -123,7 +120,7 @@ public class LibraryController {
     @PostMapping("/book/add")
     public ResponseEntity<?> createBook(@Valid @RequestBody BookDTO bookDTO) {
         LOGGER.info("Book info: {} {} {} {} {} ", bookDTO.getName(),bookDTO.getGenre(),bookDTO.getGenre()
-        ,bookDTO.getPageCount(),bookDTO.getAuthorId());
+        ,bookDTO.getPageCount(),bookDTO.getAuthorName());
 
         return ResponseEntity.ok(bookService.save(bookDTO));
     }

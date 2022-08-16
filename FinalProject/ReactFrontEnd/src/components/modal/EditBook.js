@@ -24,14 +24,13 @@ const EditBook = (props) => {
 
     function submit(e) {
         data = e;
-        console.log(e);
-        console.log(data);
+
 
         axios.put(updateUrl, data, {withCredentials: true}
         )
             .then(() => {
                 setSubmitText("Book updated successfully")
-                console.log(e)
+
                 setLoading(true);
                 setTimeout(() => {
                     setLoading(false);
@@ -165,13 +164,13 @@ const EditBook = (props) => {
                         <Input/>
                     </Form.Item>
                     <Form.Item
-                        id="authorId"
-                        label="New Author ID"
-                        name="authorId"
-                        initialValue={props.authorId}
+                        id="authorName"
+                        label="New Author Name"
+                        name="authorName"
+                        initialValue={props.authorName}
                         rules={[{
                             required: true,
-                            message: 'Please input a valid authorId!'
+                            message: 'Please input a valid author name!'
                         }]}
                     >
                         <Input/>

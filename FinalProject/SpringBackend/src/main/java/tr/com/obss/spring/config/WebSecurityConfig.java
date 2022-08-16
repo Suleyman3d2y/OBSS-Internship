@@ -1,20 +1,21 @@
 package tr.com.obss.spring.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import tr.com.obss.spring.filter.JwtRequestFilter;
 import tr.com.obss.spring.service.UserService;
 
 import java.util.Arrays;
@@ -29,32 +30,23 @@ securedEnabled = true,
 jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    private static final String[] AUTH_WHITELIST = {
-            "/api/v1/h2-console",
-            "/api/v1/h2-console/**",
-            "/api/v1/v2/api-docs",
-            "/api/v1/swagger-resources",
-            "/api/v1/swagger-resources/**",
-            "/api/v1/configuration/ui",
-            "/api/v1/configuration/security",
-            "/api/v1/swagger-ui.html",
-            "/api/v1/webjars/**",
-            "/api/v1/graphiql",
-            "/api/v1/api/graphql"
-    };
-
-
-    
     private final PasswordEncoder encoder;
 
     private final UserService userService;
 
-    public WebSecurityConfig(PasswordEncoder encoder, UserService userService) {
+    private final JwtRequestFilter jwtRequestFilter;
+
+    public WebSecurityConfig(PasswordEncoder encoder, UserService userService, JwtRequestFilter jwtRequestFilter) {
         this.encoder = encoder;
         this.userService = userService;
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
    @Bean
     public CorsFilter corsFilter() {
@@ -71,8 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(encoder);
@@ -80,20 +70,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).anonymous()
-                .anyRequest().hasAnyRole("ADMIN", "USER")
+        http.authorizeRequests().antMatchers("/login").permitAll()
+                .antMatchers("/user","/library").hasAnyRole("ADMIN", "USER")
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler((req, resp, ex) -> resp.setStatus(SC_FORBIDDEN)) // if someone tries to access protected resource but doesn't have enough permissions
-                .authenticationEntryPoint((req, resp, ex) -> resp.setStatus(SC_UNAUTHORIZED)).and()
-                .formLogin()
-                .loginProcessingUrl("/login")
-                .successHandler((req, resp, auth) -> resp.setStatus(SC_OK)) // success authentication
-                .failureHandler((req, resp, ex) -> resp.setStatus(SC_FORBIDDEN))
-                .and() // bad credentials
+                .authenticationEntryPoint((req, resp, ex) -> resp.setStatus(SC_UNAUTHORIZED))
+                .and()
                 .sessionManagement()
-                .invalidSessionStrategy((req, resp) -> resp.setStatus(SC_UNAUTHORIZED))
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -103,5 +88,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .cors();
 
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

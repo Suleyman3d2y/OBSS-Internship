@@ -2,14 +2,13 @@ import React from "react";
 import {Input, Space} from 'antd';
 import BookService from "../../service/BookService";
 import EditBook from "../modal/EditBook";
-import axios from "axios";
 import TableComponent from "./TableComponent";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import {SearchOutlined} from "@ant-design/icons"
 
 
-const paramId = new URLSearchParams(window.location.search).get("id");
+
 const bookservice = new BookService();
 
 const columns = [
@@ -111,9 +110,9 @@ const columns = [
         render: (_, record) => (
                 <Space size="middle">
                     <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
-                              rating={record.rating} authorId={record.authorId} active={String(record.active)}/>
-                    <AddFavButton userId={paramId} bookId={record.id} />
-                    <AddReadButton userId={paramId} bookId={record.id} />
+                              rating={record.rating} authorName={record.author.name}/>
+                    <AddFavButton userId={sessionStorage.getItem("id")} bookId={record.id} />
+                    <AddReadButton userId={sessionStorage.getItem("id")} bookId={record.id} />
                 </Space>
 
         ),
@@ -123,8 +122,6 @@ const columns = [
 
 class BookTable extends React.Component {
     state = {
-        id: new URLSearchParams(window.location.search).get("id"),
-        role: "",
         data: [],
         pagination: {
             current: 1,
@@ -134,34 +131,6 @@ class BookTable extends React.Component {
     };
 
     componentDidMount() {
-
-
-            axios.get(`http://localhost:8080/api/v1/users/${this.state.id}`, {
-                withCredentials: true
-            })
-                .then((response) => {
-                    if (response.data.roles.length > 1) {
-                        return this.setState({role: "ADMIN"});
-                    } else {
-                        return this.setState({role: "USER"});
-                    }
-                })
-                .catch((err) => {
-                    if(err.response.status === 401){
-                        alert(
-                            "You are unauthorized. If you are an admin or user please log in."
-                        )
-                        setTimeout(() => {
-                            window.location.set("/login")
-                        },2000)
-                    }
-                    else {
-                        alert("An error ocurred.")
-
-
-                    }
-                })
-
 
         const {pagination} = this.state;
         this.fetch({pagination}, []);
@@ -187,16 +156,14 @@ class BookTable extends React.Component {
     };
 
     render() {
-        const {data, pagination, loading, role, id} = this.state;
+        const {data, pagination, loading, role} = this.state;
 
         return (
             <TableComponent
-                role ={role}
                 columns = {columns}
                 dataSource = {data}
                 pagination = {pagination}
                 loading = {loading}
-                id = {id}
                 handleTableChange = {this.handleTableChange}
                 name = {"Book Table"}
             />

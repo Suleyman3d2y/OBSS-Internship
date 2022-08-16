@@ -25,7 +25,7 @@ const EditAuthorModal = (props) => {
         )
             .then(() => {
                 setSubmitText("Author updated successfully")
-                console.log(e)
+
                 setLoading(true);
                 setTimeout(() => {
                     setLoading(false);

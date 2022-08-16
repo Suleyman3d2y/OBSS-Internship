@@ -10,7 +10,11 @@ import AddBook from "../modal/AddBook";
 import AddUserModal from "../modal/AddUserModal";
 import AddAuthorModal from "../modal/AddAuthor";
 
+let role = sessionStorage.getItem("role");
+
 class TableComponent extends React.Component {
+
+
 
     render() {
 
@@ -24,7 +28,7 @@ class TableComponent extends React.Component {
                                 <Link to="/logout">Logout</Link>
                             </Button>
                             <Avatar style={{float: 'right'}} src='./dp.png'>
-                                {this.props.role}
+                                {role}
                             </Avatar>
                         </Space>
                         <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
@@ -36,7 +40,7 @@ class TableComponent extends React.Component {
                                 mode="inline"
                             >
                                 <Menu.Item key="home" icon={<HomeOutlined />}>
-                                    <Link to={{pathname: `/home?id=${this.props.id}`}}>
+                                    <Link to={{pathname: `/home`}}>
                                         Home
                                     </Link>
                                 </Menu.Item>
@@ -49,7 +53,7 @@ class TableComponent extends React.Component {
                                 >
                                     <Menu.ItemGroup>
                                         <Menu.Item key='bookList'>
-                                            <Link to={{pathname: `/book-list?id=${this.props.id}`}}>
+                                            <Link to={{pathname: `/book-list`}}>
                                                 Book List
                                             </Link>
                                         </Menu.Item>
@@ -70,7 +74,7 @@ class TableComponent extends React.Component {
                                 >
                                     <Menu.ItemGroup>
                                         <Menu.Item key='userList'>
-                                            <Link to={{pathname: `/user-list?id=${this.props.id}`}}>
+                                            <Link to={{pathname: `/user-list`}}>
                                                 User List
                                             </Link>
                                         </Menu.Item>
@@ -90,7 +94,7 @@ class TableComponent extends React.Component {
                                 >
                                     <Menu.ItemGroup>
                                         <Menu.Item key='authorList'>
-                                            <Link to={{pathname: `/author-list?id=${this.props.id}`}}>
+                                            <Link to={{pathname: `/author-list`}}>
                                                 Author List
                                             </Link>
                                         </Menu.Item>
@@ -109,12 +113,12 @@ class TableComponent extends React.Component {
                                          }
                                 >
                                 <Menu.Item key='readList' >
-                                    <Link to={{pathname: `/read-list?id=${this.props.id}`}}>
+                                    <Link to={{pathname: `/read-list`}}>
                                         Read List
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item key='favList'>
-                                    <Link to={{pathname: `/fav-list?id=${this.props.id}`}}>
+                                    <Link to={{pathname: `/fav-list`}}>
                                         Favorite List
                                     </Link>
                                 </Menu.Item>

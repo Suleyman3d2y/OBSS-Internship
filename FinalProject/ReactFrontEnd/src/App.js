@@ -8,8 +8,12 @@ import UserTable from "./components/table/UserTable";
 import FavTable from "./components/table/FavTable";
 import ReadTable from "./components/table/ReadTable";
 import AuthorList from "./components/table/AuthorTable";
+import axios from "axios";
 
-
+const jwt = localStorage.getItem("jwt");
+if(jwt != null) {
+    axios.defaults.headers.common = {'Authorization': `Bearer ${jwt}`}
+}
 
     function App() {
         return (

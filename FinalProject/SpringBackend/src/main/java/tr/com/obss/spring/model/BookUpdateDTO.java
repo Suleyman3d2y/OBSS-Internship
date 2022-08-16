@@ -24,14 +24,14 @@ public class BookUpdateDTO {
 
     @NotBlank
     @Size(max = 10000, min = 1, message = "Please enter a valid page count")
-    private String AuthorId;
+    private String authorName;
 
-    public BookUpdateDTO(String name, String genre, String pageCount,String rating, String authorId) {
+    public BookUpdateDTO(String name, String genre, String pageCount,String rating, String authorName) {
         this.name = name;
         this.genre = genre;
         this.pageCount = pageCount;
         this.rating = rating;
-        AuthorId = authorId;
+        this.authorName = authorName;
     }
 
     public String getRating() {
@@ -66,12 +66,12 @@ public class BookUpdateDTO {
         this.pageCount = pageCount;
     }
 
-    public String getAuthorId() {
-        return AuthorId;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthorId(String authorId) {
-        AuthorId = authorId;
+    public void setAuthorName(String authorId) {
+        authorName = authorName;
     }
 
 }

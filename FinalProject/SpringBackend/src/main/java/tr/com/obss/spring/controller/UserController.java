@@ -35,18 +35,6 @@ public class UserController {
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
         return ResponseEntity.ok(userService.findAllWithJpaPagination(pageNumber, pageSize));
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/has-role-user/{role}")
-    public ResponseEntity<?> getUsersWithUserRole(@PathVariable(name="role") String role) {
-        return ResponseEntity.ok(userService.getUsersWithRole(List.of(role)));
-    }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/with-dao-pagination")
-    public ResponseEntity<?> getUsersWithDaoPagination(
-            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
-        return ResponseEntity.ok(userService.findAllWithDaoPagination(pageNumber, pageSize));
-    }
 
     @GetMapping("/by-username")
     public ResponseEntity<?> searchUsers(@RequestParam(name = "username", defaultValue = "") String username) {
@@ -54,29 +42,10 @@ public class UserController {
         return ResponseEntity.ok(userService.findByUsername(username));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/all-by-username")
-    public ResponseEntity<?> searchAllUsers(@RequestParam(name = "username", defaultValue = "") String username) {
-        LOGGER.info("A get request has been sent.");
-        return ResponseEntity.ok(userService.findAllByUsername(username));
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUser(@PathVariable(name = "userId") long id) {
 
         return ResponseEntity.ok(userService.findById(id));
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/by-hql/{userId}")
-    public ResponseEntity<?> getUserByHql(@PathVariable(name = "userId") long id) {
-        return ResponseEntity.ok(userService.getById(id));
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/by-native-sql/{userId}")
-    public ResponseEntity<?> getUserByNativeSql(@PathVariable(name = "userId") long id) {
-        return ResponseEntity.ok(userService.getByIdNative(id));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -97,6 +66,42 @@ public class UserController {
 
         return ResponseEntity.ok(userService.save(userDTO));
     }
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/all-by-username")
+    public ResponseEntity<?> searchAllUsers(@RequestParam(name = "username", defaultValue = "") String username) {
+        LOGGER.info("A get request has been sent.");
+        return ResponseEntity.ok(userService.findAllByUsername(username));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/has-role-user/{role}")
+    public ResponseEntity<?> getUsersWithUserRole(@PathVariable(name="role") String role) {
+        return ResponseEntity.ok(userService.getUsersWithRole(List.of(role)));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/with-dao-pagination")
+    public ResponseEntity<?> getUsersWithDaoPagination(
+            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
+        return ResponseEntity.ok(userService.findAllWithDaoPagination(pageNumber, pageSize));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/by-hql/{userId}")
+    public ResponseEntity<?> getUserByHql(@PathVariable(name = "userId") long id) {
+        return ResponseEntity.ok(userService.getById(id));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/by-native-sql/{userId}")
+    public ResponseEntity<?> getUserByNativeSql(@PathVariable(name = "userId") long id) {
+        return ResponseEntity.ok(userService.getByIdNative(id));
+    }
+
+
 
 
 }

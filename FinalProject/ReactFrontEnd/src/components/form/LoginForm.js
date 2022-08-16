@@ -7,21 +7,38 @@ function LoginForm() {
 
     const navigate = useNavigate();
     const loginUrl = "http://localhost:8080/api/v1/login"
-    const formData = new FormData();
+    const data = {
+        username: "",
+        password:""
+    }
 
     function submit(e) {
-        formData.set("username", e.username)
-        formData.set("password", e.password)
+        data.username = e.username
+        data.password = e.password
 
-        axios.post(loginUrl, formData, {withCredentials: true}
+        axios.post(loginUrl, data, {withCredentials: true}
         )
             .then(response => {
-                axios.get(`http://localhost:8080/api/v1/users/by-username?username=${e.username}`,{withCredentials:true})
+                sessionStorage.setItem("jwt",response.data.jwt);
+                axios.get(`http://localhost:8080/api/v1/users/by-username?username=${e.username}`,{
+                    withCredentials:true,
+                    headers: {
+                        "Authorization":`Bearer ${response.data.jwt}`
+                    }
+                })
                     .then((response) => {
-                        navigate(`/home?id=${response.data.id}`)
+                        if(response.data.roles.length > 1) {
+                            sessionStorage.setItem("role","ADMIN")
+                        }
+                        else {
+                            sessionStorage.setItem("role","USER")
+                        }
+                        sessionStorage.setItem("id",response.data.id)
+                        navigate(`/home`)
                     })
+                    .catch((err) => console.log(err))
             })
-            .catch((err) => {
+            .catch(() => {
                 alert("Wrong username or password")
             })
 

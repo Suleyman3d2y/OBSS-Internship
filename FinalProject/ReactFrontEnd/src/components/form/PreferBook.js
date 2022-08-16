@@ -123,7 +123,7 @@ function PreferForm() {
     const [data,setData] = useState();
 
     const CreateTable = (props) => {
-        console.log(props)
+
         return(
             <Modal
                 width={1500}
@@ -152,7 +152,7 @@ function PreferForm() {
         axios.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genres}`, {withCredentials: true})
             .then((response) => {
                     setData(response.data);
-                    console.log(response.data)
+
                     setVisible(true);
             })
 
