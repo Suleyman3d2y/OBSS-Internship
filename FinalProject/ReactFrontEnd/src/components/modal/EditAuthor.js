@@ -1,6 +1,6 @@
 import {Button, Form, Input, Modal} from 'antd';
 import React, {useState} from 'react';
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 
 
 const EditAuthorModal = (props) => {
@@ -15,13 +15,18 @@ const EditAuthorModal = (props) => {
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        setVisible(true);
+        if(sessionStorage.getItem("role") === "ADMIN") {
+            setVisible(true);
+        }
+        else {
+            alert("Author editing is only for admins")
+        }
     };
 
     function submit(e) {
         data.name = e.name;
 
-        axios.put(updateUrl, data, {
+        axiosInstance.put(updateUrl, data, {
                 withCredentials:true,
             }
         )
@@ -52,7 +57,7 @@ const EditAuthorModal = (props) => {
     }
 
     function removeBook() {
-        axios.delete(removeUrl, {withCredentials: true}
+        axiosInstance.delete(removeUrl, {withCredentials: true}
         )
             .then(() => {
                 setSubmitText("Author deleted successfully")

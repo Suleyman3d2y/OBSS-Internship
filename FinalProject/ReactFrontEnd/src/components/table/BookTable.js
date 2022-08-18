@@ -110,8 +110,8 @@ const columns = [
         render: (_, record) => (
                 <Space size="middle">
                     <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
-                              rating={record.rating} authorName={record.author.name}/>
-                    <AddFavButton bookId={record.id} />
+                              rating={record.rating} authorName={record.author.name} />
+                    <AddFavButton bookId={record.id}  />
                     <AddReadButton bookId={record.id} />
                 </Space>
 

@@ -5,7 +5,7 @@ import Title from 'antd/lib/typography/Title';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import {Link} from "react-router-dom";
 import AddBook from "./modal/AddBook";
-import AddUserModal from "./modal/AddUserModal";
+import AddUser from "./modal/AddUser";
 import AddAuthorModal from "./modal/AddAuthor";
 import Top5List from "./Top5List";
 import PreferForm from "./form/PreferBook";
@@ -39,7 +39,7 @@ function Home() {
                             mode="inline"
                         >
                             <Menu.Item key="home" icon={<HomeOutlined />}>
-                                <Link to={{pathname: `/home`}}>
+                                <Link to={{pathname: `/`}}>
                                     Home
                                 </Link>
                             </Menu.Item>
@@ -79,7 +79,7 @@ function Home() {
                                     </Menu.Item>
                                     <Menu.Item key='addUser'>
                                         <Space size="middle">
-                                            <AddUserModal/>
+                                            <AddUser/>
                                         </Space>
                                     </Menu.Item>
                                 </Menu.ItemGroup>

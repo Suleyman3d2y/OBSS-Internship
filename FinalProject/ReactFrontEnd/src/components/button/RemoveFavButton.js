@@ -1,12 +1,12 @@
 import {Button} from "antd";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 
 const RemoveFavButton = (props) => {
 
     const url = `http://localhost:8080/api/v1/library/user/removefavlist/${sessionStorage.getItem("id")}/${props.bookId}`
 
     const OnClick = () => {
-        axios.delete(url,{
+        axiosInstance.delete(url,{
             withCredentials:true,
         })
             .then((response) => {

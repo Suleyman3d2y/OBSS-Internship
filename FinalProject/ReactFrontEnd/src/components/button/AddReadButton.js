@@ -1,5 +1,5 @@
 import {Button} from "antd";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 
 const AddReadButton = (props) => {
 
@@ -7,7 +7,7 @@ const AddReadButton = (props) => {
 
     const OnClick = () => {
 
-        axios.post(url,null,{
+        axiosInstance.post(url,null,{
             withCredentials:true,
         })
             .then((response) => {

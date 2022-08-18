@@ -1,6 +1,8 @@
-import {Button, Form, Input,Modal} from 'antd';
-import React, {useState} from 'react';
-import axios from "axios";
+import {Button, Form, Input, Modal, Select} from 'antd';
+import React, {useEffect, useState} from 'react';
+import axiosInstance from "../../util/axiosInstance";
+import {Option} from "antd/es/mentions";
+import BookService from "../../service/BookService";
 
 const AddBook = () => {
 
@@ -8,17 +10,49 @@ const AddBook = () => {
 
     let data = {
         name: "",
-        genre:"",
-        pageCount:"",
+        genre: "",
+        pageCount: "",
         rating: "",
-        isbn:"",
-        authorId:""
+        isbn: "",
+        authorId: ""
     }
     const [visible, setVisible] = useState(false);
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
+    const [authorOptions, setAuthorOptions] = useState();
+    const genre = ["Action", "Classic", "Crime", "Drama", "Fantasy", "Romance"]
+    const [genreOptions, setGenreOptions] = useState();
+    const bookService = new BookService();
+
+    const getGenreOptions = () => {
+        const options = [];
+        genre.forEach((genre) => {
+            options.push(<Option key={genre}>{genre}</Option>)
+        })
+        setGenreOptions(options);
+    }
+
+    const getAllAuthorData = async () => {
+        const authorData = await bookService.fetchAllAuthorData()
+        const options = [];
+        authorData.forEach((author) => {
+            options.push(<Option key={author.name}>{author.name}</Option>)
+        })
+        setAuthorOptions(options);
+
+    }
+
+    useEffect(() => {
+        getAllAuthorData()
+        getGenreOptions()
+    }, [])
+
     const showModal = () => {
-        setVisible(true);
+        if (sessionStorage.getItem("role") === "ADMIN") {
+            setVisible(true);
+        } else {
+            alert("Book adding is only for admins")
+        }
     };
 
     function submit(e) {
@@ -27,11 +61,11 @@ const AddBook = () => {
         data.pageCount = e.pageCount;
         data.rating = e.rating;
         data.isbn = e.isbn;
-        data.authorId = e.authorId;
+        data.authorName = e.authorName;
 
 
-        axios.post(url, data, {
-                withCredentials:true,
+        axiosInstance.post(url, data, {
+                withCredentials: true,
             }
         )
             .then(() => {
@@ -47,17 +81,15 @@ const AddBook = () => {
 
             .catch((err) => {
 
-                if(err.response.status === 401){
+                if (err.response.status === 401) {
                     setSubmitText(
                         "You are unauthorized. If you are an admin please log in with admin account."
                     )
 
-                }
-                else if(err.response.status === 500 && err.response.data.error === "Access is denied") {
+                } else if (err.response.status === 500 && err.response.data.error === "Access is denied") {
                     setSubmitText("Book adding is only for admins. If you are an admin please log in with admin account.")
 
-                }
-                else {
+                } else {
                     setSubmitText("Book can not be added right now please try again.")
 
                 }
@@ -67,7 +99,7 @@ const AddBook = () => {
 
     return (
         <>
-            <Button type="text"  onClick={showModal}>
+            <Button type="text" onClick={showModal}>
                 Add Book
             </Button>
             <Modal
@@ -108,16 +140,19 @@ const AddBook = () => {
 
                     <Form.Item
                         id="genre"
-                        label="Book Genre"
+                        label="New Genre"
                         name="genre"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid genre!(Action,Classic,Crime,Drama,Fantasy,Romance)',
-                            enum: ["Action","Classic","Crime","Drama","Fantasy","Romance"],
-                            type:"enum"
+                            message: 'Please input a valid genre!',
                         }]}
                     >
-                        <Input/>
+                        <Select
+                            placeholder="Select a genre from list."
+                            allowClear
+                        >
+                            {genreOptions}
+                        </Select>
                     </Form.Item>
                     <Form.Item
                         id="pageCount"
@@ -155,14 +190,19 @@ const AddBook = () => {
                     </Form.Item>
                     <Form.Item
                         id="authorName"
-                        label="Author Name"
+                        label="New Author Name"
                         name="authorName"
                         rules={[{
                             required: true,
                             message: 'Please input a valid author name!'
                         }]}
                     >
-                        <Input/>
+                        <Select
+                            placeholder="Select an author from list."
+                            allowClear
+                        >
+                            {authorOptions}
+                        </Select>
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{

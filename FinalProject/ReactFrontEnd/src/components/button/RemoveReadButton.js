@@ -1,5 +1,5 @@
 import {Button} from "antd";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 
 const RemoveReadButton = (props) => {
 
@@ -7,7 +7,7 @@ const RemoveReadButton = (props) => {
 
     const OnClick = () => {
 
-        axios.delete(url,{
+        axiosInstance.delete(url,{
             withCredentials:true,
         })
             .then((response) => {

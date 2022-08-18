@@ -1,32 +1,68 @@
-import {Button, Form, Input, Modal} from 'antd';
-import React, {useState} from 'react';
-import axios from "axios";
+import {Button, Form, Input, Modal, Select} from 'antd';
+import React, {useEffect, useState} from 'react';
+import axiosInstance from "../../util/axiosInstance";
+import BookService from "../../service/BookService";
+import {Option} from "antd/es/mentions";
+
 
 
 const EditBook = (props) => {
     const updateUrl = `http://localhost:8080/api/v1/library/book/update/${props.id}`
     const removeUrl = `http://localhost:8080/api/v1/library/book/remove/${props.id}`
+    const [authorOptions, setAuthorOptions] = useState();
+    const genre = ["Action","Classic","Crime","Drama","Fantasy","Romance"]
+    const [genreOptions,setGenreOptions] = useState();
+    const bookService = new BookService();
+
+    const getGenreOptions = () => {
+        const options = [];
+        genre.forEach((genre) => {
+            options.push(<Option key={genre}>{genre}</Option>)
+        })
+        setGenreOptions(options);
+    }
+
+    const getAllAuthorData = async () => {
+        const authorData = await bookService.fetchAllAuthorData()
+        const options = [];
+        authorData.forEach((author) => {
+            options.push(<Option key = {author.name}>{author.name}</Option>)
+        })
+        setAuthorOptions(options);
+
+    }
+
+    useEffect(() => {
+        getAllAuthorData()
+        getGenreOptions()
+    },[])
+
 
     let data = {
         name: "",
         genre:"",
         pageCount:"",
         rating: "",
-        authorId:""
+        authorName:""
     }
 
     const [visible, setVisible] = useState(false);
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        setVisible(true);
+        if(sessionStorage.getItem("role") === "ADMIN") {
+            setVisible(true);
+        }
+        else {
+            alert("Book editing is only for admins")
+        }
     };
 
     function submit(e) {
         data = e;
 
 
-        axios.put(updateUrl, data, {withCredentials: true}
+        axiosInstance.put(updateUrl, data, {withCredentials: true}
         )
             .then(() => {
                 setSubmitText("Book updated successfully")
@@ -36,7 +72,7 @@ const EditBook = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                window.location.reload()
+                window.location.reload();
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -55,11 +91,9 @@ const EditBook = (props) => {
     }
 
     function removeBook() {
-        axios.delete(removeUrl, {
+        axiosInstance.delete(removeUrl, {
                 withCredentials:true,
-                headers: {
-                    "Authorization":`Bearer ${sessionStorage.getItem("jwt")}`
-                }
+
             }
         )
             .then(() => {
@@ -138,11 +172,14 @@ const EditBook = (props) => {
                         rules={[{
                             required: true,
                             message: 'Please input a valid genre!',
-                            enum: ["Action","Classic","Crime","Drama","Fantasy","Romance"],
-                            type:"enum"
                         }]}
                     >
-                        <Input/>
+                        <Select
+                            placeholder="Select a genre from list."
+                            allowClear
+                        >
+                            {genreOptions}
+                        </Select>
                     </Form.Item>
                     <Form.Item
                         id="pageCount"
@@ -177,8 +214,13 @@ const EditBook = (props) => {
                             required: true,
                             message: 'Please input a valid author name!'
                         }]}
+                        >
+                        <Select
+                            placeholder="Select an author from list."
+                            allowClear
                     >
-                        <Input/>
+                            {authorOptions}
+                        </Select>
                     </Form.Item>
 
                     <Form.Item

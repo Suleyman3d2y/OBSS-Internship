@@ -1,6 +1,6 @@
 import {Button, Form, Input, Modal} from 'antd';
 import React, {useState} from 'react';
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 
 const AddAuthorModal = () => {
 
@@ -10,7 +10,12 @@ const AddAuthorModal = () => {
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        setVisible(true);
+        if(sessionStorage.getItem("role") === "ADMIN") {
+            setVisible(true);
+        }
+        else {
+            alert("Author adding is only for admins")
+        }
     };
     let data = {
         name: ""
@@ -19,7 +24,7 @@ const AddAuthorModal = () => {
     const Submit = (e) => {
 
         data.name = e.name
-        axios.post(url, data, {
+        axiosInstance.post(url, data, {
                 withCredentials:true,
             }
         )

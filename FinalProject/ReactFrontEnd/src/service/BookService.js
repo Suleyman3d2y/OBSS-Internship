@@ -1,4 +1,3 @@
-import axios from "axios";
 import axiosInstance from "../util/axiosInstance";
 
 class BookService {
@@ -26,6 +25,25 @@ class BookService {
                 pageSize: params.pagination.pageSize,
                 pageNumber: params.pagination.current - 1,
             }
+        })
+            .catch((err) => {
+
+                alert("You need to be an admin to see/edit Author table.")
+                if (err.response.status === 500 && err.response.data === "Access is denied") {
+
+                }
+            })
+
+        if (!response) {
+            return;
+        }
+        return response.data;
+    };
+
+    fetchAllAuthorData = async () => {
+        const response = await axiosInstance.get("http://localhost:8080/api/v1/library/all-authors", {
+            withCredentials: true,
+
         })
             .catch((err) => {
 

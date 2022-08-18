@@ -1,10 +1,10 @@
-import axios from "axios";
 import {Button, Form, Input, Modal, Space, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons"
 import EditBook from "../modal/EditBook";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import React, {useState} from "react";
+import axiosInstance from "../../util/axiosInstance";
 
 const columns = [
 
@@ -152,7 +152,7 @@ function PreferForm() {
 
     function submit(e) {
 
-        axios.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genres}`, {
+        axiosInstance.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genres}`, {
             withCredentials:true,
         })
             .then((response) => {
@@ -180,7 +180,7 @@ function PreferForm() {
                 >
                     <Form.Item
                         id="minRating"
-                        label="MinRating"
+                        label="Min Rating"
                         name="minRating"
                         rules={[{
                             required: true,
@@ -191,7 +191,7 @@ function PreferForm() {
                     </Form.Item>
                     <Form.Item
                         id="minPageCount"
-                        label="MinPage"
+                        label="Max Page"
                         name="minPageCount"
                         rules={[{
                             required: true,

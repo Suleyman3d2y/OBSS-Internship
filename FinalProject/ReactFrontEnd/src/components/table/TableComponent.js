@@ -7,7 +7,7 @@ import Sider from "antd/es/layout/Sider";
 import {Content, Footer, Header} from "antd/es/layout/layout";
 import {Link} from "react-router-dom";
 import AddBook from "../modal/AddBook";
-import AddUserModal from "../modal/AddUserModal";
+import AddUser from "../modal/AddUser";
 import AddAuthorModal from "../modal/AddAuthor";
 
 class TableComponent extends React.Component {
@@ -35,7 +35,7 @@ class TableComponent extends React.Component {
                                 mode="inline"
                             >
                                 <Menu.Item key="home" icon={<HomeOutlined />}>
-                                    <Link to={{pathname: `/home`}}>
+                                    <Link to={{pathname: `/`}}>
                                         Home
                                     </Link>
                                 </Menu.Item>
@@ -75,7 +75,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addUser'>
                                             <Space size="middle">
-                                                <AddUserModal/>
+                                                <AddUser/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>

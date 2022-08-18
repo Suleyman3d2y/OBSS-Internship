@@ -1,10 +1,10 @@
-import axios from "axios";
-import {Button, Form, Input, Modal, Space, Table} from "antd";
+import {Button, Input, Modal, Space, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons"
 import EditBook from "../modal/EditBook";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import React, {useState} from "react";
+import axiosInstance from "../../util/axiosInstance";
 
 const columns = [
 
@@ -105,7 +105,7 @@ const columns = [
         render: (_, record) => (
             <Space size="middle">
                 <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
-                          rating={record.rating} authorId={record.authorId} active={String(record.active)}/>
+                          rating={record.rating} authorName={record.author.name} active={String(record.active)}/>
                 <AddFavButton bookId={record.id}/>
                 <AddReadButton bookId={record.id}/>
             </Space>
@@ -148,7 +148,7 @@ function AuthorBooks(props) {
 
     function submit() {
 
-        axios.get(`http://localhost:8080/api/v1/library/author-books/${props.authorName}`, {
+        axiosInstance.get(`http://localhost:8080/api/v1/library/author-books/${props.authorName}`, {
             withCredentials: true,
         })
             .then((response) => {

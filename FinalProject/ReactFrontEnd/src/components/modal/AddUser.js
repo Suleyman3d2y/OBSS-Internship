@@ -1,8 +1,9 @@
-import {Button, Form, Input, Modal} from 'antd';
+import {Button, Form, Input, Modal, Select} from 'antd';
 import React, {useState} from 'react';
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
+import {Option} from "antd/es/mentions";
 
-const AddUserModal = () => {
+const AddUser = () => {
 
     const url = "http://localhost:8080/api/v1/users/"
 
@@ -10,7 +11,12 @@ const AddUserModal = () => {
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        setVisible(true);
+        if(sessionStorage.getItem("role") === "ADMIN") {
+            setVisible(true);
+        }
+        else {
+            alert("User adding is only for admins")
+        }
     };
     let data = {
         username: "username",
@@ -25,7 +31,7 @@ const AddUserModal = () => {
         data.role = e.role
 
 
-        axios.post(url, data, {
+        axiosInstance.post(url, data, {
                 withCredentials:true,
             }
         )
@@ -114,11 +120,15 @@ const AddUserModal = () => {
                         rules={[{
                             required: true,
                             message: 'Please input user role! (Admin or User)',
-                            enum: ["admin", "Admin", "user", "User"],
-                            type:"enum"
                         }]}
                     >
-                        <Input/>
+                        <Select
+                            placeholder="Select a role for the user."
+                            allowClear
+                            >
+                            <Option value="Admin">Admin</Option>
+                            <Option value="User">User</Option>
+                        </Select>
                     </Form.Item>
 
                     <Form.Item
@@ -138,4 +148,4 @@ const AddUserModal = () => {
     );
 };
 
-export default AddUserModal;
+export default AddUser;
