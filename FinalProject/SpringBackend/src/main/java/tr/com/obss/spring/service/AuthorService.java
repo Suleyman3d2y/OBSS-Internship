@@ -3,6 +3,7 @@ package tr.com.obss.spring.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.stylesheets.LinkStyle;
 import tr.com.obss.spring.entity.Author;
 import tr.com.obss.spring.entity.Book;
 import tr.com.obss.spring.model.AuthorDTO;
@@ -11,6 +12,8 @@ import tr.com.obss.spring.model.BookDTO;
 import tr.com.obss.spring.model.BookUpdateDTO;
 import tr.com.obss.spring.repo.AuthorRepository;
 import tr.com.obss.spring.repo.BookRepository;
+
+import java.util.List;
 
 @Service
 public class AuthorService {
@@ -52,6 +55,10 @@ public class AuthorService {
     public Page<Author> findAllWithJpaPagination(int pageNumber, int pageSize) {
         var paged = PageRequest.of(pageNumber, pageSize);
         return authorRepository.findAll(paged);
+    }
+
+    public List<Author> findAll() {
+        return authorRepository.findAll();
     }
 
 

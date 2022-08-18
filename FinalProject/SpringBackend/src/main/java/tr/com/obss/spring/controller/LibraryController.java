@@ -52,6 +52,11 @@ public class LibraryController {
     }
 
 
+    @GetMapping("/all-authors")
+    public ResponseEntity<?> getAuthors() {
+        return ResponseEntity.ok(authorService.findAll());
+    }
+
     @GetMapping("/authors")
     public ResponseEntity<?> getAuthorsWithJpaPagination(
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
