@@ -21,7 +21,9 @@ const EditUser = (props) => {
     function submit(e) {
         data.password = e.password;
 
-        axios.put(updateUrl, data, {withCredentials: true}
+        axios.put(updateUrl, data, {
+                withCredentials:true,
+            }
         )
             .then(() => {
                 setSubmitText("User updated successfully")

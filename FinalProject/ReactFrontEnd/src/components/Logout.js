@@ -6,14 +6,19 @@ function Logout() {
 
     const url = "http://localhost:8080/api/v1/logout";
     const navigate = useNavigate();
-        axios.get(url,{withCredentials: true}
+        axios.get(url,{
+                withCredentials:true,
+                headers: {
+                    "Authorization":`Bearer ${sessionStorage.getItem("jwt")}`
+                }
+            }
         )
             .then(() => {
                 sessionStorage.removeItem("id")
                 sessionStorage.removeItem("role")
                 sessionStorage.removeItem("jwt")
-
                 navigate("/")
+
 
             })
             .catch(() => {

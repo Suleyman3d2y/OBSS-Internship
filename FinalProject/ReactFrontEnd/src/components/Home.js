@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Layout, Avatar, Menu, Breadcrumb, Space, Button} from 'antd';
 import {HomeOutlined,BookOutlined,UserOutlined,ReadOutlined} from "@ant-design/icons"
 import Title from 'antd/lib/typography/Title';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import {Link, useSearchParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import AddBook from "./modal/AddBook";
 import AddUserModal from "./modal/AddUserModal";
 import AddAuthorModal from "./modal/AddAuthor";
@@ -15,20 +15,17 @@ const {Header, Footer, Sider, Content} = Layout;
 
 function Home() {
 
-    let role = sessionStorage.getItem("role");
-
     return (
         <div>
             <Layout>
                 <Header style={{padding: 10}}>
-
 
                     <Space style={{float:"right"}}>
                         <Button style={{float:"right"}} >
                             <Link to="/logout">Logout</Link>
                         </Button>
                         <Avatar style={{float: 'right'}} src='./dp.png'>
-                            {role}
+                            {sessionStorage.getItem("role")}
                         </Avatar>
                     </Space>
 

@@ -1,15 +1,10 @@
-import React from "react";
-import {Input, Space} from 'antd';
-import BookService from "../../service/BookService";
+import axios from "axios";
+import {Button, Form, Input, Modal, Space, Table} from "antd";
+import {SearchOutlined} from "@ant-design/icons"
 import EditBook from "../modal/EditBook";
-import TableComponent from "./TableComponent";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
-import {SearchOutlined} from "@ant-design/icons"
-
-
-
-const bookservice = new BookService();
+import React, {useState} from "react";
 
 const columns = [
 
@@ -25,8 +20,8 @@ const columns = [
                 <Input
                     autoFocus
                     value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
+                    onChange={(e) => {
+                        setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }}
                     onPressEnter={() => {
                         confirm()
@@ -36,10 +31,10 @@ const columns = [
                     }}
                 ></Input>)
         },
-        filterIcon:() => {
-            return<SearchOutlined />
+        filterIcon: () => {
+            return <SearchOutlined/>
         },
-        onFilter:(value,record) => {
+        onFilter: (value, record) => {
             return record.name.toLowerCase().includes(value.toLowerCase())
         }
     },
@@ -80,8 +75,8 @@ const columns = [
                 <Input
                     autoFocus
                     value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
+                    onChange={(e) => {
+                        setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }}
                     onPressEnter={() => {
                         confirm()
@@ -91,10 +86,10 @@ const columns = [
                     }}
                 ></Input>)
         },
-        filterIcon:() => {
-            return<SearchOutlined />
+        filterIcon: () => {
+            return <SearchOutlined/>
         },
-        onFilter:(value,record) => {
+        onFilter: (value, record) => {
             return record.name.toLowerCase().includes(value.toLowerCase())
         }
     },
@@ -108,67 +103,73 @@ const columns = [
         title: 'Action',
         key: 'action',
         render: (_, record) => (
-                <Space size="middle">
-                    <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
-                              rating={record.rating} authorName={record.author.name}/>
-                    <AddFavButton bookId={record.id} />
-                    <AddReadButton bookId={record.id} />
-                </Space>
+            <Space size="middle">
+                <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
+                          rating={record.rating} authorId={record.authorId} active={String(record.active)}/>
+                <AddFavButton bookId={record.id}/>
+                <AddReadButton bookId={record.id}/>
+            </Space>
 
         ),
     },
 
 ];
 
-class BookTable extends React.Component {
-    state = {
-        data: [],
-        pagination: {
-            current: 1,
-            pageSize: 10
-        },
-        loading: false
-    };
 
-    componentDidMount() {
+function AuthorBooks(props) {
 
-        const {pagination} = this.state;
-        this.fetch({pagination}, []);
-    }
+    const [visible, setVisible] = useState(false);
+    const [data, setData] = useState();
 
-    handleTableChange = (newPagination) => {
-        this.fetch({
-            pagination: newPagination
-        });
-    };
-    fetch = async (params = {}) => {
-        this.setState({loading: true});
-
-        const data = await bookservice.fetchBookData(params);
-        this.setState({
-            loading: false,
-            data: data && data.content,
-            pagination: {
-                ...params.pagination,
-                total: this.state.pagination.pageSize * data.totalPages
-            }
-        });
-    };
-
-    render() {
-        const {data, pagination, loading} = this.state;
+    const CreateTable = (props) => {
 
         return (
-            <TableComponent
-                columns = {columns}
-                dataSource = {data}
-                pagination = {pagination}
-                loading = {loading}
-                handleTableChange = {this.handleTableChange}
-                name = {"Book Table"}
-            />
-        );
+            <Modal
+                width={1500}
+                title="Author Books"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+                onOk={() => setVisible(false)}
+                footer={[
+                    <Button key="back" onClick={() => setVisible(false)}>
+                        Cancel
+                    </Button>,
+                ]}
+            >
+                <Table
+                    dataSource={props.dataSource}
+                    columns={columns}
+                />
+
+            </Modal>
+        )
+
     }
+
+    function submit() {
+
+        axios.get(`http://localhost:8080/api/v1/library/author-books/${props.authorName}`, {
+            withCredentials: true,
+        })
+            .then((response) => {
+                setData(response.data);
+
+                setVisible(true);
+            })
+
+    }
+
+    return (
+        <div align="left">
+            <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} onClick={submit}>
+                    See Books
+                </Button>
+                <CreateTable dataSource={data}/>
+            </Space>
+        </div>
+    );
 }
 
-export default BookTable;
+export default AuthorBooks;
+

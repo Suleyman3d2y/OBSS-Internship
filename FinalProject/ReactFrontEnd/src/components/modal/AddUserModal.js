@@ -25,7 +25,9 @@ const AddUserModal = () => {
         data.role = e.role
 
 
-        axios.post(url, data, {withCredentials: true}
+        axios.post(url, data, {
+                withCredentials:true,
+            }
         )
             .then(() => {
                 setSubmitText("User added successfully")

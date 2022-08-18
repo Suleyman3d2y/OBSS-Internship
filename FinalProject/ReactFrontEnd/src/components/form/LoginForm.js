@@ -19,24 +19,11 @@ function LoginForm() {
         axios.post(loginUrl, data, {withCredentials: true}
         )
             .then(response => {
-                sessionStorage.setItem("jwt",response.data.jwt);
-                axios.get(`http://localhost:8080/api/v1/users/by-username?username=${e.username}`,{
-                    withCredentials:true,
-                    headers: {
-                        "Authorization":`Bearer ${response.data.jwt}`
-                    }
-                })
-                    .then((response) => {
-                        if(response.data.roles.length > 1) {
-                            sessionStorage.setItem("role","ADMIN")
-                        }
-                        else {
-                            sessionStorage.setItem("role","USER")
-                        }
-                        sessionStorage.setItem("id",response.data.id)
-                        navigate(`/home`)
-                    })
-                    .catch((err) => console.log(err))
+                sessionStorage.setItem("id",response.data.id)
+                sessionStorage.setItem("role",response.data.role)
+                sessionStorage.setItem("jwt",response.data.jwt)
+                navigate("/home")
+                window.location.reload();
             })
             .catch(() => {
                 alert("Wrong username or password")
@@ -93,4 +80,5 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
 

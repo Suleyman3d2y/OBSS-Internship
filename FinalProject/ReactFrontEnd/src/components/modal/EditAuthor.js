@@ -21,7 +21,9 @@ const EditAuthorModal = (props) => {
     function submit(e) {
         data.name = e.name;
 
-        axios.put(updateUrl, data, {withCredentials: true}
+        axios.put(updateUrl, data, {
+                withCredentials:true,
+            }
         )
             .then(() => {
                 setSubmitText("Author updated successfully")

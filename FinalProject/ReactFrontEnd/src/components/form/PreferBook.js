@@ -6,7 +6,6 @@ import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import React, {useState} from "react";
 
-const paramId = new URLSearchParams(window.location.search).get("id");
 const columns = [
 
     {
@@ -107,8 +106,8 @@ const columns = [
             <Space size="middle">
                 <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
                           rating={record.rating} authorId={record.authorId} active={String(record.active)}/>
-                <AddFavButton userId={paramId} bookId={record.id} />
-                <AddReadButton userId={paramId} bookId={record.id} />
+                <AddFavButton bookId={record.id} />
+                <AddReadButton bookId={record.id} />
             </Space>
 
         ),
@@ -121,38 +120,44 @@ function PreferForm() {
 
     const [visible, setVisible] = useState(false);
     const [data,setData] = useState();
+    const [showTable,setShowTable] = useState(false);
 
     const CreateTable = (props) => {
+        if(props.show) {
+            return(
+                <Modal
+                    width={1500}
+                    title="Preferred Books"
+                    visible={visible}
+                    onCancel={() => setVisible(false)}
+                    onOk={() => setVisible(false)}
+                    footer={[
+                        <Button key="back" onClick={() => setVisible(false)}>
+                            Cancel
+                        </Button>,
+                    ]}
+                >
+                    <Table
+                        dataSource={props.dataSource}
+                        columns={columns}
+                    />
 
-        return(
-            <Modal
-                width={1500}
-                title="Preferred Books"
-                visible={visible}
-                onCancel={() => setVisible(false)}
-                onOk={() => setVisible(false)}
-                footer={[
-                    <Button key="back" onClick={() => setVisible(false)}>
-                        Cancel
-                    </Button>,
-                ]}
-            >
-                <Table
-                    dataSource={props.dataSource}
-                    columns={columns}
-                />
+                </Modal>
+            )
+        }
 
-            </Modal>
-        )
+
 
     }
 
     function submit(e) {
 
-        axios.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genres}`, {withCredentials: true})
+        axios.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genres}`, {
+            withCredentials:true,
+        })
             .then((response) => {
                     setData(response.data);
-
+                    setShowTable(true);
                     setVisible(true);
             })
 
@@ -212,7 +217,7 @@ function PreferForm() {
                         </Button>
                     </Form.Item>
                 </Form>
-                <CreateTable dataSource={data}/>
+                <CreateTable dataSource={data} show={showTable}/>
             </Space>
         </div>
     );

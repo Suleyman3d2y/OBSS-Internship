@@ -10,14 +10,9 @@ import AddBook from "../modal/AddBook";
 import AddUserModal from "../modal/AddUserModal";
 import AddAuthorModal from "../modal/AddAuthor";
 
-let role = sessionStorage.getItem("role");
-
 class TableComponent extends React.Component {
 
-
-
     render() {
-
         return (
             <div>
                 <Layout>
@@ -28,7 +23,7 @@ class TableComponent extends React.Component {
                                 <Link to="/logout">Logout</Link>
                             </Button>
                             <Avatar style={{float: 'right'}} src='./dp.png'>
-                                {role}
+                                {sessionStorage.getItem("role")}
                             </Avatar>
                         </Space>
                         <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
@@ -149,6 +144,7 @@ class TableComponent extends React.Component {
 
         );
     }
+
 }
 
 export default TableComponent;

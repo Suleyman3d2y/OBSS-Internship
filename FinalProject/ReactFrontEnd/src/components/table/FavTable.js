@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import TableComponent from "./TableComponent";
 import {Input, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
@@ -107,7 +106,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <RemoveFavButton userId={sessionStorage.getItem("id")} bookId={record.id} />
+                <RemoveFavButton bookId={record.id} />
             </Space>
 
         ),

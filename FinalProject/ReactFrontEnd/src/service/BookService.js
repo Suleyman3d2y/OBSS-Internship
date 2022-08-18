@@ -1,11 +1,10 @@
 import axios from "axios";
-
-const id = localStorage.getItem("id");
+import axiosInstance from "../util/axiosInstance";
 
 class BookService {
 
     fetchBookData = async (params) => {
-        const response = await axios.get("http://localhost:8080/api/v1/library/books", {
+        const response = await axiosInstance.get("http://localhost:8080/api/v1/library/books", {
             withCredentials: true,
             params: {
                 pageSize: params.pagination.pageSize,
@@ -20,9 +19,8 @@ class BookService {
         return response.data;
     };
 
-
     fetchAuthorData = async (params) => {
-        const response = await axios.get("http://localhost:8080/api/v1/library/authors", {
+        const response = await axiosInstance.get("http://localhost:8080/api/v1/library/authors", {
             withCredentials: true,
             params: {
                 pageSize: params.pagination.pageSize,
@@ -44,7 +42,7 @@ class BookService {
     };
 
     fetchFavListData = async (params) => {
-        const response = await axios.get(`http://localhost:8080/api/v1/library/favlist/${id}`,{
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/favlist/${sessionStorage.getItem("id")}`,{
             withCredentials : true,
             params: {
                 pageSize: params.pagination.pageSize,
@@ -60,7 +58,7 @@ class BookService {
     };
 
     fetchReadListData = async (params) => {
-        const response = await axios.get(`http://localhost:8080/api/v1/library/readlist/${id}`,{
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist/${sessionStorage.getItem("id")}`,{
             withCredentials : true,
             params: {
                 pageSize: params.pagination.pageSize,
@@ -76,9 +74,9 @@ class BookService {
     };
 
     fetchTop5Data = async () => {
-        const response = await axios.get(`http://localhost:8080/api/v1/library/books/top5`,{
-            withCredentials : true,
 
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/books/top5`,{
+            withCredentials : true
         })
 
         if (!response) {

@@ -2,7 +2,6 @@ import {Button, Form, Input, Modal} from 'antd';
 import React, {useState} from 'react';
 import axios from "axios";
 
-
 const AddAuthorModal = () => {
 
     const url = "http://localhost:8080/api/v1/library/author/add"
@@ -20,7 +19,9 @@ const AddAuthorModal = () => {
     const Submit = (e) => {
 
         data.name = e.name
-        axios.post(url, data, {withCredentials: true}
+        axios.post(url, data, {
+                withCredentials:true,
+            }
         )
             .then(() => {
                 setSubmitText("Author added successfully")

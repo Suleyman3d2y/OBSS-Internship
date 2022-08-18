@@ -3,11 +3,13 @@ import axios from "axios";
 
 const RemoveReadButton = (props) => {
 
-    const url = `http://localhost:8080/api/v1/library/user/removereadlist/${props.userId}/${props.bookId}`
+    const url = `http://localhost:8080/api/v1/library/user/removereadlist/${sessionStorage.getItem("id")}/${props.bookId}`
 
     const OnClick = () => {
 
-        axios.delete(url,{withCredentials:true})
+        axios.delete(url,{
+            withCredentials:true,
+        })
             .then((response) => {
                 alert("Book succesfully removed from Favorite List")
                 window.location.reload();

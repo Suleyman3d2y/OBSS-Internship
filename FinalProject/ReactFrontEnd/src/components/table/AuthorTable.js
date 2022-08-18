@@ -1,10 +1,10 @@
 import React from "react";
 import {Input, Space} from 'antd';
-import axios from "axios";
 import TableComponent from "./TableComponent";
 import EditAuthorModal from "../modal/EditAuthor";
 import {SearchOutlined} from "@ant-design/icons";
 import BookService from "../../service/BookService";
+import AuthorBooks from "../modal/AuthorBooks";
 
 const bookservice = new BookService();
 
@@ -52,6 +52,7 @@ const columns = [
         render: (_, record) => (
             <Space size="middle">
                 <EditAuthorModal id={String(record.id)}/>
+                <AuthorBooks authorName={record.name} />
             </Space>
         ),
     },
@@ -95,7 +96,7 @@ class UserList extends React.Component {
     };
 
     render() {
-        const {data, pagination, loading, role, id} = this.state;
+        const {data, pagination, loading} = this.state;
 
         return (
             <TableComponent
@@ -103,7 +104,6 @@ class UserList extends React.Component {
                 dataSource = {data}
                 pagination = {pagination}
                 loading = {loading}
-                id = {id}
                 handleTableChange = {this.handleTableChange}
                 name = {"Author Table"}
             />

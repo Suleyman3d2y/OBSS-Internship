@@ -1,9 +1,11 @@
 import axios from "axios";
+import axiosInstance from "../util/axiosInstance";
+
 
 const UserService = (function () {
 
     const _fetchData = async (params) => {
-        const response = await axios.get("http://localhost:8080/api/v1/users/",{
+        const response = await axiosInstance.get("http://localhost:8080/api/v1/users/",{
             withCredentials : true,
             params: {
                 pageSize: params.pagination.pageSize,
@@ -11,7 +13,6 @@ const UserService = (function () {
             }
         })
             .catch((err) => {
-
                 alert("You need to be an admin to see/edit Admin table.")
                 if(err.response.status === 500 && err.response.data === "Access is denied"){
 

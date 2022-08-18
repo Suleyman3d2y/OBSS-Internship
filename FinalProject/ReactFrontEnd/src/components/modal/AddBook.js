@@ -2,8 +2,6 @@ import {Button, Form, Input,Modal} from 'antd';
 import React, {useState} from 'react';
 import axios from "axios";
 
-
-
 const AddBook = () => {
 
     const url = "http://localhost:8080/api/v1/library/book/add"
@@ -32,7 +30,9 @@ const AddBook = () => {
         data.authorId = e.authorId;
 
 
-        axios.post(url, data, {withCredentials: true}
+        axios.post(url, data, {
+                withCredentials:true,
+            }
         )
             .then(() => {
                 setSubmitText("Book added successfully")

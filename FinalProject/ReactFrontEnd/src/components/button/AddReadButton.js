@@ -3,11 +3,13 @@ import axios from "axios";
 
 const AddReadButton = (props) => {
 
-    const url = `http://localhost:8080/api/v1/library/user/addreadlist/${props.userId}/${props.bookId}`
+    const url = `http://localhost:8080/api/v1/library/user/addreadlist/${sessionStorage.getItem("id")}/${props.bookId}`
 
     const OnClick = () => {
 
-        axios.post(url,null,{withCredentials:true})
+        axios.post(url,null,{
+            withCredentials:true,
+        })
             .then((response) => {
                 alert("Book successfully added to Read Table.")
             })

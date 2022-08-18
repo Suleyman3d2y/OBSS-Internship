@@ -55,7 +55,12 @@ const EditBook = (props) => {
     }
 
     function removeBook() {
-        axios.delete(removeUrl, {withCredentials: true}
+        axios.delete(removeUrl, {
+                withCredentials:true,
+                headers: {
+                    "Authorization":`Bearer ${sessionStorage.getItem("jwt")}`
+                }
+            }
         )
             .then(() => {
                 setSubmitText("Book removed successfully")
