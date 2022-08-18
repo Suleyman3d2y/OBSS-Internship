@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import tr.com.obss.spring.model.MyUserDetails;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -21,11 +22,16 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractRole(String token) {return (String) extractClaim(token, claims -> claims.get("role"));}
+
+    public String extractId(String token) {return (String) extractClaim(token, claims -> claims.get("id"));}
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        System.out.println("asd");
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -38,8 +44,10 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(MyUserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id",userDetails.getId());
+        claims.put("role",userDetails.getRole());
         return createToken(claims, userDetails.getUsername());
     }
 

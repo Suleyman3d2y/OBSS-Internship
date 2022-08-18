@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class UserController {
 
     private final UserService userService;
@@ -28,7 +29,6 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/")
     public ResponseEntity<?> getUsersWithJpaPagination(
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
@@ -48,19 +48,17 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable(name = "userId") long id, @Valid @RequestBody UserUpdateDTO userDTO) {
         return ResponseEntity.ok(userService.update(id, userDTO));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> removeUser(@PathVariable(name = "userId") long id) {
         return ResponseEntity.ok(userService.remove(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
 
@@ -68,20 +66,17 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all-by-username")
     public ResponseEntity<?> searchAllUsers(@RequestParam(name = "username", defaultValue = "") String username) {
         LOGGER.info("A get request has been sent.");
         return ResponseEntity.ok(userService.findAllByUsername(username));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/has-role-user/{role}")
     public ResponseEntity<?> getUsersWithUserRole(@PathVariable(name="role") String role) {
         return ResponseEntity.ok(userService.getUsersWithRole(List.of(role)));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/with-dao-pagination")
     public ResponseEntity<?> getUsersWithDaoPagination(
             @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
@@ -89,13 +84,11 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllWithDaoPagination(pageNumber, pageSize));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/by-hql/{userId}")
     public ResponseEntity<?> getUserByHql(@PathVariable(name = "userId") long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/by-native-sql/{userId}")
     public ResponseEntity<?> getUserByNativeSql(@PathVariable(name = "userId") long id) {
         return ResponseEntity.ok(userService.getByIdNative(id));

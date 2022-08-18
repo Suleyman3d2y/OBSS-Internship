@@ -28,6 +28,19 @@ public class MyUserDetails implements UserDetails {
     }
 
 
+    public String getId() {
+        return String.valueOf(user.getId());
+    }
+
+    public String getRole() {
+        if(user.getRoles().size() > 1) {
+            return "ADMIN";
+        }
+        else {
+            return "USER";
+        }
+    }
+
 
     @Override
     public String getPassword() {

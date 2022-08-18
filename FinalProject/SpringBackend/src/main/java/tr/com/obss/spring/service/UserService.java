@@ -151,7 +151,7 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = this.findByUsername(username);
         return new MyUserDetails(user);
     }

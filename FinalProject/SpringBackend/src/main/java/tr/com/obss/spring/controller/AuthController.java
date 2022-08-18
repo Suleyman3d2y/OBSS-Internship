@@ -4,15 +4,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import tr.com.obss.spring.model.AuthRequest;
 import tr.com.obss.spring.model.AuthResponse;
+import tr.com.obss.spring.model.MyUserDetails;
 import tr.com.obss.spring.service.UserService;
 import tr.com.obss.spring.util.JwtUtil;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class AuthController {
@@ -39,11 +36,12 @@ public class AuthController {
             throw new Exception("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-
+        final MyUserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
+        var role = jwtUtil.extractRole(jwt);
+        var id = jwtUtil.extractId(jwt);
 
-        return ResponseEntity.ok(new AuthResponse(jwt));
+        return ResponseEntity.ok(new AuthResponse(jwt,role,id));
 
     }
 

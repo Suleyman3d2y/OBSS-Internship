@@ -62,6 +62,11 @@ public class BookService {
 
     }
 
+    public List<Book> findWithAuthor(String authorName) {
+        var author = authorRepository.findAuthorByName(authorName);
+        return bookRepository.findAllByAuthor(author);
+    }
+
     public List<Book> findAll() {
         return bookRepository.findAllByActive(true);
     }

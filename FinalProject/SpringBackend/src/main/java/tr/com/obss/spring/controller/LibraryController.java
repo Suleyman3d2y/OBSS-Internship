@@ -34,6 +34,11 @@ public class LibraryController {
         this.userService = userService;
     }
 
+    @GetMapping("/author-books/{authorName}")
+    public ResponseEntity<?> getAuthorBooks(@PathVariable(name = "authorName") String authorName) {
+        return ResponseEntity.ok(bookService.findWithAuthor(authorName));
+    }
+
     @GetMapping("/books")
     public ResponseEntity<?> getBooksWithJpaPagination(
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
@@ -46,7 +51,7 @@ public class LibraryController {
         return ResponseEntity.ok(bookService.findTop5ByRating());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @GetMapping("/authors")
     public ResponseEntity<?> getAuthorsWithJpaPagination(
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
