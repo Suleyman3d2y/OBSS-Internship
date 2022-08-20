@@ -10,10 +10,10 @@ const AddReadButton = (props) => {
         axiosInstance.post(url,null,{
             withCredentials:true,
         })
-            .then((response) => {
+            .then(() => {
                 alert("Book successfully added to Read Table.")
             })
-            .catch((err) => {
+            .catch(() => {
                 alert("Book can not be added right now please try again")
             })
 

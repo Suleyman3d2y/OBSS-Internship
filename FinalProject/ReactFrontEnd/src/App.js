@@ -1,4 +1,4 @@
-import React, from "react";
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import LoginForm from "./components/form/LoginForm";
 import BookTable from "./components/table/BookTable";

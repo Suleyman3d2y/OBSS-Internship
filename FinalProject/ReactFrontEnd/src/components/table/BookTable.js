@@ -7,8 +7,6 @@ import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import {SearchOutlined} from "@ant-design/icons"
 
-
-
 const bookservice = new BookService();
 
 const columns = [
@@ -46,6 +44,7 @@ const columns = [
     {
         title: "Genre",
         dataIndex: "genre",
+        //TODO update filters
         filters: [
             {text: "Action", value: "Action"},
             {text: "Classic", value: "Classic"},
@@ -113,6 +112,7 @@ const columns = [
                               rating={record.rating} authorName={record.author.name} />
                     <AddFavButton bookId={record.id}  />
                     <AddReadButton bookId={record.id} />
+                    <a href={`https://www.goodreads.com/book/isbn/${record.isbn}`} target="_blank" rel="noopener noreferrer">See reviews</a>
                 </Space>
 
         ),

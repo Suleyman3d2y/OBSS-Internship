@@ -9,11 +9,11 @@ const RemoveFavButton = (props) => {
         axiosInstance.delete(url,{
             withCredentials:true,
         })
-            .then((response) => {
+            .then(() => {
                 alert("Book succesfully removed from Favorite List")
                 window.location.reload();
             })
-            .catch((err) => {
+            .catch(() => {
                 alert("Book can not be removed right now please try again.")
 
             })

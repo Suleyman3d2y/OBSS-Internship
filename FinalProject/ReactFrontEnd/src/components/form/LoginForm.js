@@ -1,7 +1,6 @@
 import axios from "axios";
 import {Button, Form, Input, Space} from "antd";
 import PropTypes from "prop-types";
-import {useNavigate} from "react-router-dom";
 
     const loginUrl = "http://localhost:8080/api/v1/login"
 
@@ -17,7 +16,6 @@ import {useNavigate} from "react-router-dom";
     }
 
 export default function Login({setData}) {
-        const navigate = useNavigate();
 
       const submit = async e => {
             const responseData = await loginUser({
