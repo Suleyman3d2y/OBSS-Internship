@@ -2,6 +2,7 @@ package tr.com.obss.spring.entity;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "books")
 public class Book extends EntityBase {
@@ -16,10 +17,10 @@ public class Book extends EntityBase {
     private int pageCount;
 
     @Column(name = "rating",length = 255)
-    private int rating;
+    private double rating;
 
-    @Column(name = "isbn",length = 255, unique = true)
-    private long isbn;
+    @Column(name = "isbn",length = 10, unique = true)
+    private String isbn;
 
 
 
@@ -31,7 +32,7 @@ public class Book extends EntityBase {
     private Author author;
 
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -39,11 +40,11 @@ public class Book extends EntityBase {
         this.rating = rating;
     }
 
-    public long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -61,6 +62,10 @@ public class Book extends EntityBase {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public int getPageCount() {

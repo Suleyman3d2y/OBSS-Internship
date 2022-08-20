@@ -2,7 +2,6 @@ package tr.com.obss.spring.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,14 +81,10 @@ public class UserService implements UserDetailsService {
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         var userRoleOpt = roleRepository.findByName("ROLE_USER");
-        userRoleOpt.ifPresent((userRole) -> {
-            user.setRoles((Set.of(userRoleOpt.get())));
-        });
+        userRoleOpt.ifPresent((userRole) -> user.setRoles((Set.of(userRoleOpt.get()))));
         if(userDTO.getRole().equalsIgnoreCase("Admin")){
             var adminRoleOpt = roleRepository.findByName("ROLE_ADMIN");
-            adminRoleOpt.ifPresent((adminRole) -> {
-                user.setRoles((Set.of(userRoleOpt.get(),adminRoleOpt.get())));
-            });
+            adminRoleOpt.ifPresent((adminRole) -> user.setRoles((Set.of(userRoleOpt.get(),adminRoleOpt.get()))));
         }
 
         return userRepository.save(user);

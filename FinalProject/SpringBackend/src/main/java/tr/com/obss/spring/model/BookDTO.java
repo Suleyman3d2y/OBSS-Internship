@@ -19,25 +19,27 @@ public class BookDTO {
     private String pageCount;
 
     @NotBlank
-    @Size(max = 10000, min = 1, message = "Please enter a valid page count")
+    @Size(max = 10000, min = 1, message = "Please enter a valid rating")
     private String rating;
 
     @NotBlank
-    @Size(max = 13, min = 13, message = "Please enter a valid page count")
+    @Size(max = 10, min = 10, message = "Please enter a valid isbn")
     private String isbn;
 
     @NotBlank
-    @Size(max = 255, min = 1, message = "Please enter a valid author")
+    @Size(max = 255, min = 1, message = "Please enter a valid author name")
     private String authorName;
 
 
 
 
-    public BookDTO(String name, String genre,String authorName, String pageCount) {
+    public BookDTO(String name, String genre,String authorName, String pageCount,String rating, String isbn) {
         this.name = name;
         this.genre = genre;
         this.authorName = authorName;
         this.pageCount = pageCount;
+        this.rating = rating;
+        this.isbn = isbn;
     }
 
     public String getRating() {
