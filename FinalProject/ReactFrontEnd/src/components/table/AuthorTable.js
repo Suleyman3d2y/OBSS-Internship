@@ -5,6 +5,7 @@ import EditAuthorModal from "../modal/EditAuthor";
 import {SearchOutlined} from "@ant-design/icons";
 import BookService from "../../service/BookService";
 import AuthorBooks from "../modal/AuthorBooks";
+import useRender from "../../util/useRender";
 
 const bookservice = new BookService();
 
@@ -51,7 +52,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <EditAuthorModal id={String(record.id)}/>
+                <EditAuthorModal id={String(record.id)} render={useRender}/>
                 <AuthorBooks authorName={record.name} />
             </Space>
         ),
@@ -106,6 +107,7 @@ class UserList extends React.Component {
                 loading = {loading}
                 handleTableChange = {this.handleTableChange}
                 name = {"Author Table"}
+                render={useRender}
             />
         );
     }

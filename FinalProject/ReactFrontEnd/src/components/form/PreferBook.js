@@ -1,10 +1,33 @@
-import {Button, Form, Input, Modal, Space, Table} from "antd";
+import {Button, Form, Input, Modal, Select, Space, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons"
 import EditBook from "../modal/EditBook";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axiosInstance from "../../util/axiosInstance";
+import {Option} from "antd/es/mentions";
+
+const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+    "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+    "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+    "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+    "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+    "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+
+const genreFilters = genres.map((genre) => {
+    return {text: genre, value: genre}
+})
+
+const Filter = (genres,value) => {
+    let contains = false;
+    genres.map((genre) => {
+        if(genre.name.indexOf(value) === 0){
+            return contains = true;
+        }
+        return contains;
+    })
+    return contains;
+}
 
 const columns = [
 
@@ -40,16 +63,12 @@ const columns = [
     },
     {
         title: "Genre",
-        dataIndex: "genre",
-        filters: [
-            {text: "Action", value: "Action"},
-            {text: "Classic", value: "Classic"},
-            {text: "Crime", value: "Crime"},
-            {text: "Drama", value: "Drama"},
-            {text: "Fantasy", value: "Fantasy"},
-            {text: "Romance", value: "Romance"}
-        ],
-        onFilter: (value, record) => record.genre.indexOf(value) === 0,
+        dataIndex: "genres",
+        render: (genres) => genres.map((genre) => {
+            return `${genre.name}\n`
+        }),
+        filters: genreFilters,
+        onFilter: (value, record) => Filter(record.genres,value)
     },
     {
         title: "Page Count",
@@ -121,6 +140,25 @@ function PreferForm() {
     const [visible, setVisible] = useState(false);
     const [data,setData] = useState();
     const [showTable,setShowTable] = useState(false);
+    const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+    const [genreOptions, setGenreOptions] = useState();
+
+    const getGenreOptions = () => {
+        const options = [];
+        genre.forEach((genre) => {
+            options.push(<Option key={genre}>{genre}</Option>)
+        })
+        setGenreOptions(options);
+    }
+
+    useEffect(() => {
+        getGenreOptions()
+    }, [])
 
     const CreateTable = (props) => {
         if(props.show) {
@@ -152,7 +190,7 @@ function PreferForm() {
 
     function submit(e) {
 
-        axiosInstance.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genres}`, {
+        axiosInstance.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genre}`, {
             withCredentials:true,
         })
             .then((response) => {
@@ -167,12 +205,10 @@ function PreferForm() {
         <div align="left">
             <Space>
                 <Form
-                    layout="inline"
+                    layout="vertical"
                     title="Log In"
                     name="Login"
                     className="login-form"
-                    labelCol={{span: 8}}
-                    wrapperCol={{span: 16}}
                     initialValues={{remember: true}}
                     onFinish={submit}
                     autoComplete="off"
@@ -201,15 +237,25 @@ function PreferForm() {
                         <Input/>
                     </Form.Item>
                     <Form.Item
-                        id="genres"
-                        label="Genres"
-                        name="genres"
+                        id="genre"
+                        label="New Genre"
+                        name="genre"
                         rules={[{
                             required: true,
-                            message: 'Please input your preferred Genres!'
+                            message: 'Please input a valid genre!',
                         }]}
                     >
-                        <Input/>
+                        <Select
+                            showSearch
+                            mode="tags"
+                            style={{width:'%100'}}
+                            placeholder="Select a genre from list."
+                            optionFilterProp="children"
+                            filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                            allowClear
+                        >
+                            {genreOptions}
+                        </Select>
                     </Form.Item>
                     <Form.Item wrapperCol={{offset: 8, span: 16}}>
                         <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}>

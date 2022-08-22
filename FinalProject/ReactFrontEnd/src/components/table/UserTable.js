@@ -4,6 +4,7 @@ import EditUser from "../modal/EditUser";
 import UserService from "../../service/UserService";
 import TableComponent from "./TableComponent";
 import {SearchOutlined} from "@ant-design/icons";
+import useRender from "../../util/useRender";
 
 const columns = [
 
@@ -54,7 +55,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <EditUser id = {record.id} active={String(record.active)}/>
+                <EditUser id = {record.id} active={String(record.active)} render={useRender}/>
             </Space>
         ),
     },
@@ -108,6 +109,7 @@ class UserTable extends React.Component {
                 loading = {loading}
                 handleTableChange = {this.handleTableChange}
                 name = {"User Table"}
+                render={useRender}
             />
         );
     }

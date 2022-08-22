@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import axiosInstance from "../../util/axiosInstance";
 import {Option} from "antd/es/mentions";
 
-const AddUser = () => {
+
+const AddUser = (props) => {
 
     const url = "http://localhost:8080/api/v1/users/"
+
 
     const [visible, setVisible] = useState(false);
     const [submitText, setSubmitText] = useState("");
@@ -42,7 +44,7 @@ const AddUser = () => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                window.location.reload()
+                props.render(true);
             })
 
             .catch((err) => {

@@ -2,7 +2,7 @@ import {Button, Form, Input, Modal} from 'antd';
 import React, {useState} from 'react';
 import axiosInstance from "../../util/axiosInstance";
 
-const AddAuthorModal = () => {
+const AddAuthorModal = (props) => {
 
     const url = "http://localhost:8080/api/v1/library/author/add"
 
@@ -35,7 +35,7 @@ const AddAuthorModal = () => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                window.location.reload()
+                props.render(true)
             })
             .catch((err) => {
                 if (err.response.status === 401) {

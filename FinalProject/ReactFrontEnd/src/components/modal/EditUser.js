@@ -37,7 +37,7 @@ const EditUser = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                window.location.reload()
+                props.render(true);
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -66,7 +66,7 @@ const EditUser = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                window.location.reload()
+                props.render(true);
             })
             .catch((err) => {
                 if (err.response.status === 401) {

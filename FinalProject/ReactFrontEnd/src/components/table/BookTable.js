@@ -6,8 +6,31 @@ import TableComponent from "./TableComponent";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import {SearchOutlined} from "@ant-design/icons"
+import useRender from "../../util/useRender";
 
 const bookservice = new BookService();
+
+const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+    "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+    "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+    "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+    "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+    "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+
+const genreFilters = genres.map((genre) => {
+    return {text: genre, value: genre}
+})
+
+const Filter = (genres,value) => {
+    let contains = false;
+    genres.map((genre) => {
+        if(genre.name.indexOf(value) === 0){
+            return contains = true;
+        }
+        return contains;
+    })
+    return contains;
+}
 
 const columns = [
 
@@ -23,8 +46,8 @@ const columns = [
                 <Input
                     autoFocus
                     value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
+                    onChange={(e) => {
+                        setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }}
                     onPressEnter={() => {
                         confirm()
@@ -34,26 +57,21 @@ const columns = [
                     }}
                 ></Input>)
         },
-        filterIcon:() => {
-            return<SearchOutlined />
+        filterIcon: () => {
+            return <SearchOutlined/>
         },
-        onFilter:(value,record) => {
+        onFilter: (value, record) => {
             return record.name.toLowerCase().includes(value.toLowerCase())
         }
     },
     {
         title: "Genre",
-        dataIndex: "genre",
-        //TODO update filters
-        filters: [
-            {text: "Action", value: "Action"},
-            {text: "Classic", value: "Classic"},
-            {text: "Crime", value: "Crime"},
-            {text: "Drama", value: "Drama"},
-            {text: "Fantasy", value: "Fantasy"},
-            {text: "Romance", value: "Romance"}
-        ],
-        onFilter: (value, record) => record.genre.indexOf(value) === 0,
+        dataIndex: "genres",
+        render: (genres) => genres.map((genre) => {
+            return `${genre.name}\n`
+        }),
+        filters: genreFilters,
+        onFilter: (value, record) => Filter(record.genres,value)
     },
     {
         title: "Page Count",
@@ -79,8 +97,8 @@ const columns = [
                 <Input
                     autoFocus
                     value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
+                    onChange={(e) => {
+                        setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }}
                     onPressEnter={() => {
                         confirm()
@@ -90,10 +108,10 @@ const columns = [
                     }}
                 ></Input>)
         },
-        filterIcon:() => {
-            return<SearchOutlined />
+        filterIcon: () => {
+            return <SearchOutlined/>
         },
-        onFilter:(value,record) => {
+        onFilter: (value, record) => {
             return record.name.toLowerCase().includes(value.toLowerCase())
         }
     },
@@ -107,18 +125,26 @@ const columns = [
         title: 'Action',
         key: 'action',
         render: (_, record) => (
-                <Space size="middle">
-                    <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
-                              rating={record.rating} authorName={record.author.name} />
-                    <AddFavButton bookId={record.id}  />
-                    <AddReadButton bookId={record.id} />
-                    <a href={`https://www.goodreads.com/book/isbn/${record.isbn}`} target="_blank" rel="noopener noreferrer">See reviews</a>
-                </Space>
+            <Space direction="vertical" size="small" >
+                <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
+                          rating={record.rating} authorName={record.author.name} render={useRender}/>
+
+                <AddFavButton bookId={record.id}/>
+
+                <AddReadButton bookId={record.id}/>
+
+                <a href={`https://www.goodreads.com/book/isbn/${record.isbn}`} target="_blank"
+                   rel="noopener noreferrer">See reviews</a>
+                <a href={`https://www.amazon.com/gp/product/${record.isbn}`} target="_blank"
+                   rel="noopener noreferrer">Buy on Amazon</a>
+            </Space>
 
         ),
     },
 
 ];
+
+
 
 class BookTable extends React.Component {
     state = {
@@ -160,12 +186,13 @@ class BookTable extends React.Component {
 
         return (
             <TableComponent
-                columns = {columns}
-                dataSource = {data}
-                pagination = {pagination}
-                loading = {loading}
-                handleTableChange = {this.handleTableChange}
-                name = {"Book Table"}
+                columns={columns}
+                dataSource={data}
+                pagination={pagination}
+                loading={loading}
+                handleTableChange={this.handleTableChange}
+                name={"Book Table"}
+                render={useRender}
             />
         );
     }

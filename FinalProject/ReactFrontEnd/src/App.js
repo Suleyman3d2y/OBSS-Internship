@@ -10,6 +10,7 @@ import ReadTable from "./components/table/ReadTable";
 import AuthorList from "./components/table/AuthorTable";
 import axiosInstance from "./util/axiosInstance";
 import useData from "./util/useData";
+import useRender from "./util/useRender";
 
 function App() {
 
@@ -26,9 +27,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />}/>
                 <Route path="/login" element={<LoginForm setData={setData}/>}/>
-                <Route path="/book-list" element={<BookTable />}/>
-                <Route path="/user-list" element={<UserTable />}/>
-                <Route path="/author-list" element={<AuthorList />}/>
+                <Route path="/book-list" element={<BookTable render={useRender} />}/>
+                <Route path="/user-list" element={<UserTable render={useRender} />}/>
+                <Route path="/author-list" element={<AuthorList render={useRender} />}/>
                 <Route path="/fav-list" element={<FavTable />}/>
                 <Route path="/read-list" element={<ReadTable />}/>
                 <Route path="/logout" element={<Logout />}/>

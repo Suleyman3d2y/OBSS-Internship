@@ -22,7 +22,7 @@ const AddFavButton = (props) => {
 
     return(
 
-        <Button type="primary" onClick={OnClick}>
+        <Button type="primary" onClick={OnClick} >
             Add to Favorite List
         </Button>
 

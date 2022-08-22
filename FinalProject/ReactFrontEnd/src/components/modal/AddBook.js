@@ -4,7 +4,7 @@ import axiosInstance from "../../util/axiosInstance";
 import {Option} from "antd/es/mentions";
 import BookService from "../../service/BookService";
 
-const AddBook = () => {
+const AddBook = (props) => {
 
     const url = "http://localhost:8080/api/v1/library/book/add"
 
@@ -14,13 +14,17 @@ const AddBook = () => {
         pageCount: "",
         rating: "",
         isbn: "",
-        authorId: ""
     }
     const [visible, setVisible] = useState(false);
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const [authorOptions, setAuthorOptions] = useState();
-    const genre = ["Action", "Classic", "Crime", "Drama", "Fantasy", "Romance"]
+    const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
     const [genreOptions, setGenreOptions] = useState();
     const bookService = new BookService();
 
@@ -76,7 +80,7 @@ const AddBook = () => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                window.location.reload()
+                props.render(true);
             })
 
             .catch((err) => {
@@ -148,7 +152,12 @@ const AddBook = () => {
                         }]}
                     >
                         <Select
+                            showSearch
+                            mode="tags"
+                            style={{width:'%100'}}
                             placeholder="Select a genre from list."
+                            optionFilterProp="children"
+                            filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                             allowClear
                         >
                             {genreOptions}
@@ -198,6 +207,7 @@ const AddBook = () => {
                         }]}
                     >
                         <Select
+                            showSearch
                             placeholder="Select an author from list."
                             allowClear
                         >

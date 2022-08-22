@@ -54,7 +54,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addBook'>
                                             <Space size="middle">
-                                                <AddBook/>
+                                                <AddBook render={this.props.render}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -75,7 +75,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addUser'>
                                             <Space size="middle">
-                                                <AddUser/>
+                                                <AddUser render={this.props.render}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -95,7 +95,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addAuthor'>
                                             <Space size="middle">
-                                                <AddAuthorModal/>
+                                                <AddAuthorModal render={this.props.render}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>

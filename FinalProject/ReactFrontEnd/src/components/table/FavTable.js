@@ -7,6 +7,27 @@ import BookService from "../../service/BookService";
 
 const bookservice = new BookService();
 
+const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+    "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+    "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+    "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+    "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+    "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+
+const genreFilters = genres.map((genre) => {
+    return {text: genre, value: genre}
+})
+
+const Filter = (genres,value) => {
+    let contains = false;
+    genres.map((genre) => {
+        if(genre.name.indexOf(value) === 0){
+            return contains = true;
+        }
+        return contains;
+    })
+    return contains;
+}
 const columns = [
 
     {
@@ -41,16 +62,12 @@ const columns = [
     },
     {
         title: "Genre",
-        dataIndex: "genre",
-        filters: [
-            {text: "Action", value: "Action"},
-            {text: "Classic", value: "Classic"},
-            {text: "Crime", value: "Crime"},
-            {text: "Drama", value: "Drama"},
-            {text: "Fantasy", value: "Fantasy"},
-            {text: "Romance", value: "Romance"}
-        ],
-        onFilter: (value, record) => record.genre.indexOf(value) === 0,
+        dataIndex: "genres",
+        render: (genres) => genres.map((genre) => {
+            return `${genre.name}\n`
+        }),
+        filters: genreFilters,
+        onFilter: (value, record) => Filter(record.genres,value)
 
     },
     {
