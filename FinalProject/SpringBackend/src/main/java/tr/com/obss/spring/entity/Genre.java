@@ -9,23 +9,16 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Table(name="role")
-public class Role extends EntityBase {
+@Table(name = "genre")
+public class Genre extends EntityBase {
 
-    @Column(name = "name", unique = true)
+
+    @Column(name = "name",unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "genres")
     @JsonBackReference
-    private Set<User> users;
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+    private Set<Book> books;
 
     public String getName() {
         return name;
@@ -33,5 +26,13 @@ public class Role extends EntityBase {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 }

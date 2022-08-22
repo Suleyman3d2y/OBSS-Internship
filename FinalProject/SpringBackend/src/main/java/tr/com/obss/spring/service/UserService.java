@@ -12,7 +12,6 @@ import tr.com.obss.spring.model.MyUserDetails;
 import tr.com.obss.spring.model.UserDTO;
 import tr.com.obss.spring.model.UserUpdateDTO;
 import tr.com.obss.spring.repo.RoleRepository;
-import tr.com.obss.spring.repo.UserDAO;
 import tr.com.obss.spring.repo.UserRepository;
 
 import java.util.List;
@@ -27,13 +26,10 @@ public class UserService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final UserDAO userDAO;
-
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, UserDAO userDAO) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userDAO = userDAO;
     }
 
     public List<User> findAll() {
@@ -50,10 +46,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll(paged);
     }
 
-
-    public List<User> findAllWithDaoPagination(int pageNumber, int pageSize) {
-        return userDAO.get(pageNumber, pageSize);
-    }
 
     public User findById(long id) {
         var userOpt = userRepository.findById(id);

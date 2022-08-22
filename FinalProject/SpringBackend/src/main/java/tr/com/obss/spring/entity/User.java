@@ -10,10 +10,10 @@ import java.util.Set;
 @Table(name = "user_account")
 public class User extends EntityBase {
 
-    @Column(name = "username", length = 255, unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password", length = 255)
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE,

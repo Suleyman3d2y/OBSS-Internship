@@ -60,7 +60,7 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_13_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_11_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_13_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_13_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_13_3.xml" beforeDir="false" />
@@ -180,6 +180,7 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/controller/AuthController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/LibraryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/converter/ListToStringConverter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/entity/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/Author.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/entity/EntityBase.java" beforeDir="false" />
@@ -188,6 +189,7 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/exception/GlobalExceptionHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/filter/JwtRequestFilter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/filter/RequestInFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/json/book.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/model/AuthRequest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/model/AuthResponse.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/model/AuthorDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/AuthorDTO.java" afterDir="false" />
@@ -206,6 +208,7 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/service/UserService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/util/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/util/LoadDataFromJson.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/resources/application-development.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/resources/application-local.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/resources/application.yml" beforeDir="false" />
@@ -218,6 +221,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/cache/UserCachePrototype.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/cache/UserCacheSingleton.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/CryptoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/CryptoConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/DataLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebMvcConfiguration.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/UserController.java" afterDir="false" />
@@ -248,8 +252,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="module-info" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -293,13 +297,16 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29425287" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\json" />
       <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\service" />
       <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\model" />
+      <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\config" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Süleyman\IdeaProjects\Java Ignite 2022\Week3Spring\src\main\java\tr\com\obss\spring\config" />
     </key>
   </component>
@@ -379,7 +386,11 @@
       <workItem from="1660722655168" duration="7906000" />
       <workItem from="1660772427732" duration="6342000" />
       <workItem from="1660818145119" duration="3396000" />
-      <workItem from="1661009654824" duration="10568000" />
+      <workItem from="1661009654824" duration="11088000" />
+      <workItem from="1661101224696" duration="465000" />
+      <workItem from="1661106701789" duration="4234000" />
+      <workItem from="1661149709708" duration="9456000" />
+      <workItem from="1661160266882" duration="9175000" />
     </task>
     <task id="LOCAL-00001" summary="JIP day 11 (SpringBoot day1)">
       <created>1659362809837</created>
@@ -460,6 +471,16 @@
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.7.2/spring-security-core-5.7.2.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.class</url>
           <line>64</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/LibraryController.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/config/DataLoader.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

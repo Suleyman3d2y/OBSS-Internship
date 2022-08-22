@@ -10,7 +10,7 @@ import java.util.Set;
 public class Author extends EntityBase {
 
 
-    @Column(name = "name", length = 255, unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
 

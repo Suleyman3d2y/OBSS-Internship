@@ -2,6 +2,7 @@ package tr.com.obss.spring.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class BookDTO {
 
@@ -10,9 +11,8 @@ public class BookDTO {
     @Size(max = 255, min = 1, message = "Please enter a valid name")
     private String name;
 
-    @NotBlank
     @Size(max = 255, min = 3, message = "Please enter a valid genre")
-    private String genre;
+    private List<String> genre;
 
     @NotBlank
     @Size(max = 255, min = 1, message = "Please enter a valid page count")
@@ -33,7 +33,7 @@ public class BookDTO {
 
 
 
-    public BookDTO(String name, String genre,String authorName, String pageCount,String rating, String isbn) {
+    public BookDTO(String name, List<String> genre,String authorName, String pageCount,String rating, String isbn) {
         this.name = name;
         this.genre = genre;
         this.authorName = authorName;
@@ -74,11 +74,11 @@ public class BookDTO {
         this.name = name;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 

@@ -1,6 +1,7 @@
 package tr.com.obss.spring.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -10,8 +11,12 @@ public class Book extends EntityBase {
     @Column(name = "name", length = 255)
     private String name;
 
-    @Column(name = "genre",length = 255)
-    private String genre;
+    @ManyToMany(cascade = CascadeType.MERGE,
+    fetch = FetchType.EAGER)
+    @JoinTable(name = "book_genres",
+    joinColumns = {@JoinColumn(name = "book_id",referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "genre_id",referencedColumnName = "id")})
+    private Set<Genre> genres;
 
     @Column(name = "page_count",length = 255)
     private int pageCount;
@@ -21,8 +26,6 @@ public class Book extends EntityBase {
 
     @Column(name = "isbn",length = 10, unique = true)
     private String isbn;
-
-
 
     @ManyToOne(cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)
@@ -56,12 +59,12 @@ public class Book extends EntityBase {
         this.name = name;
     }
 
-    public String getGenre() {
-        return genre;
+    public Set<Genre> getGenres() {
+        return genres;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
     }
 
     public void setRating(double rating) {

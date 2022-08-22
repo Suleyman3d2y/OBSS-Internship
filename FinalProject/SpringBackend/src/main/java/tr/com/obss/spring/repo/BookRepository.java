@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import tr.com.obss.spring.entity.Author;
 import tr.com.obss.spring.entity.Book;
+import tr.com.obss.spring.entity.Genre;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
@@ -17,7 +19,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findAllByActive(boolean active);
 
-    List<Book> findAllByAuthor(Author author);
+    Page<Book> findAllByAuthor(Author author,Pageable pageable);
+
+    List<Book> findAllByGenresInAndRatingGreaterThanEqualAndPageCountLessThanEqualAndActive(Set<Genre> genres, double rating, int pageCount, boolean active);
 
     @Query(value = "SELECT * FROM books INNER JOIN book_authors ba ON id = book_id ORDER BY rating DESC,create_date DESC LIMIT 5", nativeQuery = true)
     List<Book> getNewTop5Books();
@@ -34,9 +38,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Page<Book> findByIdIsIn(List<Long> id, Pageable pageable);
 
+    //List<Book> findByGenreIsContainingAndPageCountLessThanEqualAndRatingGreaterThanEqualAndActive(String genre, int pageCount, double rating, boolean active);
 
-
-
-    List<Book> findByGenreIsInAndPageCountLessThanEqualAndRatingGreaterThanEqualAndActive(List<String> genre, int pageCount, int rating, boolean active);
 
 }

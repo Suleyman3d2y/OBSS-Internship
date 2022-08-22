@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 
+
 @RestController
 @RequestMapping("/library")
 public class LibraryController {
@@ -35,8 +36,10 @@ public class LibraryController {
     }
 
     @GetMapping("/author-books/{authorName}")
-    public ResponseEntity<?> getAuthorBooks(@PathVariable(name = "authorName") String authorName) {
-        return ResponseEntity.ok(bookService.findWithAuthor(authorName));
+    public ResponseEntity<?> getAuthorBooks(@PathVariable(name = "authorName") String authorName,
+                                            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
+        return ResponseEntity.ok(bookService.findWithAuthor(authorName,pageNumber,pageSize));
     }
 
     @GetMapping("/books")
@@ -71,10 +74,9 @@ public class LibraryController {
     }
 
     @GetMapping("/books/{rating}/{pageCount}/{genre}")
-    public ResponseEntity<?> getPreferredBooks(@PathVariable(name = "rating") int rating,
+    public ResponseEntity<?> getPreferredBooks(@PathVariable(name = "rating") double rating,
                                                @PathVariable(name = "pageCount") int pageCount,
                                                @PathVariable(name = "genre") List<String> genre)  {
-
         return ResponseEntity.ok(bookService.findPreferredBooks(rating, pageCount, genre));
     }
 

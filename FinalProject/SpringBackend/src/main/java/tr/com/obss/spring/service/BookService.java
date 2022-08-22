@@ -4,13 +4,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import tr.com.obss.spring.entity.Book;
+import tr.com.obss.spring.entity.Genre;
 import tr.com.obss.spring.model.BookDTO;
 import tr.com.obss.spring.model.BookUpdateDTO;
 import tr.com.obss.spring.repo.AuthorRepository;
 import tr.com.obss.spring.repo.BookRepository;
+import tr.com.obss.spring.repo.GenreRepository;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class BookService {
@@ -20,17 +21,28 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public BookService(AuthorRepository authorRepository, BookRepository bookRepository) {
+    private final GenreRepository genreRepository;
+
+    public BookService(AuthorRepository authorRepository, BookRepository bookRepository, GenreRepository genreRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.genreRepository = genreRepository;
     }
 
 
     public Book save(BookDTO bookDTO) {
         var book = new Book();
         book.setName(bookDTO.getName());
-        book.setGenre(bookDTO.getGenre());
         book.setPageCount(Integer.parseInt(bookDTO.getPageCount()));
+        Set<Genre> bookGenre = new HashSet<>();
+        for(String genre: bookDTO.getGenre()) {
+            genre = genre.replace(" ","");
+            var varGenre = genreRepository.findByNameLikeIgnoreCase(genre);
+            if(Objects.nonNull(varGenre)){
+                bookGenre.add(varGenre);
+            }
+        }
+        book.setGenres(bookGenre);
         book.setIsbn(bookDTO.getIsbn());
         book.setRating(Double.parseDouble(bookDTO.getRating()));
         var author = authorRepository.findAuthorByName(bookDTO.getAuthorName());
@@ -44,8 +56,15 @@ public class BookService {
     public Book update(long id, BookUpdateDTO dto) {
         var book = this.findById(id);
         book.setName(dto.getName());
-        book.setGenre(dto.getGenre());
         book.setPageCount(Integer.parseInt(dto.getPageCount()));
+        Set<Genre> bookGenre = new HashSet<>();
+        for(String genre: dto.getGenre()) {
+            var varGenre = genreRepository.findByNameLikeIgnoreCase(genre);
+            if(Objects.nonNull(varGenre)){
+                bookGenre.add(varGenre);
+            }
+        }
+        book.setGenres(bookGenre);
         book.setRating(Double.parseDouble(dto.getRating()));
         var author = authorRepository.findAuthorByName(dto.getAuthorName());
         if (Objects.nonNull(author)) {
@@ -62,9 +81,10 @@ public class BookService {
 
     }
 
-    public List<Book> findWithAuthor(String authorName) {
+    public Page<Book> findWithAuthor(String authorName,int pageNumber, int pageSize) {
         var author = authorRepository.findAuthorByName(authorName);
-        return bookRepository.findAllByAuthor(author);
+        var paged = PageRequest.of(pageNumber, pageSize);
+        return bookRepository.findAllByAuthor(author,paged);
     }
 
     public List<Book> findAll() {
@@ -88,8 +108,17 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public List<Book> findPreferredBooks(int rating, int pageCount, List<String> genre) {
-        return bookRepository.findByGenreIsInAndPageCountLessThanEqualAndRatingGreaterThanEqualAndActive(genre, pageCount, rating, true);
+    public List<Book> findPreferredBooks(double rating, int pageCount, List<String> genres) {
+        Set<Genre> setGenre = new HashSet<>();
+        for(String genre: genres) {
+            var varGenre = genreRepository.findByNameLikeIgnoreCase(genre);
+            if (Objects.nonNull(varGenre)) {
+                setGenre.add(varGenre);
+            }
+        }
+        var bookList = bookRepository.findAllByGenresInAndRatingGreaterThanEqualAndPageCountLessThanEqualAndActive(setGenre, rating, pageCount, true);
+        return bookList.stream().distinct().toList();
+
     }
 
     public Page<Book> getFavListWithPagination(long id, int pageNumber, int pageSize) {
