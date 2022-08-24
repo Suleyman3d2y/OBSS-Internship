@@ -129,9 +129,17 @@ public class BookService {
         return bookRepository.findByIdIsIn(bookRepository.getFavList(id),paged);
     }
 
+    public List<Book> getFavList(long id) {
+        return bookRepository.findByIdIsIn(bookRepository.getFavList(id));
+    }
+
     public Page<Book> getReadListWithPagination(long id, int pageNumber, int pageSize) {
         var paged = PageRequest.of(pageNumber,pageSize);
         return bookRepository.findByIdIsIn(bookRepository.getReadList(id),paged);
+    }
+
+    public List<Book> getReadList(long id) {
+        return bookRepository.findByIdIsIn(bookRepository.getReadList(id));
     }
 
 

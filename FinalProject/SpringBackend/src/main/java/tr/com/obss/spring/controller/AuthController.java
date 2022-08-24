@@ -27,8 +27,6 @@ public class AuthController {
     private final JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
 
-
-
     public AuthController(AuthenticationManager authenticationManager, UserService userService, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
@@ -107,6 +105,12 @@ public class AuthController {
             return ResponseEntity.ok("There is no user with given email.");
         }
 
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> signUp(@Valid @RequestBody UserDTO userDTO) {
+
+        return ResponseEntity.ok(userService.save(userDTO));
     }
 
 

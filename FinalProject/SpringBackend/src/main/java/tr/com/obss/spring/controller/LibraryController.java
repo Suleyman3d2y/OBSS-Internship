@@ -75,7 +75,7 @@ public class LibraryController {
     }
 
     @GetMapping("/readlist/{userId}")
-    public ResponseEntity<?> getReadList(@PathVariable(name = "userId") long id,
+    public ResponseEntity<?> getReadListWithPagination(@PathVariable(name = "userId") long id,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber)  {
 
@@ -83,12 +83,26 @@ public class LibraryController {
     }
 
     @GetMapping("/favlist/{userId}")
-    public ResponseEntity<?> getFavList(@PathVariable(name = "userId") long id,
-                                         @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-                                         @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber)  {
+    public ResponseEntity<?> getFavListWithPagination(@PathVariable(name = "userId") long id,
+                                                      @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                                      @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber)  {
 
         return ResponseEntity.ok(bookService.getFavListWithPagination(id,pageNumber,pageSize));
     }
+
+    @GetMapping("/readlist-all/{userId}")
+    public ResponseEntity<?> getReadList(@PathVariable(name = "userId") long id)  {
+
+        return ResponseEntity.ok(bookService.getReadList(id));
+    }
+
+    @GetMapping("/favlist-all/{userId}")
+    public ResponseEntity<?> getFavList(@PathVariable(name = "userId") long id)  {
+        return ResponseEntity.ok(bookService.getFavList(id));
+    }
+
+
+
 
     @PostMapping("/user/addreadlist/{userId}/{bookId}")
     public ResponseEntity<?> addToReadList(@PathVariable(name = "userId") long userId,
