@@ -1,19 +1,22 @@
-import React from 'react';
-import {Layout, Avatar, Menu, Breadcrumb, Space, Button} from 'antd';
+import React, {useState} from 'react';
+import {Layout, Menu, Breadcrumb, Space, Button} from 'antd';
 import {HomeOutlined,BookOutlined,UserOutlined,ReadOutlined} from "@ant-design/icons"
 import Title from 'antd/lib/typography/Title';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import {Link} from "react-router-dom";
-import AddBook from "./modal/AddBook";
-import AddUser from "./modal/AddUser";
-import AddAuthorModal from "./modal/AddAuthor";
-import Top5List from "./Top5List";
-import PreferForm from "./form/PreferBook";
+import AddBook from "../modal/AddBook";
+import AddUser from "../modal/AddUser";
+import AddAuthorModal from "../modal/AddAuthor";
+import Top5List from "../Top5List";
+import PreferForm from "../form/PreferBook";
+import AvatarMenu from "../AvatarMenu";
+import ChangePassword from "../modal/ChangePassword";
 
 
 const {Header, Footer, Sider, Content} = Layout;
 
 function Home() {
+    const [visible,setVisible] = useState(false)
 
     return (
         <div>
@@ -24,11 +27,9 @@ function Home() {
                         <Button style={{float:"right"}} >
                             <Link to="/logout">Logout</Link>
                         </Button>
-                        <Avatar style={{float: 'right'}} src='./dp.png'>
-                            {sessionStorage.getItem("role")}
-                        </Avatar>
+                        <AvatarMenu setVisible={setVisible} />
+                        <ChangePassword visible={visible} setVisible={setVisible} />
                     </Space>
-
 
                     <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
                 </Header>

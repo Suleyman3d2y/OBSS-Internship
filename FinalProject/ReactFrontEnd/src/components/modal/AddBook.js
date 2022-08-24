@@ -49,7 +49,7 @@ const AddBook = (props) => {
     useEffect(() => {
         getAllAuthorData()
         getGenreOptions()
-    }, [])
+    },[])
 
     const showModal = () => {
         if (sessionStorage.getItem("role") === "ADMIN") {

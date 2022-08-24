@@ -1,5 +1,5 @@
-import React from "react";
-import {Layout, Avatar, Menu, Breadcrumb, Space, Table, Button} from 'antd';
+import React, {useState} from "react";
+import {Layout, Menu, Breadcrumb, Space, Table, Button} from 'antd';
 import {HomeOutlined,BookOutlined,UserOutlined,ReadOutlined} from "@ant-design/icons"
 import Title from 'antd/lib/typography/Title';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -9,23 +9,24 @@ import {Link} from "react-router-dom";
 import AddBook from "../modal/AddBook";
 import AddUser from "../modal/AddUser";
 import AddAuthorModal from "../modal/AddAuthor";
+import AvatarMenu from "../AvatarMenu";
+import ChangePassword from "../modal/ChangePassword";
 
-class TableComponent extends React.Component {
-
-    render() {
+const TableComponent = (props) => {
+    const [visible,setVisible] = useState(false)
         return (
             <div>
                 <Layout>
                     <Header style={{padding: 10}}>
 
-                        <Space style={{float: "right"}}>
-                            <Button style={{float: "right"}}>
+                        <Space style={{float:"right"}}>
+                            <Button style={{float:"right"}} >
                                 <Link to="/logout">Logout</Link>
                             </Button>
-                            <Avatar style={{float: 'right'}} src='./dp.png'>
-                                {sessionStorage.getItem("role")}
-                            </Avatar>
+                            <AvatarMenu setVisible={setVisible} />
+                            <ChangePassword visible={visible} setVisible={setVisible} />
                         </Space>
+
                         <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
                     </Header>
                     <Layout>
@@ -54,7 +55,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addBook'>
                                             <Space size="middle">
-                                                <AddBook render={this.props.render}/>
+                                                <AddBook render={props.render}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -75,7 +76,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addUser'>
                                             <Space size="middle">
-                                                <AddUser render={this.props.render}/>
+                                                <AddUser render={props.render}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -95,7 +96,7 @@ class TableComponent extends React.Component {
                                         </Menu.Item>
                                         <Menu.Item key='addAuthor'>
                                             <Space size="middle">
-                                                <AddAuthorModal render={this.props.render}/>
+                                                <AddAuthorModal render={props.render}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -123,16 +124,16 @@ class TableComponent extends React.Component {
                         <Layout>
                             <Content style={{padding: '0 50px'}}>
                                 <Breadcrumb style={{margin: '16px 0'}}>
-                                    <Breadcrumb.Item>{this.props.name}</Breadcrumb.Item>
+                                    <Breadcrumb.Item>{props.name}</Breadcrumb.Item>
                                 </Breadcrumb>
                                 <div style={{background: '#fff', padding: 24, minHeight: 580}}>
                                     <Table
-                                        columns={this.props.columns}
-                                        dataSource={this.props.dataSource}
+                                        columns={props.columns}
+                                        dataSource={props.dataSource}
                                         rowKey={record => record.id}
-                                        loading={this.props.loading}
-                                        pagination={this.props.pagination}
-                                        onChange={this.props.handleTableChange}
+                                        loading={props.loading}
+                                        pagination={props.pagination}
+                                        onChange={props.handleTableChange}
                                     />
                                 </div>
                             </Content>
@@ -144,7 +145,5 @@ class TableComponent extends React.Component {
 
         );
     }
-
-}
 
 export default TableComponent;

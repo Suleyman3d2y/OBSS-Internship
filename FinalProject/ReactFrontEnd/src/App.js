@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import LoginForm from "./components/form/LoginForm";
 import BookTable from "./components/table/BookTable";
-import Home from "./components/Home";
+import Home from "./components/page/Home";
 import Logout from "./components/Logout"
 import UserTable from "./components/table/UserTable";
 import FavTable from "./components/table/FavTable";
@@ -11,6 +11,8 @@ import AuthorList from "./components/table/AuthorTable";
 import axiosInstance from "./util/axiosInstance";
 import useData from "./util/useData";
 import useRender from "./util/useRender";
+import ResetPassword from "./components/page/ResetPassword";
+
 
 function App() {
 
@@ -19,7 +21,12 @@ function App() {
 
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem("jwt")}`
         if(data.jwt === null) {
-        return <LoginForm setData={setData}/>
+        return (
+            <Routes>
+               <Route path="/" element={<LoginForm setData={setData}/>}/>
+                <Route path="/reset-password" element={<ResetPassword />}/>
+            </Routes>
+        )
     }
 
         return (

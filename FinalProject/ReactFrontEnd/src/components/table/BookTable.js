@@ -35,8 +35,11 @@ const Filter = (genres,value) => {
 const columns = [
 
     {
-        title: "Id",
-        dataIndex: "id",
+        dataIndex: "img",
+        render: (_, record) => (
+            <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
+        )
+
     },
     {
         title: "Name",

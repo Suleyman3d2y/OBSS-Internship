@@ -17,6 +17,8 @@ function Logout() {
                 sessionStorage.removeItem("id")
                 sessionStorage.removeItem("role")
                 sessionStorage.removeItem("jwt")
+                sessionStorage.removeItem("username")
+                sessionStorage.removeItem("createDate")
                 navigate("/")
                 window.location.reload();
 

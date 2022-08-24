@@ -32,8 +32,10 @@ const Filter = (genres,value) => {
 const columns = [
 
     {
-        title: "Id",
-        dataIndex: "id",
+        dataIndex: "img",
+        render: (_, record) => (
+            <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
+        )
     },
     {
         title: "Name",
@@ -158,7 +160,7 @@ function PreferForm() {
 
     useEffect(() => {
         getGenreOptions()
-    }, [])
+    },[])
 
     const CreateTable = (props) => {
         if(props.show) {
@@ -178,6 +180,7 @@ function PreferForm() {
                     <Table
                         dataSource={props.dataSource}
                         columns={columns}
+                        rowKey={(record) => record.id}
                     />
 
                 </Modal>
@@ -190,7 +193,25 @@ function PreferForm() {
 
     function submit(e) {
 
-        axiosInstance.get(`http://localhost:8080/api/v1/library/books/${e.minRating}/${e.minPageCount}/${e.genre}`, {
+        let requestBody = {
+            name:"",
+            pageCount:10000,
+            rating:0,
+            isbn:"",
+            authorName:"",
+            genres: genre
+        }
+        console.log(e)
+        requestBody.name = (e.name !== undefined ? requestBody.name = e.name :"")
+        requestBody.pageCount = (e.pageCount !== undefined ? requestBody.pageCount = e.pageCount :10000)
+        requestBody.rating = (e.rating !== undefined ? requestBody.rating = e.rating :0)
+        requestBody.isbn = (e.isbn !== undefined ? requestBody.isbn = e.isbn :"")
+        requestBody.authorName = (e.authorName !== undefined ? requestBody.authorName = e.authorName :"")
+        requestBody.genres = (e.genres !== undefined ? requestBody.genres = e.genres :genre)
+
+        console.log(requestBody)
+
+        axiosInstance.post(`http://localhost:8080/api/v1/library/search-books`, requestBody, {
             withCredentials:true,
         })
             .then((response) => {
@@ -198,6 +219,7 @@ function PreferForm() {
                     setShowTable(true);
                     setVisible(true);
             })
+
 
     }
 
@@ -215,35 +237,50 @@ function PreferForm() {
 
                 >
                     <Form.Item
-                        id="minRating"
+                        id="name"
+                        label="Book Name"
+                        name="name"
+                    >
+                        <Input/>
+                    </Form.Item>
+
+                    <Form.Item
+                        id="pageCount"
+                        label="Max Page Number"
+                        name="pageCount"
+                    >
+                        <Input/>
+                    </Form.Item>
+
+                    <Form.Item
+                        id="rating"
                         label="Min Rating"
-                        name="minRating"
-                        rules={[{
-                            required: true,
-                            message: 'Please input your minimum Rating!'
-                        }]}
+                        name="rating"
                     >
                         <Input/>
                     </Form.Item>
+
                     <Form.Item
-                        id="minPageCount"
-                        label="Max Page"
-                        name="minPageCount"
-                        rules={[{
-                            required: true,
-                            message: 'Please input your minimum Page Number!'
-                        }]}
+                        id="isbn"
+                        label="ISBN"
+                        name="isbn"
                     >
                         <Input/>
                     </Form.Item>
+
                     <Form.Item
-                        id="genre"
-                        label="New Genre"
-                        name="genre"
-                        rules={[{
-                            required: true,
-                            message: 'Please input a valid genre!',
-                        }]}
+                        id="authorName"
+                        label="Author Name"
+                        name="authorName"
+                    >
+                        <Input/>
+                    </Form.Item>
+
+                    <Form.Item
+                        id="genres"
+                        label="Genres"
+                        name="genres"
+
                     >
                         <Select
                             showSearch

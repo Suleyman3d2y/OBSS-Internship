@@ -34,8 +34,10 @@ const Filter = (genres,value) => {
 const columns = [
 
     {
-        title: "Id",
-        dataIndex: "id",
+        dataIndex: "img",
+        render: (_, record) => (
+            <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
+        )
     },
     {
         title: "Name",
@@ -170,7 +172,6 @@ function AuthorBooks(props) {
             })
     };*/
     const CreateTable = (props) => {
-
         return (
             <Modal
                 width={1500}
@@ -187,8 +188,6 @@ function AuthorBooks(props) {
                 <Table
                     dataSource={props.dataSource}
                     columns={columns}
-                    /*pagination={pagination}
-                    onChange={handleTableChange}*/
                 />
 
             </Modal>
@@ -206,7 +205,7 @@ function AuthorBooks(props) {
             }*/
         })
             .then((response) => {
-                setData(response.data);
+                setData(response.data.content);
 
                 setVisible(true);
             })

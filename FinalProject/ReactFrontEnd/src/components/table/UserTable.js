@@ -1,6 +1,5 @@
 import React from "react";
-import {Input, Space} from 'antd';
-import EditUser from "../modal/EditUser";
+import {Input} from 'antd';
 import UserService from "../../service/UserService";
 import TableComponent from "./TableComponent";
 import {SearchOutlined} from "@ant-design/icons";
@@ -41,16 +40,12 @@ const columns = [
         }
     },
     {
-        title: "Password",
-        dataIndex: "password",
-    },
-    {
         title: "Active",
         dataIndex: "active",
         render: (record) => String(record),
         sorter: (a,b) => a.active - b.active
     },
-    {
+    /*{
         title: 'Action',
         key: 'action',
         render: (_, record) => (
@@ -58,7 +53,7 @@ const columns = [
                 <EditUser id = {record.id} active={String(record.active)} render={useRender}/>
             </Space>
         ),
-    },
+    },*/
 
 ];
 
