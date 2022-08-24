@@ -75,6 +75,19 @@ class BookService {
         return response.data;
     };
 
+    fetchAllFavList = async () => {
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/favlist-all/${sessionStorage.getItem("id")}`,{
+            withCredentials : true,
+
+        })
+
+        if (!response) {
+            return;
+        }
+
+        return response.data;
+    };
+
     fetchReadListData = async (params) => {
         const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist/${sessionStorage.getItem("id")}`,{
             withCredentials : true,
@@ -82,6 +95,19 @@ class BookService {
                 pageSize: params.pagination.pageSize,
                 pageNumber: params.pagination.current-1,
             }
+        })
+
+        if (!response) {
+            return;
+        }
+
+        return response.data;
+    };
+
+    fetchAllReadList = async () => {
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist-all/${sessionStorage.getItem("id")}`,{
+            withCredentials : true,
+
         })
 
         if (!response) {

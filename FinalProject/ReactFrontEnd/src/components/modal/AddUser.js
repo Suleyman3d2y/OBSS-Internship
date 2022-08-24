@@ -44,7 +44,7 @@ const AddUser = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                props.render(true);
+                props.update()
             })
 
             .catch((err) => {

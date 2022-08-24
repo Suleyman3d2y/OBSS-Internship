@@ -17,17 +17,19 @@ const TableComponent = (props) => {
         return (
             <div>
                 <Layout>
-                    <Header style={{padding: 10}}>
-
-                        <Space style={{float:"right"}}>
-                            <Button style={{float:"right"}} >
+                    <Header style={{paddingBottom:5,paddingLeft:5,paddingRight:5}}>
+                        <Space style={{float: "right",paddingTop:15}}>
+                            <Button style={{float: "right"}}>
                                 <Link to="/logout">Logout</Link>
                             </Button>
-                            <AvatarMenu setVisible={setVisible} />
-                            <ChangePassword visible={visible} setVisible={setVisible} />
+                            <AvatarMenu setVisible={setVisible}/>
+                            <ChangePassword visible={visible} setVisible={setVisible}/>
+                        </Space>
+                        <Space>
+                            <img src={require("../page/img/miniLogo-removebg-preview.png")} width="50" alt="miniLogo"/>
+                            <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
                         </Space>
 
-                        <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
                     </Header>
                     <Layout>
                         <Sider>
@@ -55,7 +57,7 @@ const TableComponent = (props) => {
                                         </Menu.Item>
                                         <Menu.Item key='addBook'>
                                             <Space size="middle">
-                                                <AddBook render={props.render}/>
+                                                <AddBook update={props.update}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -76,7 +78,7 @@ const TableComponent = (props) => {
                                         </Menu.Item>
                                         <Menu.Item key='addUser'>
                                             <Space size="middle">
-                                                <AddUser render={props.render}/>
+                                                <AddUser update={props.update}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>
@@ -96,7 +98,7 @@ const TableComponent = (props) => {
                                         </Menu.Item>
                                         <Menu.Item key='addAuthor'>
                                             <Space size="middle">
-                                                <AddAuthorModal render={props.render}/>
+                                                <AddAuthorModal update={props.update}/>
                                             </Space>
                                         </Menu.Item>
                                     </Menu.ItemGroup>

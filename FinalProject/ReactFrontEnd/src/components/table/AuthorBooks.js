@@ -1,12 +1,13 @@
+import {Button, Input, Modal, Space, Table} from "antd";
+import {SearchOutlined} from "@ant-design/icons"
+import EditBook from "../modal/EditBook";
+import AddFavButton from "../button/AddFavButton";
+import AddReadButton from "../button/AddReadButton";
 import React, {useEffect, useState} from "react";
-import BookService from "../../service/BookService";
-import TableComponent from "./TableComponent";
-import {Input, Space} from "antd";
-import {SearchOutlined} from "@ant-design/icons";
-import RemoveFavButton from "../button/RemoveFavButton";
+import axiosInstance from "../../util/axiosInstance";
 
 
-const FavTable = (props) => {
+const AuthorBooks = (props) => {
 
     const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
         "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
@@ -30,6 +31,7 @@ const FavTable = (props) => {
         return contains;
     }
 
+
     const columns = [
 
         {
@@ -46,8 +48,8 @@ const FavTable = (props) => {
                     <Input
                         autoFocus
                         value={selectedKeys[0]}
-                        onChange={(e) =>{
-                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        onChange={(e) => {
+                            setSelectedKeys(e.target.value ? [e.target.value] : [])
                         }}
                         onPressEnter={() => {
                             confirm()
@@ -57,10 +59,10 @@ const FavTable = (props) => {
                         }}
                     ></Input>)
             },
-            filterIcon:() => {
-                return<SearchOutlined />
+            filterIcon: () => {
+                return <SearchOutlined/>
             },
-            onFilter:(value,record) => {
+            onFilter: (value, record) => {
                 return record.name.toLowerCase().includes(value.toLowerCase())
             }
         },
@@ -72,7 +74,6 @@ const FavTable = (props) => {
             }),
             filters: genreFilters,
             onFilter: (value, record) => Filter(record.genres,value)
-
         },
         {
             title: "Page Count",
@@ -98,8 +99,8 @@ const FavTable = (props) => {
                     <Input
                         autoFocus
                         value={selectedKeys[0]}
-                        onChange={(e) =>{
-                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        onChange={(e) => {
+                            setSelectedKeys(e.target.value ? [e.target.value] : [])
                         }}
                         onPressEnter={() => {
                             confirm()
@@ -109,10 +110,10 @@ const FavTable = (props) => {
                         }}
                     ></Input>)
             },
-            filterIcon:() => {
-                return<SearchOutlined />
+            filterIcon: () => {
+                return <SearchOutlined/>
             },
-            onFilter:(value,record) => {
+            onFilter: (value, record) => {
                 return record.name.toLowerCase().includes(value.toLowerCase())
             }
         },
@@ -120,14 +121,24 @@ const FavTable = (props) => {
             title: "Active",
             dataIndex: "active",
             render: (record) => String(record),
-            sorter: (a,b) => a.active - b.active
+            sorter: (a, b) => a.active - b.active
         },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-                <Space size="middle">
-                    <RemoveFavButton bookId={record.id} update={props.update} />
+                <Space direction="vertical" size="small">
+                    <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
+                              rating={record.rating} authorName={record.author.name} update={props.update} refresh = {props.refresh}/>
+
+                    <AddFavButton bookId={record.id} update={props.update}/>
+
+                    <AddReadButton bookId={record.id} update={props.update}/>
+
+                    <a href={`https://www.goodreads.com/book/isbn/${record.isbn}`} target="_blank"
+                       rel="noopener noreferrer">See reviews</a>
+                    <a href={`https://www.amazon.com/gp/product/${record.isbn}`} target="_blank"
+                       rel="noopener noreferrer">Buy on Amazon</a>
                 </Space>
 
             ),
@@ -135,52 +146,81 @@ const FavTable = (props) => {
 
     ];
 
-    const bookService = new BookService()
 
-    const [data,setData] = useState([])
-    const [pagination,setPagination] = useState({
+    const [visible, setVisible] = useState(false)
+    const [loading,setLoading] = useState(false)
+    const [data, setData] = useState();
+    //TODO add pagination
+    const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 10
     })
-    const [loading,setLoading] = useState(false);
 
-    const fetch = async (params = {}) => {
 
-        setLoading(true);
-        const data = await bookService.fetchFavListData(params);
-        setLoading(false);
-        setData(data.content);
-        setPagination({
-            ...params.pagination,
-            total: pagination.pageSize * data.totalPages
-        })
+    const CreateTable = (props) => {
+        return (
+            <Modal
+                width={1500}
+                title="Author Books"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+                onOk={() => setVisible(false)}
+                footer={[
+                    <Button key="back" onClick={() => setVisible(false)}>
+                        Cancel
+                    </Button>,
+                ]}
+            >
+                <Table
+                    dataSource={props.dataSource}
+                    columns={columns}
+                    loading={loading}
+                    onChange={handleTableChange}
+                />
+
+            </Modal>
+        )
 
     }
 
-    useEffect(() => {
-        fetch({
-            pagination:pagination
-        })
-    },[props.refresh])
-
     const handleTableChange = async (newPagination) => {
-        await fetch({
+        await getAuthorBooks({
             pagination: newPagination
         })
     }
 
+    const getAuthorBooks = (params = {}) => {
+        axiosInstance.get(`http://localhost:8080/api/v1/library/author-books/${props.authorName}`, {
+            withCredentials: true,
+            params: params.pagination
+
+        })
+            .then((response) => {
+                setData(response.data.content);
+                setPagination({
+                    ...params.pagination,
+                    total: pagination.pageSize * data.totalPages
+                })
+            })
+    }
+
+    useEffect(() => {
+        getAuthorBooks({
+            pagination:pagination
+        })
+    },[props.refresh])
 
     return (
-        <TableComponent
-            columns = {columns}
-            dataSource = {data}
-            pagination = {pagination}
-            loading = {loading}
-            handleTableChange = {handleTableChange}
-            name = {"Favourite Table"}
-
-        />
+        <div align="left">
+            <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} onClick={() => setVisible(true)}>
+                    See Books
+                </Button>
+                <CreateTable dataSource={data}/>
+            </Space>
+        </div>
     );
-
 }
-export default FavTable
+
+export default AuthorBooks;
+

@@ -1,191 +1,185 @@
-import React from "react";
-import TableComponent from "./TableComponent";
-import {SearchOutlined} from "@ant-design/icons";
-import {Input, Space} from "antd";
-import RemoveReadButton from "../button/RemoveReadButton";
+import React, {useEffect, useState} from "react";
 import BookService from "../../service/BookService";
+import TableComponent from "./TableComponent";
+import {Input, Space} from "antd";
+import {SearchOutlined} from "@ant-design/icons";
+import RemoveReadButton from "../button/RemoveReadButton";
 
-const bookservice = new BookService();
 
-const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-    "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-    "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-    "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-    "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-    "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+const ReadTable = (props) => {
 
-const genreFilters = genres.map((genre) => {
-    return {text: genre, value: genre}
-})
+    const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
 
-const Filter = (genres,value) => {
-    let contains = false;
-    genres.map((genre) => {
-        if(genre.name.indexOf(value) === 0){
-            return contains = true;
-        }
-        return contains;
+    const genreFilters = genres.map((genre) => {
+        return {text: genre, value: genre}
     })
-    return contains;
-}
 
-
-const columns = [
-
-    {
-        dataIndex: "img",
-        render: (_, record) => (
-            <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
-        )
-    },
-    {
-        title: "Name",
-        dataIndex: "name",
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
-            return (
-                <Input
-                    autoFocus
-                    value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
-                    }}
-                    onPressEnter={() => {
-                        confirm()
-                    }}
-                    onBlur={() => {
-                        confirm()
-                    }}
-                ></Input>)
-        },
-        filterIcon:() => {
-            return<SearchOutlined />
-        },
-        onFilter:(value,record) => {
-            return record.name.toLowerCase().includes(value.toLowerCase())
-        }
-    },
-    {
-        title: "Genre",
-        dataIndex: "genres",
-        render: (genres) => genres.map((genre) => {
-            return `${genre.name}\n`
-        }),
-        filters: genreFilters,
-        onFilter: (value, record) => Filter(record.genres,value)
-    },
-    {
-        title: "Page Count",
-        dataIndex: "pageCount",
-        sorter: (a, b) => a.pageCount - b.pageCount
-    },
-    {
-        title: "Rating",
-        dataIndex: "rating",
-        sorter: (a, b) => a.rating - b.rating
-    },
-    {
-        title: "ISBN",
-        dataIndex: "isbn"
-    },
-
-    {
-        title: "Author",
-        dataIndex: "author",
-        render: (author) => `${author.name}`,
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
-            return (
-                <Input
-                    autoFocus
-                    value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
-                    }}
-                    onPressEnter={() => {
-                        confirm()
-                    }}
-                    onBlur={() => {
-                        confirm()
-                    }}
-                ></Input>)
-        },
-        filterIcon:() => {
-            return<SearchOutlined />
-        },
-        onFilter:(value,record) => {
-            return record.name.toLowerCase().includes(value.toLowerCase())
-        }
-    },
-    {
-        title: "Active",
-        dataIndex: "active",
-        render: (record) => String(record),
-        sorter: (a,b) => a.active - b.active
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <RemoveReadButton bookId={record.id} />
-            </Space>
-        ),
-    },
-
-];
-
-class ReadTable extends React.Component {
-    state = {
-        data: [],
-        pagination: {
-            current: 1,
-            pageSize: 10
-        },
-        loading: false
-    };
-
-    componentDidMount() {
-
-        const {pagination} = this.state;
-        this.fetch({pagination}, []);
-    }
-
-    handleTableChange = (newPagination) => {
-        this.fetch({
-            pagination: newPagination
-        });
-    };
-    fetch = async (params = {}) => {
-        this.setState({loading: true});
-        const data = await bookservice.fetchReadListData(params);
-        this.setState({
-            loading: false,
-            data: data && data.content,
-            pagination: {
-                ...params.pagination,
-                total: this.state.pagination.pageSize * data.totalPages
+    const Filter = (genres,value) => {
+        let contains = false;
+        genres.map((genre) => {
+            if(genre.name.indexOf(value) === 0){
+                return contains = true;
             }
-        });
-    };
-
-    render() {
-        const {data, pagination, loading} = this.state;
-
-        return (
-            <TableComponent
-                columns = {columns}
-                dataSource = {data}
-                pagination = {pagination}
-                loading = {loading}
-                handleTableChange = {this.handleTableChange}
-                name = {"Read Table"}
-            />
-        );
+            return contains;
+        })
+        return contains;
     }
+
+    const columns = [
+
+        {
+            dataIndex: "img",
+            render: (_, record) => (
+                <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
+            )
+        },
+        {
+            title: "Name",
+            dataIndex: "name",
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
+                return (
+                    <Input
+                        autoFocus
+                        value={selectedKeys[0]}
+                        onChange={(e) =>{
+                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                    ></Input>)
+            },
+            filterIcon:() => {
+                return<SearchOutlined />
+            },
+            onFilter:(value,record) => {
+                return record.name.toLowerCase().includes(value.toLowerCase())
+            }
+        },
+        {
+            title: "Genre",
+            dataIndex: "genres",
+            render: (genres) => genres.map((genre) => {
+                return `${genre.name}\n`
+            }),
+            filters: genreFilters,
+            onFilter: (value, record) => Filter(record.genres,value)
+
+        },
+        {
+            title: "Page Count",
+            dataIndex: "pageCount",
+            sorter: (a, b) => a.pageCount - b.pageCount
+        },
+        {
+            title: "Rating",
+            dataIndex: "rating",
+            sorter: (a, b) => a.rating - b.rating
+        },
+        {
+            title: "ISBN",
+            dataIndex: "isbn"
+        },
+
+        {
+            title: "Author",
+            dataIndex: "author",
+            render: (author) => `${author.name}`,
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
+                return (
+                    <Input
+                        autoFocus
+                        value={selectedKeys[0]}
+                        onChange={(e) =>{
+                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                    ></Input>)
+            },
+            filterIcon:() => {
+                return<SearchOutlined />
+            },
+            onFilter:(value,record) => {
+                return record.name.toLowerCase().includes(value.toLowerCase())
+            }
+        },
+        {
+            title: "Active",
+            dataIndex: "active",
+            render: (record) => String(record),
+            sorter: (a,b) => a.active - b.active
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <RemoveReadButton bookId={record.id} update={props.update} />
+                </Space>
+
+            ),
+        },
+
+    ];
+
+    const bookService = new BookService()
+
+    const [data,setData] = useState([])
+    const [pagination,setPagination] = useState({
+        current: 1,
+        pageSize: 10
+    })
+    const [loading,setLoading] = useState(false);
+
+    const fetch = async (params = {}) => {
+
+        setLoading(true);
+        const data = await bookService.fetchReadListData(params);
+        setLoading(false);
+        setData(data.content);
+        setPagination({
+            ...params.pagination,
+            total: pagination.pageSize * data.totalPages
+        })
+
+    }
+
+    useEffect(() => {
+        fetch({
+            pagination:pagination
+        })
+    },[props.refresh])
+
+    const handleTableChange = async (newPagination) => {
+        await fetch({
+            pagination: newPagination
+        })
+    }
+
+
+    return (
+        <TableComponent
+            columns = {columns}
+            dataSource = {data}
+            pagination = {pagination}
+            loading = {loading}
+            handleTableChange = {handleTableChange}
+            name = {"Favourite Table"}
+        />
+    );
+
 }
-
-export default ReadTable;
-
-
-/*
-
- */
+export default ReadTable

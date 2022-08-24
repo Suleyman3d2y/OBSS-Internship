@@ -12,7 +12,7 @@ const RemoveReadButton = (props) => {
         })
             .then(() => {
                 alert("Book succesfully removed from Favorite List")
-                window.location.reload();
+                props.update()
             })
             .catch(() => {
                 alert("Book can not be removed right now please try again.")

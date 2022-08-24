@@ -1,9 +1,10 @@
-import {List } from 'antd';
+import {List} from 'antd';
 import React from 'react';
 import BookService from "../service/BookService";
 
 
 const bookservice = new BookService();
+
 class Top5List extends React.Component {
 
     state = {
@@ -20,7 +21,7 @@ class Top5List extends React.Component {
         const bookData = await bookservice.fetchTop5Data();
         this.setState({
             data: bookData
-            })
+        })
     }
 
     render() {
@@ -35,9 +36,10 @@ class Top5List extends React.Component {
                     })}
                     renderItem={(item) => (
                         <List.Item>
-
-                                <h1>{item.name}</h1>
-                                <h1>RATING :{item.rating}</h1>
+                            <img src={`https://covers.openlibrary.org/b/isbn/${item.isbn}-M.jpg`} alt={item.name}
+                                 style={{width: 100, height: 150}}/>
+                            <h1>{item.name}</h1>
+                            <h1>RATING :{item.rating}</h1>
 
                         </List.Item>
                     )}

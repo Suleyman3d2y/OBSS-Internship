@@ -1,154 +1,154 @@
 import {Button, Form, Input, Modal, Select, Space, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons"
-import EditBook from "../modal/EditBook";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
 import React, {useEffect, useState} from "react";
 import axiosInstance from "../../util/axiosInstance";
 import {Option} from "antd/es/mentions";
 
-const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-    "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-    "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-    "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-    "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-    "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+const PreferForm = (props) => {
 
-const genreFilters = genres.map((genre) => {
-    return {text: genre, value: genre}
-})
+    const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
+        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
+        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
+        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
+        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
+        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
 
-const Filter = (genres,value) => {
-    let contains = false;
-    genres.map((genre) => {
-        if(genre.name.indexOf(value) === 0){
-            return contains = true;
-        }
-        return contains;
+    const genreFilters = genres.map((genre) => {
+        return {text: genre, value: genre}
     })
-    return contains;
-}
 
-const columns = [
+    const Filter = (genres,value) => {
+        let contains = false;
+        genres.map((genre) => {
+            if(genre.name.indexOf(value) === 0){
+                return contains = true;
+            }
+            return contains;
+        })
+        return contains;
+    }
 
-    {
-        dataIndex: "img",
-        render: (_, record) => (
-            <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
-        )
-    },
-    {
-        title: "Name",
-        dataIndex: "name",
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
-            return (
-                <Input
-                    autoFocus
-                    value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
-                    }}
-                    onPressEnter={() => {
-                        confirm()
-                    }}
-                    onBlur={() => {
-                        confirm()
-                    }}
-                ></Input>)
+    const columns = [
+
+        {
+            dataIndex: "img",
+            render: (_, record) => (
+                <img src = {`https://covers.openlibrary.org/b/isbn/${record.isbn}-M.jpg`} alt={record.name} style={{width: 100,height: 150}}/>
+            )
         },
-        filterIcon:() => {
-            return<SearchOutlined />
+        {
+            title: "Name",
+            dataIndex: "name",
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
+                return (
+                    <Input
+                        autoFocus
+                        value={selectedKeys[0]}
+                        onChange={(e) =>{
+                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                    ></Input>)
+            },
+            filterIcon:() => {
+                return<SearchOutlined />
+            },
+            onFilter:(value,record) => {
+                return record.name.toLowerCase().includes(value.toLowerCase())
+            }
         },
-        onFilter:(value,record) => {
-            return record.name.toLowerCase().includes(value.toLowerCase())
-        }
-    },
-    {
-        title: "Genre",
-        dataIndex: "genres",
-        render: (genres) => genres.map((genre) => {
-            return `${genre.name}\n`
-        }),
-        filters: genreFilters,
-        onFilter: (value, record) => Filter(record.genres,value)
-    },
-    {
-        title: "Page Count",
-        dataIndex: "pageCount",
-        sorter: (a, b) => a.pageCount - b.pageCount
-    },
-    {
-        title: "Rating",
-        dataIndex: "rating",
-        sorter: (a, b) => a.rating - b.rating
-    },
-    {
-        title: "ISBN",
-        dataIndex: "isbn"
-    },
-
-    {
-        title: "Author",
-        dataIndex: "author",
-        render: (author) => `${author.name}`,
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
-            return (
-                <Input
-                    autoFocus
-                    value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
-                    }}
-                    onPressEnter={() => {
-                        confirm()
-                    }}
-                    onBlur={() => {
-                        confirm()
-                    }}
-                ></Input>)
+        {
+            title: "Genre",
+            dataIndex: "genres",
+            render: (genres) => genres.map((genre) => {
+                return `${genre.name}\n`
+            }),
+            filters: genreFilters,
+            onFilter: (value, record) => Filter(record.genres,value)
         },
-        filterIcon:() => {
-            return<SearchOutlined />
+        {
+            title: "Page Count",
+            dataIndex: "pageCount",
+            sorter: (a, b) => a.pageCount - b.pageCount
         },
-        onFilter:(value,record) => {
-            return record.name.toLowerCase().includes(value.toLowerCase())
-        }
-    },
-    {
-        title: "Active",
-        dataIndex: "active",
-        render: (record) => String(record),
-        sorter: (a, b) => a.active - b.active
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
-                          rating={record.rating} authorId={record.authorId} active={String(record.active)}/>
-                <AddFavButton bookId={record.id} />
-                <AddReadButton bookId={record.id} />
-            </Space>
+        {
+            title: "Rating",
+            dataIndex: "rating",
+            sorter: (a, b) => a.rating - b.rating
+        },
+        {
+            title: "ISBN",
+            dataIndex: "isbn"
+        },
 
-        ),
-    },
+        {
+            title: "Author",
+            dataIndex: "author",
+            render: (author) => `${author.name}`,
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
+                return (
+                    <Input
+                        autoFocus
+                        value={selectedKeys[0]}
+                        onChange={(e) =>{
+                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                    ></Input>)
+            },
+            filterIcon:() => {
+                return<SearchOutlined />
+            },
+            onFilter:(value,record) => {
+                return record.name.toLowerCase().includes(value.toLowerCase())
+            }
+        },
+        {
+            title: "Active",
+            dataIndex: "active",
+            render: (record) => String(record),
+            sorter: (a, b) => a.active - b.active
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
 
-];
+                    <AddFavButton bookId={record.id} update={props.update} refresh={props.refresh} />
 
+                    <AddReadButton bookId={record.id} update={props.update} refresh={props.refresh} />
+                </Space>
 
-function PreferForm() {
+            ),
+        },
+
+    ];
+
 
     const [visible, setVisible] = useState(false);
     const [data,setData] = useState();
     const [showTable,setShowTable] = useState(false);
+    const [loading,setLoading] = useState(false)
     const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
         "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
         "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
         "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
         "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
         "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
-    const [genreOptions, setGenreOptions] = useState();
+    const [genreOptions, setGenreOptions] = useState([]);
 
     const getGenreOptions = () => {
         const options = [];
@@ -180,6 +180,7 @@ function PreferForm() {
                     <Table
                         dataSource={props.dataSource}
                         columns={columns}
+                        loading={loading}
                         rowKey={(record) => record.id}
                     />
 
@@ -192,6 +193,9 @@ function PreferForm() {
     }
 
     function submit(e) {
+        setShowTable(true);
+        setVisible(true);
+        setLoading(true);
 
         let requestBody = {
             name:"",
@@ -216,8 +220,7 @@ function PreferForm() {
         })
             .then((response) => {
                     setData(response.data);
-                    setShowTable(true);
-                    setVisible(true);
+                    setLoading(false);
             })
 
 

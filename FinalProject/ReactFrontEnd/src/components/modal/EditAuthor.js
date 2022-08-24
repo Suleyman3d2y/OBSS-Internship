@@ -1,4 +1,4 @@
-import {Button, Form, Input, Modal} from 'antd';
+import {Button, Form, Input, Modal, Popconfirm} from 'antd';
 import React, {useState} from 'react';
 import axiosInstance from "../../util/axiosInstance";
 
@@ -38,7 +38,7 @@ const EditAuthorModal = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                props.render(true);
+                props.update();
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -56,7 +56,7 @@ const EditAuthorModal = (props) => {
             })
     }
 
-    function removeBook() {
+    function removeAuthor() {
         axiosInstance.delete(removeUrl, {withCredentials: true}
         )
             .then(() => {
@@ -67,7 +67,7 @@ const EditAuthorModal = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                props.render(true);
+                props.update()
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -98,9 +98,11 @@ const EditAuthorModal = (props) => {
                 onCancel={() => setVisible(false)}
                 onOk={() => setVisible(false)}
                 footer={[
-                    <Button type="primary" onClick={removeBook} danger>
-                        Delete
-                    </Button>,
+                    <Popconfirm title={"Sure to remove?"} onConfirm={removeAuthor}>
+                        <Button type="primary" danger>
+                            Delete
+                        </Button>
+                    </Popconfirm>,
                     <Button key="back" onClick={() => setVisible(false)}>
                         Cancel
                     </Button>,

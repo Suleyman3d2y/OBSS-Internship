@@ -18,14 +18,14 @@ const AddBook = (props) => {
     const [visible, setVisible] = useState(false);
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
-    const [authorOptions, setAuthorOptions] = useState();
+    const [authorOptions, setAuthorOptions] = useState([]);
     const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
         "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
         "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
         "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
         "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
         "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
-    const [genreOptions, setGenreOptions] = useState();
+    const [genreOptions, setGenreOptions] = useState([]);
     const bookService = new BookService();
 
     const getGenreOptions = () => {
@@ -80,7 +80,7 @@ const AddBook = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                props.render(true);
+                props.update()
             })
 
             .catch((err) => {

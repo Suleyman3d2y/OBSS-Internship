@@ -1,116 +1,113 @@
-import React from "react";
-import {Input, Space} from 'antd';
-import TableComponent from "./TableComponent";
-import EditAuthorModal from "../modal/EditAuthor";
-import {SearchOutlined} from "@ant-design/icons";
+import React, {useEffect, useState} from "react";
 import BookService from "../../service/BookService";
-import AuthorBooks from "../modal/AuthorBooks";
-import useRender from "../../util/useRender";
+import TableComponent from "./TableComponent";
+import {Input, Space} from "antd";
+import {SearchOutlined} from "@ant-design/icons";
+import EditAuthorModal from "../modal/EditAuthor";
+import AuthorBooks from "./AuthorBooks";
 
-const bookservice = new BookService();
 
-const columns = [
+const AuthorTable = (props) => {
 
-    {
-        title: "Id",
-        dataIndex: "id",
-    },
-    {
-        title: "Name",
-        dataIndex: "name",
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
-            return (
-                <Input
-                    autoFocus
-                    value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
-                    }}
-                    onPressEnter={() => {
-                        confirm()
-                    }}
-                    onBlur={() => {
-                        confirm()
-                    }}
-                ></Input>)
+
+    const columns = [
+
+        {
+            title: "Id",
+            dataIndex: "id",
         },
-        filterIcon:() => {
-            return<SearchOutlined />
-        },
-        onFilter:(value,record) => {
-            return record.name.toLowerCase().includes(value.toLowerCase())
-        }
-    },
-    {
-        title: "Active",
-        dataIndex: "active",
-        render: (record) => String(record),
-        sorter: (a,b) => a.active - b.active
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <EditAuthorModal id={String(record.id)} render={useRender}/>
-                <AuthorBooks authorName={record.name} />
-            </Space>
-        ),
-    },
-
-];
-
-class UserList extends React.Component {
-    state = {
-        data: [],
-        pagination: {
-            current: 1,
-            pageSize: 10
-        },
-        loading: false
-    };
-
-    componentDidMount() {
-
-        const {pagination} = this.state;
-        this.fetch({pagination}, []);
-    }
-
-    handleTableChange = (newPagination) => {
-        this.fetch({
-            pagination: newPagination
-        });
-    };
-    fetch = async (params = {}) => {
-        this.setState({loading: true});
-
-        const data = await bookservice.fetchAuthorData(params);
-
-        this.setState({
-            loading: false,
-            data: data && data.content,
-            pagination: {
-                ...params.pagination,
-                total: this.state.pagination.pageSize * data.totalPages
+        {
+            title: "Name",
+            dataIndex: "name",
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
+                return (
+                    <Input
+                        autoFocus
+                        value={selectedKeys[0]}
+                        onChange={(e) =>{
+                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                    ></Input>)
+            },
+            filterIcon:() => {
+                return<SearchOutlined />
+            },
+            onFilter:(value,record) => {
+                return record.name.toLowerCase().includes(value.toLowerCase())
             }
-        });
-    };
+        },
+        {
+            title: "Active",
+            dataIndex: "active",
+            render: (record) => String(record),
+            sorter: (a,b) => a.active - b.active
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <EditAuthorModal id={String(record.id)} update={props.update} />
+                    <AuthorBooks authorName={record.name} update={props.update} refresh={props.refresh} />
+                </Space>
+            ),
+        },
 
-    render() {
-        const {data, pagination, loading} = this.state;
+    ];
 
-        return (
-            <TableComponent
-                columns = {columns}
-                dataSource = {data}
-                pagination = {pagination}
-                loading = {loading}
-                handleTableChange = {this.handleTableChange}
-                name = {"Author Table"}
-                render={useRender}
-            />
-        );
+    const bookService = new BookService()
+
+    const [data,setData] = useState([])
+    const [pagination,setPagination] = useState({
+        current: 1,
+        pageSize: 10
+    })
+    const [loading,setLoading] = useState(false);
+
+    const fetch = async (params = {}) => {
+
+        setLoading(true);
+        const data = await bookService.fetchAuthorData(params);
+        setLoading(false);
+        setData(data.content);
+        setPagination({
+            ...params.pagination,
+            total: pagination.pageSize * data.totalPages
+        })
+
     }
-}
 
-export default UserList;
+    useEffect(() => {
+        fetch({
+            pagination:pagination
+        })
+    },[props.refresh])
+
+    const handleTableChange = async (newPagination) => {
+        await fetch({
+            pagination: newPagination
+        })
+    }
+
+
+    return (
+        <TableComponent
+            columns = {columns}
+            dataSource = {data}
+            pagination = {pagination}
+            loading = {loading}
+            handleTableChange = {handleTableChange}
+            name = {"Author Table"}
+            update={props.update}
+        />
+    );
+
+
+}
+export default AuthorTable

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Layout, Menu, Breadcrumb, Space, Button} from 'antd';
-import {HomeOutlined,BookOutlined,UserOutlined,ReadOutlined} from "@ant-design/icons"
+import {HomeOutlined, BookOutlined, UserOutlined, ReadOutlined} from "@ant-design/icons"
 import Title from 'antd/lib/typography/Title';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import {Link} from "react-router-dom";
@@ -8,30 +8,32 @@ import AddBook from "../modal/AddBook";
 import AddUser from "../modal/AddUser";
 import AddAuthorModal from "../modal/AddAuthor";
 import Top5List from "../Top5List";
-import PreferForm from "../form/PreferBook";
+import PreferForm from "../table/PreferBook";
 import AvatarMenu from "../AvatarMenu";
 import ChangePassword from "../modal/ChangePassword";
 
 
 const {Header, Footer, Sider, Content} = Layout;
 
-function Home() {
-    const [visible,setVisible] = useState(false)
+const Home = (props) => {
+    const [visible, setVisible] = useState(false)
 
     return (
         <div>
             <Layout>
-                <Header style={{padding: 10}}>
-
-                    <Space style={{float:"right"}}>
-                        <Button style={{float:"right"}} >
+                <Header style={{paddingBottom:5,paddingLeft:5,paddingRight:5}}>
+                    <Space style={{float: "right",paddingTop:15}}>
+                        <Button style={{float: "right"}}>
                             <Link to="/logout">Logout</Link>
                         </Button>
-                        <AvatarMenu setVisible={setVisible} />
-                        <ChangePassword visible={visible} setVisible={setVisible} />
+                        <AvatarMenu setVisible={setVisible}/>
+                        <ChangePassword visible={visible} setVisible={setVisible}/>
                     </Space>
+                        <Space>
+                            <img src={require("./img/miniLogo-removebg-preview.png")} width="50" alt="miniLogo"/>
+                            <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
+                        </Space>
 
-                    <Title style={{color: 'white'}} level={3}>BOOKSELF</Title>
                 </Header>
                 <Layout>
                     <Sider>
@@ -39,12 +41,12 @@ function Home() {
                             defaultSelectedKeys={['Dashboard']}
                             mode="inline"
                         >
-                            <Menu.Item key="home" icon={<HomeOutlined />}>
+                            <Menu.Item key="home" icon={<HomeOutlined/>}>
                                 <Link to={{pathname: `/`}}>
                                     Home
                                 </Link>
                             </Menu.Item>
-                            <SubMenu key ="book" icon={<BookOutlined />}
+                            <SubMenu key="book" icon={<BookOutlined/>}
                                      title={
                                          <span>
                                             <span>Book</span>
@@ -65,7 +67,7 @@ function Home() {
                                 </Menu.ItemGroup>
                             </SubMenu>
 
-                            <SubMenu key ="user" icon={<UserOutlined />}
+                            <SubMenu key="user" icon={<UserOutlined/>}
                                      title={
                                          <span>
                                             <span>User</span>
@@ -85,7 +87,7 @@ function Home() {
                                     </Menu.Item>
                                 </Menu.ItemGroup>
                             </SubMenu>
-                            <SubMenu key ="author" icon={<UserOutlined />}
+                            <SubMenu key="author" icon={<UserOutlined/>}
                                      title={
                                          <span>
                                             <span>Author</span>
@@ -105,14 +107,14 @@ function Home() {
                                     </Menu.Item>
                                 </Menu.ItemGroup>
                             </SubMenu>
-                            <SubMenu key="lists" icon={<ReadOutlined />}
+                            <SubMenu key="lists" icon={<ReadOutlined/>}
                                      title={
                                          <span>
                                             <span>Lists</span>
                                         </span>
                                      }
                             >
-                                <Menu.Item key='readList' >
+                                <Menu.Item key='readList'>
                                     <Link to={{pathname: `/read-list`}}>
                                         Read List
                                     </Link>
@@ -131,10 +133,10 @@ function Home() {
                                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                             </Breadcrumb>
                             <div style={{background: '#fff', padding: 24, minHeight: 580}}>
-                                <Top5List />
+                                <Top5List/>
                                 <br/><br/>
                                 <h2>FIND BOOKS YOU PREFER</h2>
-                                <PreferForm />
+                                <PreferForm update={props.update} refresh={props.refresh}/>
                                 <br/><br/>
                                 <h2>For Book Recommendations Contact Us From: +905362090306</h2>
 

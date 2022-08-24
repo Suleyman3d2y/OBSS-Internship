@@ -1,4 +1,4 @@
-import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button, Form, Input, Modal, Popconfirm, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import axiosInstance from "../../util/axiosInstance";
 import BookService from "../../service/BookService";
@@ -9,14 +9,14 @@ import {Option} from "antd/es/mentions";
 const EditBook = (props) => {
     const updateUrl = `http://localhost:8080/api/v1/library/book/update/${props.id}`
     const removeUrl = `http://localhost:8080/api/v1/library/book/remove/${props.id}`
-    const [authorOptions, setAuthorOptions] = useState();
+    const [authorOptions, setAuthorOptions] = useState([]);
     const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
         "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
         "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
         "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
         "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
         "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
-    const [genreOptions,setGenreOptions] = useState();
+    const [genreOptions,setGenreOptions] = useState([]);
     const bookService = new BookService();
 
     const getGenreOptions = () => {
@@ -40,7 +40,7 @@ const EditBook = (props) => {
     useEffect(() => {
         getAllAuthorData()
         getGenreOptions()
-    },[])
+    },[props.refresh])
 
 
     let data = {
@@ -77,7 +77,7 @@ const EditBook = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                props.render(true);
+                props.update();
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -102,6 +102,7 @@ const EditBook = (props) => {
             }
         )
             .then(() => {
+
                 setSubmitText("Book removed successfully")
 
                 setLoading(true);
@@ -109,7 +110,7 @@ const EditBook = (props) => {
                     setLoading(false);
                     setVisible(false);
                 }, 1000)
-                props.render(true)
+                props.update()
             })
             .catch((err) => {
                 if (err.response.status === 401) {
@@ -140,9 +141,12 @@ const EditBook = (props) => {
                 onCancel={() => setVisible(false)}
                 onOk={() => setVisible(false)}
                 footer={[
-                    <Button type="primary" onClick={removeBook} danger>
-                        Delete
-                    </Button>,
+                    <Popconfirm title={"Sure to remove?"} onConfirm={removeBook}>
+                        <Button type="primary" danger>
+                            Delete
+                        </Button>
+                    </Popconfirm>
+                    ,
                     <Button key="back" onClick={() => setVisible(false)}>
                         Cancel
                     </Button>,

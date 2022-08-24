@@ -1,113 +1,108 @@
-import React from "react";
-import {Input} from 'antd';
-import UserService from "../../service/UserService";
+import React, {useEffect, useState} from "react";
 import TableComponent from "./TableComponent";
+import {Input} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
-import useRender from "../../util/useRender";
+import UserService from "../../service/UserService";
 
-const columns = [
 
-    {
-        title: "Id",
-        dataIndex: "id",
-    },
-    {
-        title: "Username",
-        dataIndex: "username",
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
+const UserTable = (props) => {
 
-            return (
-                <Input
-                    autoFocus
-                    value={selectedKeys[0]}
-                    onChange={(e) =>{
-                        setSelectedKeys(e.target.value?[e.target.value]:[])
-                    }}
-                    onPressEnter={() => {
-                        confirm()
-                    }}
-                    onBlur={() => {
-                        confirm()
-                    }}
-                ></Input>)
+    const columns = [
+
+        {
+            title: "Id",
+            dataIndex: "id",
         },
-        filterIcon:() => {
-            return<SearchOutlined />
-        },
-        onFilter:(value,record) => {
+        {
+            title: "Username",
+            dataIndex: "username",
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm}) => {
 
-            return String(record.username).toLowerCase().includes(String(value).toLowerCase())
-        }
-    },
-    {
-        title: "Active",
-        dataIndex: "active",
-        render: (record) => String(record),
-        sorter: (a,b) => a.active - b.active
-    },
-    /*{
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <EditUser id = {record.id} active={String(record.active)} render={useRender}/>
-            </Space>
-        ),
-    },*/
+                return (
+                    <Input
+                        autoFocus
+                        value={selectedKeys[0]}
+                        onChange={(e) =>{
+                            setSelectedKeys(e.target.value?[e.target.value]:[])
+                        }}
+                        onPressEnter={() => {
+                            confirm()
+                        }}
+                        onBlur={() => {
+                            confirm()
+                        }}
+                    ></Input>)
+            },
+            filterIcon:() => {
+                return<SearchOutlined />
+            },
+            onFilter:(value,record) => {
 
-];
-
-class UserTable extends React.Component {
-    state = {
-        data: [],
-        pagination: {
-            current: 1,
-            pageSize: 10
-        },
-        loading: false
-    };
-
-    componentDidMount() {
-
-        const {pagination} = this.state;
-        this.fetch({pagination}, []);
-    }
-
-    handleTableChange = (newPagination) => {
-        this.fetch({
-            pagination: newPagination
-        });
-    };
-    fetch = async (params = {}) => {
-        this.setState({loading: true});
-
-        const data = await UserService.fetchData(params);
-
-        this.setState({
-            loading: false,
-            data: data && data.content,
-            pagination: {
-                ...params.pagination,
-                total: this.state.pagination.pageSize * data.totalPages
+                return String(record.username).toLowerCase().includes(String(value).toLowerCase())
             }
-        });
-    };
+        },
+        {
+            title: "Active",
+            dataIndex: "active",
+            render: (record) => String(record),
+            sorter: (a,b) => a.active - b.active
+        },
+        /*{
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <EditUser id = {record.id} active={String(record.active)} render={useRender}/>
+                </Space>
+            ),
+        },*/
 
-    render() {
-        const {data, pagination, loading} = this.state;
+    ];
 
-        return (
-            <TableComponent
-                columns = {columns}
-                dataSource = {data}
-                pagination = {pagination}
-                loading = {loading}
-                handleTableChange = {this.handleTableChange}
-                name = {"User Table"}
-                render={useRender}
-            />
-        );
+    const [data,setData] = useState([])
+    const [pagination,setPagination] = useState({
+        current: 1,
+        pageSize: 10
+    })
+    const [loading,setLoading] = useState(false);
+
+    const fetch = async (params = {}) => {
+
+        setLoading(true);
+        const data = await UserService.fetchData(params);
+        setLoading(false);
+        setData(data.content);
+        setPagination({
+            ...params.pagination,
+            total: pagination.pageSize * data.totalPages
+        })
+
     }
-}
 
-export default UserTable;
+    useEffect(() => {
+        fetch({
+            pagination:pagination
+        })
+    },[props.refresh])
+
+    const handleTableChange = async (newPagination) => {
+        await fetch({
+            pagination: newPagination
+        })
+    }
+
+    return (
+        <TableComponent
+            columns = {columns}
+            dataSource = {data}
+            pagination = {pagination}
+            loading = {loading}
+            handleTableChange = {handleTableChange}
+            name = {"User Table"}
+            update={props.update}
+
+        />
+    );
+
+}
+export default UserTable
