@@ -77,12 +77,6 @@ public class UserController {
         return ResponseEntity.ok(userService.getUsersWithRole(List.of(role)));
     }
 
-    @GetMapping("/with-dao-pagination")
-    public ResponseEntity<?> getUsersWithDaoPagination(
-            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
-        return ResponseEntity.ok(userService.findAllWithDaoPagination(pageNumber, pageSize));
-    }
 
     @GetMapping("/by-hql/{userId}")
     public ResponseEntity<?> getUserByHql(@PathVariable(name = "userId") long id) {

@@ -53,18 +53,18 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private final ObjectMapper mapper = new ObjectMapper();
-    Map<?, ?> map = mapper.readValue(Paths.get("src/main/java/tr/com/obss/spring/json/books.json").toFile(), Map.class);
-    HashMap<String, String> authorsMap = (HashMap<String, String>) map.get("Authors");
-    HashMap<String, String> NamesMap = (HashMap<String, String>) map.get("Name");
-    HashMap<String, String> pageNumMap = (HashMap<String, String>) map.get("pagesNumber");
-    HashMap<String, String> isbnMap = (HashMap<String, String>) map.get("ISBN");
-    HashMap<String, List<String>> genreMap = (HashMap<String, List<String>>) map.get("genre");
-    HashMap<String, String> ratingMap = (HashMap<String, String>) map.get("Rating");
+    final Map<?, ?> map = mapper.readValue(Paths.get("src/main/java/tr/com/obss/spring/json/books.json").toFile(), Map.class);
+    final HashMap<String, String> authorsMap = (HashMap<String, String>) map.get("Authors");
+    final HashMap<String, String> NamesMap = (HashMap<String, String>) map.get("Name");
+    final HashMap<String, String> pageNumMap = (HashMap<String, String>) map.get("pagesNumber");
+    final HashMap<String, String> isbnMap = (HashMap<String, String>) map.get("ISBN");
+    final HashMap<String, List<String>> genreMap = (HashMap<String, List<String>>) map.get("genre");
+    final HashMap<String, String> ratingMap = (HashMap<String, String>) map.get("Rating");
 
-    List<String> authors = authorsMap.values().stream().distinct().toList();
+    final List<String> authors = authorsMap.values().stream().distinct().toList();
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         var userRoleExist = roleRepository.existsByName(ROLE_USER);
         if (!userRoleExist) {
             var userRole = new Role();

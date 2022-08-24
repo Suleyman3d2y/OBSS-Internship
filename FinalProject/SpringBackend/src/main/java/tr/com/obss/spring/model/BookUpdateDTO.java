@@ -70,8 +70,8 @@ public class BookUpdateDTO {
         return authorName;
     }
 
-    public void setAuthorName(String authorId) {
-        authorName = authorName;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
 }

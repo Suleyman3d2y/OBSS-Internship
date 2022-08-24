@@ -27,6 +27,9 @@ public class MyUserDetails implements UserDetails {
         return Collections.emptyList();
     }
 
+    public String getCreateDate() {
+        return String.valueOf(user.getCreateDate());
+    }
 
     public String getId() {
         return String.valueOf(user.getId());

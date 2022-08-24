@@ -11,7 +11,6 @@ public class BookDTO {
     @Size(max = 255, min = 1, message = "Please enter a valid name")
     private String name;
 
-    @Size(max = 255, min = 3, message = "Please enter a valid genre")
     private List<String> genre;
 
     @NotBlank

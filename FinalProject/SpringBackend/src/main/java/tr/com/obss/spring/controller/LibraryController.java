@@ -5,16 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tr.com.obss.spring.model.AuthorDTO;
-import tr.com.obss.spring.model.AuthorUpdateDTO;
-import tr.com.obss.spring.model.BookDTO;
-import tr.com.obss.spring.model.BookUpdateDTO;
+import tr.com.obss.spring.model.*;
 import tr.com.obss.spring.service.AuthorService;
 import tr.com.obss.spring.service.BookService;
 import tr.com.obss.spring.service.UserService;
 import javax.validation.Valid;
-import java.util.List;
-
 
 
 @RestController
@@ -73,11 +68,10 @@ public class LibraryController {
         return ResponseEntity.ok(bookService.findByName(name));
     }
 
-    @GetMapping("/books/{rating}/{pageCount}/{genre}")
-    public ResponseEntity<?> getPreferredBooks(@PathVariable(name = "rating") double rating,
-                                               @PathVariable(name = "pageCount") int pageCount,
-                                               @PathVariable(name = "genre") List<String> genre)  {
-        return ResponseEntity.ok(bookService.findPreferredBooks(rating, pageCount, genre));
+    @PostMapping("/search-books")
+    public ResponseEntity<?> getPreferredBooks(@RequestBody SearchBookRequest req)  {
+        return ResponseEntity.ok(bookService.findPreferredBooks(req.getName(), req.getPageCount(),
+                req.getRating(), req.getIsbn(), req.getAuthorName(), req.getGenres()));
     }
 
     @GetMapping("/readlist/{userId}")

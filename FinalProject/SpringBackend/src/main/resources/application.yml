@@ -12,6 +12,14 @@ spring:
     username: postgres
     password: 16798520
     url: jdbc:postgresql://localhost:5432/OBSS
+  mail:
+    username: suleyman.uslu3d2y@gmail.com
+    password: 16798520asd1234
+    port: 587
+    host: "smtp.gmail.com"
+
+
+
 
   jpa:
     hibernate:

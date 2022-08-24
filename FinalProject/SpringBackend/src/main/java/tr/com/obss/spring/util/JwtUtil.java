@@ -26,12 +26,13 @@ public class JwtUtil {
 
     public String extractId(String token) {return (String) extractClaim(token, claims -> claims.get("id"));}
 
+    public String extractCreateDate(String token) {return (String) extractClaim(token, claims -> claims.get("createDate"));}
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        System.out.println("asd");
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -48,6 +49,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id",userDetails.getId());
         claims.put("role",userDetails.getRole());
+        claims.put("createDate",userDetails.getCreateDate());
         return createToken(claims, userDetails.getUsername());
     }
 

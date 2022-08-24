@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name = "books")
 public class Book extends EntityBase {
 
-    @Column(name = "name", length = 255)
+    @Column(name = "name")
     private String name;
 
     @ManyToMany(cascade = CascadeType.MERGE,
@@ -18,10 +18,10 @@ public class Book extends EntityBase {
     inverseJoinColumns = {@JoinColumn(name = "genre_id",referencedColumnName = "id")})
     private Set<Genre> genres;
 
-    @Column(name = "page_count",length = 255)
+    @Column(name = "page_count")
     private int pageCount;
 
-    @Column(name = "rating",length = 255)
+    @Column(name = "rating")
     private double rating;
 
     @Column(name = "isbn",length = 10, unique = true)

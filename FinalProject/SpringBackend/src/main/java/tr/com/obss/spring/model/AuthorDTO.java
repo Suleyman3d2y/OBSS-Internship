@@ -10,7 +10,7 @@ public class AuthorDTO {
     @Size(max = 255, min = 3, message = "Please enter a valid name")
     private String name;
 
-    public AuthorDTO() {};
+    public AuthorDTO() {}
 
 
     public AuthorDTO(String name) {

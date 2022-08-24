@@ -36,8 +36,11 @@ public class BookService {
         book.setPageCount(Integer.parseInt(bookDTO.getPageCount()));
         Set<Genre> bookGenre = new HashSet<>();
         for(String genre: bookDTO.getGenre()) {
-            genre = genre.replace(" ","");
             var varGenre = genreRepository.findByNameLikeIgnoreCase(genre);
+            if(varGenre == null){
+                genre = genre.replace(" ","");
+                varGenre = genreRepository.findByNameLikeIgnoreCase(genre);
+            }
             if(Objects.nonNull(varGenre)){
                 bookGenre.add(varGenre);
             }
@@ -96,6 +99,7 @@ public class BookService {
         return bookRepository.findAll(paged);
     }
 
+
     public List<Book> findTop5ByRating() {
         return bookRepository.getNewTop5Books();
     }
@@ -108,16 +112,15 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public List<Book> findPreferredBooks(double rating, int pageCount, List<String> genres) {
-        Set<Genre> setGenre = new HashSet<>();
-        for(String genre: genres) {
-            var varGenre = genreRepository.findByNameLikeIgnoreCase(genre);
-            if (Objects.nonNull(varGenre)) {
-                setGenre.add(varGenre);
-            }
+    public List<Optional<Book>> findPreferredBooks(String name, int pageCount, double rating, String isbn, String authorName, List<String> genres) {
+
+        var IdList = bookRepository.findAllByNameLikeAndPageCountLessThanEqualAndRatingGreaterThanEqualAndIsbnLikeAndAuthorAndActiveAndGenresIn(
+                name,pageCount,rating,isbn,authorName,true,genres);
+        List<Optional<Book>> books = new ArrayList<>();
+        for (Long id : IdList){
+            books.add(bookRepository.findById(id));
         }
-        var bookList = bookRepository.findAllByGenresInAndRatingGreaterThanEqualAndPageCountLessThanEqualAndActive(setGenre, rating, pageCount, true);
-        return bookList.stream().distinct().toList();
+        return books;
 
     }
 
