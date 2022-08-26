@@ -6,7 +6,11 @@ export default function SignUp(props) {
 
     const url = "http://localhost:8080/api/v1/signup"
     const [visible, setVisible] = useState(false);
-    const [submitText, setSubmitText] = useState("");
+    const [submitText, setSubmitText] = useState({
+        text:"",
+        color:""
+
+    });
     const [loading, setLoading] = useState(false);
     const loginUrl = "http://localhost:8080/api/v1/login"
 
@@ -22,9 +26,7 @@ export default function SignUp(props) {
                     createDate: response.data.createDate
                 });
             })
-            .catch(() => {
-                alert("Wrong username or password")
-            })
+
     }
 
     const formSubmit = (e) => {
@@ -41,7 +43,10 @@ export default function SignUp(props) {
             }
         )
             .then(async () => {
-                setSubmitText("Welcome to BOOKSELF :)")
+                setSubmitText({
+                    text:"Welcome to BOOKSELF :)",
+                    color: "green"
+                })
                 setLoading(true);
                 setTimeout(() => {
                     setLoading(false);
@@ -52,8 +57,11 @@ export default function SignUp(props) {
 
             })
 
-            .catch(() => {
-                setSubmitText("An error occurred please try again.")
+            .catch((error) => {
+                setSubmitText({
+                    text:error.response.data.error,
+                    color:"red"
+                })
             })
 
     }
@@ -118,7 +126,7 @@ export default function SignUp(props) {
                             },
                             ({getFieldValue}) => ({
                                 validator(_, value) {
-                                    if (!value || getFieldValue('newPassword') === value) {
+                                    if (!value || getFieldValue('password') === value) {
                                         return Promise.resolve();
                                     }
 
@@ -141,7 +149,7 @@ export default function SignUp(props) {
                         </Button>
                     </Form.Item>
                 </Form>
-                <p>{submitText}</p>
+                <p style={{color:`${submitText.color}`}}>{submitText.text}</p>
             </Modal>
 
         )

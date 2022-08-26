@@ -23,8 +23,8 @@ export default function Login({setData}, {credentials}) {
                     createDate: response.data.createDate
                 });
             })
-            .catch(() => {
-                alert("Wrong username or password")
+            .catch((error) => {
+                alert(error.response.data.error)
             })
     }
 
