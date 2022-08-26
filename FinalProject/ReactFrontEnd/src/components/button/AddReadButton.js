@@ -22,12 +22,12 @@ const AddReadButton = (props) => {
 
     useEffect(() => {
         getReadList()
-    },[props.refresh])
+    }, [props.refresh])
 
     const OnClick = () => {
 
-        axiosInstance.post(url,null,{
-            withCredentials:true,
+        axiosInstance.post(url, null, {
+            withCredentials: true,
         })
             .then(() => {
                 alert("Book successfully added to Read Table.")
@@ -39,7 +39,7 @@ const AddReadButton = (props) => {
 
     }
 
-    return(
+    return (
 
         <Button type="primary" onClick={OnClick} disabled={disabled}>
             Add to Read List

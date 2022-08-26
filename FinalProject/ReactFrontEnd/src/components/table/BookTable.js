@@ -6,31 +6,13 @@ import {SearchOutlined} from "@ant-design/icons";
 import EditBook from "../modal/EditBook";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
+import GenreUtil from "../../util/genreUtil";
 
 
 const BookTable = (props) => {
 
-    const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
 
-    const genreFilters = genres.map((genre) => {
-        return {text: genre, value: genre}
-    })
-
-    const Filter = (genres,value) => {
-        let contains = false;
-        genres.map((genre) => {
-            if(genre.name.indexOf(value) === 0){
-                return contains = true;
-            }
-            return contains;
-        })
-        return contains;
-    }
+    const {genreFilters,Filter} = GenreUtil();
 
     const columns = [
 
@@ -129,7 +111,7 @@ const BookTable = (props) => {
             key: 'action',
             render: (_, record) => (
                 <Space direction="vertical" size="small" >
-                    <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
+                    <EditBook id={record.id} name={record.name} genre={record.genres} pageCount={record.pageCount}
                               rating={record.rating} authorName={record.author.name} update={props.update} refresh={props.refresh} />
 
                     <AddFavButton bookId={record.id} update={props.update} refresh={props.refresh} />

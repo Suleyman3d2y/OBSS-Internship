@@ -105,6 +105,7 @@ const AuthorTable = (props) => {
             handleTableChange = {handleTableChange}
             name = {"Author Table"}
             update={props.update}
+
         />
     );
 

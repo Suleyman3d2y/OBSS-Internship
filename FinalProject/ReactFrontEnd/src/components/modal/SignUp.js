@@ -28,7 +28,6 @@ export default function SignUp(props) {
     }
 
     const formSubmit = (e) => {
-        const confirmPassword = e.confirmPassword;
         let data = {
             username: "",
             password: "",
@@ -37,41 +36,25 @@ export default function SignUp(props) {
         data.username = e.username
         data.password = e.password
 
-        if (confirmPassword === data.password) {
-            axios.post(url, data, {
-                    withCredentials: true,
-                }
-            )
-                .then(async () => {
-                    setSubmitText("Welcome to BOOKSELF :)")
-                    setLoading(true);
-                    setTimeout(() => {
-                        setLoading(false);
-                        setVisible(false);
-                        loginUser({username:data.username,password:data.password});
-                    }, 2000)
+        axios.post(url, data, {
+                withCredentials: true,
+            }
+        )
+            .then(async () => {
+                setSubmitText("Welcome to BOOKSELF :)")
+                setLoading(true);
+                setTimeout(() => {
+                    setLoading(false);
+                    setVisible(false);
+                    loginUser({username: data.username, password: data.password});
+                }, 3000)
 
 
-                })
+            })
 
-                .catch((err) => {
-                    if (err.response.status === 401) {
-                        setSubmitText(
-                            "You are unauthorized. If you are an admin please log in with admin account."
-                        )
-
-                    } else if (err.response.status === 500 && err.response.data.error === "Access is denied") {
-                        setSubmitText("User adding is only for admins. If you are an admin please log in with admin account.")
-
-                    } else {
-                        setSubmitText("User can not be added right now please try again.")
-
-                    }
-                })
-        } else {
-            setSubmitText("Password did not match")
-        }
-
+            .catch(() => {
+                setSubmitText("An error occurred please try again.")
+            })
 
     }
 
@@ -118,7 +101,7 @@ export default function SignUp(props) {
                         name="password"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid password!'
+                            message: 'Please input password!'
                         }]}
                     >
                         <Input.Password/>
@@ -128,10 +111,21 @@ export default function SignUp(props) {
                         id="confirmPassword"
                         label="Confirm Password"
                         name="confirmPassword"
-                        rules={[{
-                            required: true,
-                            message: 'Please input a valid password!'
-                        }]}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({getFieldValue}) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('newPassword') === value) {
+                                        return Promise.resolve();
+                                    }
+
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
                     >
                         <Input.Password/>
                     </Form.Item>

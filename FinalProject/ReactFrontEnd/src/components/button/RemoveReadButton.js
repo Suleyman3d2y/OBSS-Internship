@@ -1,5 +1,6 @@
-import {Button} from "antd";
+import {Button, Popconfirm} from "antd";
 import axiosInstance from "../../util/axiosInstance";
+import React from "react";
 
 const RemoveReadButton = (props) => {
 
@@ -7,8 +8,8 @@ const RemoveReadButton = (props) => {
 
     const OnClick = () => {
 
-        axiosInstance.delete(url,{
-            withCredentials:true,
+        axiosInstance.delete(url, {
+            withCredentials: true,
         })
             .then(() => {
                 alert("Book succesfully removed from Favorite List")
@@ -21,11 +22,13 @@ const RemoveReadButton = (props) => {
     }
 
 
-    return(
+    return (
 
-        <Button type="primary" onClick={OnClick}>
-            Remove
-        </Button>
+        <Popconfirm title={"Sure to remove?"} onConfirm={OnClick}>
+            <Button type="primary">
+                Remove
+            </Button>
+        </Popconfirm>
 
     )
 

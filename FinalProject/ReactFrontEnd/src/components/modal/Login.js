@@ -6,11 +6,10 @@ import ForgotPassword from "./ForgotPassword";
 const loginUrl = "http://localhost:8080/api/v1/login"
 
 
-
-export default function Login({setData},{credentials}) {
+export default function Login({setData}, {credentials}) {
 
     const [visible, setVisible] = useState(false);
-    const [forgotPasswordVisible,setForgotPasswordVisible] = useState(false)
+    const [forgotPasswordVisible, setForgotPasswordVisible] = useState(false)
 
     async function loginUser(credentials) {
         return axios.post(loginUrl, credentials, {withCredentials: true}
@@ -31,10 +30,10 @@ export default function Login({setData},{credentials}) {
 
     const formSubmit = async e => {
         let loginCredentials
-        credentials ? loginCredentials = credentials  : loginCredentials = {
-                                                                            username: e.username,
-                                                                            password: e.password
-                                                                                                    }
+        credentials ? loginCredentials = credentials : loginCredentials = {
+            username: e.username,
+            password: e.password
+        }
         await loginUser(loginCredentials);
 
     }
@@ -52,47 +51,50 @@ export default function Login({setData},{credentials}) {
                     </Button>,
                 ]}
             >
-                    <Form
-                        layout="horizontal"
-                        title="Log In"
-                        name="Login"
-                        className="login-form"
-                        labelCol={{span: 8}}
-                        wrapperCol={{span: 16}}
-                        initialValues={{remember: true}}
-                        onFinish={formSubmit}
-                        autoComplete="off"
+                <Form
+                    layout="horizontal"
+                    title="Log In"
+                    name="Login"
+                    className="login-form"
+                    labelCol={{span: 8}}
+                    wrapperCol={{span: 16}}
+                    initialValues={{remember: true}}
+                    onFinish={formSubmit}
+                    autoComplete="off"
 
+                >
+                    <Form.Item
+                        id="username"
+                        label="Username"
+                        name="username"
+                        rules={[{
+                            required: true,
+                            message: 'Please input your username!'
+                        }]}
                     >
-                        <Form.Item
-                            id="username"
-                            label="Username"
-                            name="username"
-                            rules={[{
-                                required: true,
-                                message: 'Please input your username!'
-                            }]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            id="password"
-                            label="Password"
-                            name="password"
-                            rules={[{
-                                required: true,
-                                message: 'Please input your password!'
-                            }]}
-                        >
-                            <Input.Password/>
-                        </Form.Item>
-                        <Form.Item wrapperCol={{offset: 8, span: 16}}>
-                            <Button type="primary" htmlType="submit">
-                                Login
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                    <ForgotPassword visible={forgotPasswordVisible} setVisible={setForgotPasswordVisible}/>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        id="password"
+                        label="Password"
+                        name="password"
+                        rules={[{
+                            required: true,
+                            message: 'Please input your password!'
+                        }]}
+                    >
+                        <Input.Password/>
+                    </Form.Item>
+                    <Form.Item>
+                        <ForgotPassword visible={forgotPasswordVisible} setVisible={setForgotPasswordVisible} />
+                    </Form.Item>
+                    <Form.Item wrapperCol={{offset: 8, span: 16}}>
+                        <Button type="primary" htmlType="submit">
+                            Login
+                        </Button>
+                    </Form.Item>
+                </Form>
+
             </Modal>
 
         )
@@ -103,7 +105,7 @@ export default function Login({setData},{credentials}) {
     return (
         <div align="left">
             <Space>
-                <Button type="primary" shape="round" style={{width:200}} onClick={() => setVisible(true)}>
+                <Button type="primary" shape="round" style={{width: 200}} onClick={() => setVisible(true)}>
                     Log In
                 </Button>
                 <CreateModal/>

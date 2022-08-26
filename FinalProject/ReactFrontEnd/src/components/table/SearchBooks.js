@@ -2,34 +2,14 @@ import {Button, Form, Input, Modal, Select, Space, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons"
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axiosInstance from "../../util/axiosInstance";
-import {Option} from "antd/es/mentions";
 
-const PreferForm = (props) => {
+import GenreUtil from "../../util/genreUtil";
 
-    const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
+const SearchBooks = (props) => {
 
-    const genreFilters = genres.map((genre) => {
-        return {text: genre, value: genre}
-    })
-
-    const Filter = (genres,value) => {
-        let contains = false;
-        genres.map((genre) => {
-            if(genre.name.indexOf(value) === 0){
-                return contains = true;
-            }
-            return contains;
-        })
-        return contains;
-    }
-
+    const {genreOptions,genreFilters,Filter} = GenreUtil();
     const columns = [
 
         {
@@ -142,25 +122,6 @@ const PreferForm = (props) => {
     const [data,setData] = useState();
     const [showTable,setShowTable] = useState(false);
     const [loading,setLoading] = useState(false)
-    const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
-    const [genreOptions, setGenreOptions] = useState([]);
-
-    const getGenreOptions = () => {
-        const options = [];
-        genre.forEach((genre) => {
-            options.push(<Option key={genre}>{genre}</Option>)
-        })
-        setGenreOptions(options);
-    }
-
-    useEffect(() => {
-        getGenreOptions()
-    },[])
 
     const CreateTable = (props) => {
         if(props.show) {
@@ -197,23 +158,9 @@ const PreferForm = (props) => {
         setVisible(true);
         setLoading(true);
 
-        let requestBody = {
-            name:"",
-            pageCount:10000,
-            rating:0,
-            isbn:"",
-            authorName:"",
-            genres: genre
-        }
-        console.log(e)
-        requestBody.name = (e.name !== undefined ? requestBody.name = e.name :"")
-        requestBody.pageCount = (e.pageCount !== undefined ? requestBody.pageCount = e.pageCount :10000)
-        requestBody.rating = (e.rating !== undefined ? requestBody.rating = e.rating :0)
-        requestBody.isbn = (e.isbn !== undefined ? requestBody.isbn = e.isbn :"")
-        requestBody.authorName = (e.authorName !== undefined ? requestBody.authorName = e.authorName :"")
-        requestBody.genres = (e.genres !== undefined ? requestBody.genres = e.genres :genre)
-
+        const requestBody = e;
         console.log(requestBody)
+
 
         axiosInstance.post(`http://localhost:8080/api/v1/library/search-books`, requestBody, {
             withCredentials:true,
@@ -222,6 +169,8 @@ const PreferForm = (props) => {
                     setData(response.data);
                     setLoading(false);
             })
+            .catch(() => alert("An error occurred please try again."))
+
 
 
     }
@@ -243,6 +192,10 @@ const PreferForm = (props) => {
                         id="name"
                         label="Book Name"
                         name="name"
+                        rules={[{
+                            message: 'Please input a valid number!',
+                            pattern: new RegExp('^[a-zA-Züğöçı0-9 ]*$')
+                        }]}
                     >
                         <Input/>
                     </Form.Item>
@@ -251,6 +204,10 @@ const PreferForm = (props) => {
                         id="pageCount"
                         label="Max Page Number"
                         name="pageCount"
+                        rules={[{
+                            message: 'Please input a valid number!',
+                            pattern: new RegExp('^[1-9]+[0-9]*$')
+                        }]}
                     >
                         <Input/>
                     </Form.Item>
@@ -259,14 +216,23 @@ const PreferForm = (props) => {
                         id="rating"
                         label="Min Rating"
                         name="rating"
+                        rules={[{
+                            message: 'Please input a valid rating!',
+                            pattern: new RegExp('^[0-9](\\.[0-9])?$')
+                        }]}
                     >
                         <Input/>
                     </Form.Item>
 
                     <Form.Item
                         id="isbn"
-                        label="ISBN"
+                        label="ISBN-10"
                         name="isbn"
+                        rules={[{
+                            message: 'Please input a valid ISBN!',
+                            pattern: new RegExp('^[0-9]{10}$')
+
+                        }]}
                     >
                         <Input/>
                     </Form.Item>
@@ -275,6 +241,11 @@ const PreferForm = (props) => {
                         id="authorName"
                         label="Author Name"
                         name="authorName"
+                        rules={[{
+                            message: 'Please input a valid name!',
+                            pattern: new RegExp('^[a-zA-Züğöçı ]*$')
+
+                        }]}
                     >
                         <Input/>
                     </Form.Item>
@@ -309,5 +280,5 @@ const PreferForm = (props) => {
     );
 }
 
-export default PreferForm;
+export default SearchBooks;
 

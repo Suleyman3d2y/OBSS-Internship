@@ -3,34 +3,14 @@ import {SearchOutlined} from "@ant-design/icons"
 import EditBook from "../modal/EditBook";
 import AddFavButton from "../button/AddFavButton";
 import AddReadButton from "../button/AddReadButton";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axiosInstance from "../../util/axiosInstance";
-
+import GenreUtil from "../../util/genreUtil";
 
 const AuthorBooks = (props) => {
 
-    const genres = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
 
-    const genreFilters = genres.map((genre) => {
-        return {text: genre, value: genre}
-    })
-
-    const Filter = (genres,value) => {
-        let contains = false;
-        genres.map((genre) => {
-            if(genre.name.indexOf(value) === 0){
-                return contains = true;
-            }
-            return contains;
-        })
-        return contains;
-    }
-
+    const {genreFilters,Filter} = GenreUtil();
 
     const columns = [
 
@@ -150,73 +130,63 @@ const AuthorBooks = (props) => {
     const [visible, setVisible] = useState(false)
     const [loading,setLoading] = useState(false)
     const [data, setData] = useState();
-    //TODO add pagination
-    const [pagination, setPagination] = useState({
-        current: 1,
-        pageSize: 10
-    })
-
+    const [showTable,setShowTable] = useState(false)
 
     const CreateTable = (props) => {
-        return (
-            <Modal
-                width={1500}
-                title="Author Books"
-                visible={visible}
-                onCancel={() => setVisible(false)}
-                onOk={() => setVisible(false)}
-                footer={[
-                    <Button key="back" onClick={() => setVisible(false)}>
-                        Cancel
-                    </Button>,
-                ]}
-            >
-                <Table
-                    dataSource={props.dataSource}
-                    columns={columns}
-                    loading={loading}
-                    onChange={handleTableChange}
-                />
+        if(props.show) {
+            return (
+                <Modal
+                    width={1500}
+                    title="Author Books"
+                    visible={visible}
+                    onCancel={() => setVisible(false)}
+                    onOk={() => setVisible(false)}
+                    footer={[
+                        <Button key="back" onClick={() => setVisible(false)}>
+                            Cancel
+                        </Button>,
+                    ]}
+                >
+                    <Table
+                        dataSource={props.dataSource}
+                        columns={columns}
+                        loading={loading}
+                        rowKey={(record) => record.id}
 
-            </Modal>
-        )
+                    />
+
+                </Modal>
+            )
+        }
 
     }
 
-    const handleTableChange = async (newPagination) => {
-        await getAuthorBooks({
-            pagination: newPagination
-        })
-    }
+    const submit = async () => {
+        setShowTable(true);
+        setVisible(true);
+        setLoading(true);
 
-    const getAuthorBooks = (params = {}) => {
         axiosInstance.get(`http://localhost:8080/api/v1/library/author-books/${props.authorName}`, {
             withCredentials: true,
-            params: params.pagination
 
         })
             .then((response) => {
-                setData(response.data.content);
-                setPagination({
-                    ...params.pagination,
-                    total: pagination.pageSize * data.totalPages
-                })
+                setData(response.data);
+                setLoading(false)
             })
+            .catch(() => alert("An error occurred please try again."))
+
+
     }
 
-    useEffect(() => {
-        getAuthorBooks({
-            pagination:pagination
-        })
-    },[props.refresh])
 
     return (
         <div align="left">
             <Space>
-                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} onClick={() => setVisible(true)}>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined/>} onClick={submit}>
                     See Books
                 </Button>
-                <CreateTable dataSource={data}/>
+                <CreateTable dataSource={data} show={showTable}/>
             </Space>
         </div>
     );

@@ -9,27 +9,22 @@ const ResetPassword = () => {
     const navigate = useNavigate();
 
     const submit = (e) => {
-        const confirmPassword = e.confirmPassword
+
         const data = {
             password: e.password
         }
-        if(data.password === confirmPassword) {
-            axios.put(`http://localhost:8080/api/v1/reset-password/${searchParams.get("id")}`,data)
+            axios.put(`http://localhost:8080/api/v1/reset-password/${searchParams.get("token")}`, data)
                 .then(() => {
-                    alert("Password succesfully changed.")
+                    alert("Password successfully changed.")
                     navigate("/")
                 })
-                .catch((error) => {
-                    alert(error)
+                .catch(() => {
+                    alert("An error ocurred please try again.")
                 })
-        }
-        else {
-            alert("Passwords did not matched.")
-        }
 
     }
 
-    return(
+    return (
         <div align="center">
             <Space>
                 <Form
@@ -47,7 +42,7 @@ const ResetPassword = () => {
                         name="password"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid password!'
+                            message: 'Please input password!'
                         }]}
                     >
                         <Input.Password/>
@@ -56,10 +51,21 @@ const ResetPassword = () => {
                         id="confirmPassword"
                         label="Confirm Password"
                         name="confirmPassword"
-                        rules={[{
-                            required: true,
-                            message: 'Please input a valid password!'
-                        }]}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({getFieldValue}) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
                     >
                         <Input.Password/>
                     </Form.Item>
@@ -77,7 +83,6 @@ const ResetPassword = () => {
                 </Form>
             </Space>
         </div>
-
 
 
     )

@@ -60,11 +60,11 @@ class BookService {
     };
 
     fetchFavListData = async (params) => {
-        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/favlist/${sessionStorage.getItem("id")}`,{
-            withCredentials : true,
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/favlist/${sessionStorage.getItem("id")}`, {
+            withCredentials: true,
             params: {
                 pageSize: params.pagination.pageSize,
-                pageNumber: params.pagination.current-1,
+                pageNumber: params.pagination.current - 1,
             }
         })
 
@@ -76,8 +76,8 @@ class BookService {
     };
 
     fetchAllFavList = async () => {
-        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/favlist-all/${sessionStorage.getItem("id")}`,{
-            withCredentials : true,
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/favlist-all/${sessionStorage.getItem("id")}`, {
+            withCredentials: true,
 
         })
 
@@ -89,11 +89,11 @@ class BookService {
     };
 
     fetchReadListData = async (params) => {
-        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist/${sessionStorage.getItem("id")}`,{
-            withCredentials : true,
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist/${sessionStorage.getItem("id")}`, {
+            withCredentials: true,
             params: {
                 pageSize: params.pagination.pageSize,
-                pageNumber: params.pagination.current-1,
+                pageNumber: params.pagination.current - 1,
             }
         })
 
@@ -105,8 +105,8 @@ class BookService {
     };
 
     fetchAllReadList = async () => {
-        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist-all/${sessionStorage.getItem("id")}`,{
-            withCredentials : true,
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/readlist-all/${sessionStorage.getItem("id")}`, {
+            withCredentials: true,
 
         })
 
@@ -119,8 +119,8 @@ class BookService {
 
     fetchTop5Data = async () => {
 
-        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/books/top5`,{
-            withCredentials : true
+        const response = await axiosInstance.get(`http://localhost:8080/api/v1/library/books/top5`, {
+            withCredentials: true
         })
 
         if (!response) {

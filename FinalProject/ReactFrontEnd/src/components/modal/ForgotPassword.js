@@ -5,17 +5,16 @@ import axios from "axios";
 const ForgotPassword = (props) => {
 
 
-
     const sendEmail = (e) => {
 
-        axios.post(`http://localhost:8080/api/v1/forgot-password/${e.email}`,null)
+        axios.post(`http://localhost:8080/api/v1/forgot-password/${e.email}`, null)
             .then((response) => alert(response.data))
-            .catch((error) => alert(error.data))
+            .catch(() => alert("An error ocurred please try again later."))
 
     }
 
     const ShowModal = () => {
-        return(
+        return (
             <Modal
                 title="Forgot Password"
                 visible={props.visible}
@@ -29,7 +28,8 @@ const ForgotPassword = (props) => {
             >
                 <div align="left">
                     <Space direction="vertical" align="left">
-                        <h4>Tell us the email you used in your username, and we'll send you an email with a link to reset your password.</h4>
+                        <h4>Tell us the email you used in your username, and we'll send you an email with a link to
+                            reset your password.</h4>
                         <Form
                             name="Forgot Password"
                             className="forgot-password"
@@ -46,7 +46,7 @@ const ForgotPassword = (props) => {
                                 rules={[{
                                     required: true,
                                     message: 'Please input a valid email!',
-                                    type:"email"
+                                    type: "email"
                                 }]}
                             >
                                 <Input/>
@@ -66,13 +66,13 @@ const ForgotPassword = (props) => {
         )
     }
 
-    return(
+    return (
 
         <Space>
             <Button type="link" htmlType="submit" onClick={() => props.setVisible(true)}>
                 Forgot Password?
             </Button>
-            <ShowModal />
+            <ShowModal/>
         </Space>
 
 

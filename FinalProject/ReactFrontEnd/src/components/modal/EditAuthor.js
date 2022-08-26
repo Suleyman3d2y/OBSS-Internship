@@ -15,10 +15,9 @@ const EditAuthorModal = (props) => {
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        if(sessionStorage.getItem("role") === "ADMIN") {
+        if (sessionStorage.getItem("role") === "ADMIN") {
             setVisible(true);
-        }
-        else {
+        } else {
             alert("Author editing is only for admins")
         }
     };
@@ -27,7 +26,7 @@ const EditAuthorModal = (props) => {
         data.name = e.name;
 
         axiosInstance.put(updateUrl, data, {
-                withCredentials:true,
+                withCredentials: true,
             }
         )
             .then(() => {
@@ -123,7 +122,8 @@ const EditAuthorModal = (props) => {
                         name="name"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid name!'
+                            message: 'Please input a valid name!',
+                            pattern: new RegExp('^[a-zA-Züğöçı ]*$')
                         }]}
                     >
                         <Input/>

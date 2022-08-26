@@ -13,10 +13,9 @@ const AddUser = (props) => {
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        if(sessionStorage.getItem("role") === "ADMIN") {
+        if (sessionStorage.getItem("role") === "ADMIN") {
             setVisible(true);
-        }
-        else {
+        } else {
             alert("User adding is only for admins")
         }
     };
@@ -34,7 +33,7 @@ const AddUser = (props) => {
 
 
         axiosInstance.post(url, data, {
-                withCredentials:true,
+                withCredentials: true,
             }
         )
             .then(() => {
@@ -97,7 +96,7 @@ const AddUser = (props) => {
                         name="username"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid name!(Must be email)',
+                            message: 'Please input name!(Must be email)',
                             type: "email"
                         }]}
                     >
@@ -110,24 +109,50 @@ const AddUser = (props) => {
                         name="password"
                         rules={[{
                             required: true,
-                            message: 'Please input a valid password!'
+                            message: 'Please input user password!'
                         }]}
                     >
                         <Input.Password/>
+
                     </Form.Item>
+
+                    <Form.Item
+                        id="confirmPassword"
+                        label="Confirm Password"
+                        name="confirmPassword"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({getFieldValue}) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password/>
+
+                    </Form.Item>
+
                     <Form.Item
                         id="role"
                         label="Role"
                         name="role"
                         rules={[{
                             required: true,
-                            message: 'Please input user role! (Admin or User)',
+                            message: 'Please select a user role!',
                         }]}
                     >
                         <Select
                             placeholder="Select a role for the user."
                             allowClear
-                            >
+                        >
                             <Option value="Admin">Admin</Option>
                             <Option value="User">User</Option>
                         </Select>

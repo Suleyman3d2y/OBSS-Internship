@@ -59,7 +59,8 @@ export default function Login({setData}) {
                         name="username"
                         rules={[{
                             required: true,
-                            message: 'Please input your username!'
+                            message: 'Please input your username!(Must be email)',
+                            type: "email"
                         }]}
                     >
                         <Input/>
@@ -81,7 +82,7 @@ export default function Login({setData}) {
                         </Button>
                     </Form.Item>
                 </Form>
-                <ForgotPassword visible = {visible} setVisible = {setVisible} />
+                <ForgotPassword visible={visible} setVisible={setVisible}/>
             </Space>
         </div>
     );

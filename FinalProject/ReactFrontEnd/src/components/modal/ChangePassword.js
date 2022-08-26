@@ -5,37 +5,30 @@ import axiosInstance from "../../util/axiosInstance";
 const ChangePassword = (props) => {
 
 
-
     function submit(e) {
-        const confirmPassword = e.confirmPassword
         const data = {
-            username:sessionStorage.getItem("username"),
+            username: sessionStorage.getItem("username"),
             currentPassword: e.currentPassword,
             newPassword: e.newPassword
         }
-        console.log(confirmPassword === data.newPassword)
 
-        if(confirmPassword === data.newPassword) {
-            axiosInstance.put("http://localhost:8080/api/v1/change-password", data, {
-                    withCredentials:true,
-                }
-            )
-                .then(() => {
-                    alert("Password is changed.")
-                    props.setVisible(false);
-                })
-                .catch(() => {
-                    alert("Password cannot be changed right now.")
-                })
-        }
-        else {
-            alert("Passwords did not match.")
-        }
+        axiosInstance.put("http://localhost:8080/api/v1/change-password", data, {
+                withCredentials: true,
+            }
+        )
+            .then(() => {
+                alert("Password is changed.")
+                props.setVisible(false);
+            })
+            .catch(() => {
+                alert("Password cannot be changed right now.")
+            })
+
 
     }
 
 
-    return(
+    return (
         <Modal
             title="Change Password"
             visible={props.visible}
@@ -62,7 +55,7 @@ const ChangePassword = (props) => {
                     name="currentPassword"
                     rules={[{
                         required: true,
-                        message: 'Please input a valid password!'
+                        message: 'Please input your password!'
                     }]}
                 >
                     <Input.Password/>
@@ -74,7 +67,7 @@ const ChangePassword = (props) => {
                     name="newPassword"
                     rules={[{
                         required: true,
-                        message: 'Please input a valid password!'
+                        message: 'Please input your password!'
                     }]}
                 >
                     <Input.Password/>
@@ -84,10 +77,21 @@ const ChangePassword = (props) => {
                     id="confirmPassword"
                     label="Confirm Password"
                     name="confirmPassword"
-                    rules={[{
-                        required: true,
-                        message: 'Please input a valid password!'
-                    }]}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please confirm your password!',
+                        },
+                        ({getFieldValue}) => ({
+                            validator(_, value) {
+                                if (!value || getFieldValue('newPassword') === value) {
+                                    return Promise.resolve();
+                                }
+
+                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                            },
+                        }),
+                    ]}
                 >
                     <Input.Password/>
                 </Form.Item>

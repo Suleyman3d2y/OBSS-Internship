@@ -10,10 +10,9 @@ const AddAuthorModal = (props) => {
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        if(sessionStorage.getItem("role") === "ADMIN") {
+        if (sessionStorage.getItem("role") === "ADMIN") {
             setVisible(true);
-        }
-        else {
+        } else {
             alert("Author adding is only for admins")
         }
     };
@@ -25,7 +24,7 @@ const AddAuthorModal = (props) => {
 
         data.name = e.name
         axiosInstance.post(url, data, {
-                withCredentials:true,
+                withCredentials: true,
             }
         )
             .then(() => {
@@ -88,6 +87,7 @@ const AddAuthorModal = (props) => {
                         rules={[{
                             required: true,
                             message: 'Please input a valid name!',
+                            pattern: new RegExp('^[a-zA-Züğöçı ]*$')
                         }]}
                     >
                         <Input/>

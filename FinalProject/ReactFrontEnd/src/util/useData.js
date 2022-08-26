@@ -11,14 +11,14 @@ export default function useData() {
             createDate: sessionStorage.getItem("createDate")
         }
     }
-    const [data,setData] = useState(getData());
+    const [data, setData] = useState(getData());
 
     const saveData = (responseData) => {
-        sessionStorage.setItem("jwt",responseData.jwt)
-        sessionStorage.setItem("id",responseData.id)
-        sessionStorage.setItem("role",responseData.role)
-        sessionStorage.setItem("username",responseData.username)
-        sessionStorage.setItem("createDate",responseData.createDate)
+        sessionStorage.setItem("jwt", responseData.jwt)
+        sessionStorage.setItem("id", responseData.id)
+        sessionStorage.setItem("role", responseData.role)
+        sessionStorage.setItem("username", responseData.username)
+        sessionStorage.setItem("createDate", responseData.createDate)
         setData(responseData)
     }
 

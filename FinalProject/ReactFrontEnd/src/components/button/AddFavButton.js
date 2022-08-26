@@ -21,8 +21,7 @@ const AddFavButton = (props) => {
 
     useEffect(() => {
         getFavList()
-    },[props.refresh])
-
+    }, [props.refresh])
 
 
     const OnClick = () => {
@@ -39,7 +38,6 @@ const AddFavButton = (props) => {
             })
 
     }
-
 
 
     return (

@@ -9,7 +9,7 @@ const AvatarMenu = (props) => {
         <Space direction="vertical" size="medium">
             <h4>Username: {sessionStorage.getItem("username")}</h4>
             <h4>Role: {sessionStorage.getItem("role")}</h4>
-            <h4>Created at: {sessionStorage.getItem("createDate").slice(0,16)}</h4>
+            <h4>Created at: {sessionStorage.getItem("createDate").slice(0, 16)}</h4>
             <Button type="text" onClick={() => props.setVisible(true)}>
                 Change Password
             </Button>

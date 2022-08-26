@@ -1,6 +1,6 @@
 import {List} from 'antd';
 import React from 'react';
-import BookService from "../service/BookService";
+import BookService from "../../service/BookService";
 
 
 const bookservice = new BookService();

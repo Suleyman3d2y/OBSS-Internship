@@ -1,64 +1,32 @@
 import {Button, Form, Input, Modal, Popconfirm, Select} from 'antd';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axiosInstance from "../../util/axiosInstance";
-import BookService from "../../service/BookService";
+import AuthorUtil from "../../util/authorUtil";
+import GenreUtil from "../../util/genreUtil";
 import {Option} from "antd/es/mentions";
-
 
 
 const EditBook = (props) => {
     const updateUrl = `http://localhost:8080/api/v1/library/book/update/${props.id}`
     const removeUrl = `http://localhost:8080/api/v1/library/book/remove/${props.id}`
-    const [authorOptions, setAuthorOptions] = useState([]);
-    const genre = ["Art", "Biography", "Business", "Chick Lit", "Children's", "Christian", "Classics",
-        "Comics", "Contemporary", "Cookbooks", "Crime", "Ebooks", "Fantasy", "Fiction",
-        "Gay and Lesbian", "Graphic Novels", "Historical Fiction", "History", "Horror",
-        "Humor and Comedy", "Manga", "Memoir", "Music", "Mystery", "Nonfiction", "Paranormal",
-        "Philosophy", "Poetry", "Psychology", "Religion", "Romance", "Science", "Science Fiction",
-        "Self Help", "Suspense", "Spirituality", "Sports", "Thriller", "Travel", "Young Adult"]
-    const [genreOptions,setGenreOptions] = useState([]);
-    const bookService = new BookService();
-
-    const getGenreOptions = () => {
-        const options = [];
-        genre.forEach((genre) => {
-            options.push(<Option key={genre}>{genre}</Option>)
-        })
-        setGenreOptions(options);
-    }
-
-    const getAllAuthorData = async () => {
-        const authorData = await bookService.fetchAllAuthorData()
-        const options = [];
-        authorData.forEach((author) => {
-            options.push(<Option key = {author.name}>{author.name}</Option>)
-        })
-        setAuthorOptions(options);
-
-    }
-
-    useEffect(() => {
-        getAllAuthorData()
-        getGenreOptions()
-    },[props.refresh])
-
+    const {authorOptions} = AuthorUtil();
+    const {genreOptions} = GenreUtil();
 
     let data = {
         name: "",
-        genre:"",
-        pageCount:"",
+        genre: "",
+        pageCount: "",
         rating: "",
-        authorName:""
+        authorName: ""
     }
 
     const [visible, setVisible] = useState(false);
     const [submitText, setSubmitText] = useState("");
     const [loading, setLoading] = useState(false);
     const showModal = () => {
-        if(sessionStorage.getItem("role") === "ADMIN") {
+        if (sessionStorage.getItem("role") === "ADMIN") {
             setVisible(true);
-        }
-        else {
+        } else {
             alert("Book editing is only for admins")
         }
     };
@@ -97,7 +65,7 @@ const EditBook = (props) => {
 
     function removeBook() {
         axiosInstance.delete(removeUrl, {
-                withCredentials:true,
+                withCredentials: true,
 
             }
         )
@@ -127,7 +95,6 @@ const EditBook = (props) => {
                 }
             })
     }
-
 
     return (
         <>
@@ -168,7 +135,8 @@ const EditBook = (props) => {
                         initialValue={props.name}
                         rules={[{
                             required: true,
-                            message: 'Please input a valid book name!'
+                            message: 'Please input a valid name!',
+                            pattern: new RegExp('^[a-zA-Züğöçı0-9 ]*$')
                         }]}
                     >
                         <Input/>
@@ -177,16 +145,18 @@ const EditBook = (props) => {
                         id="genre"
                         label="New Genre"
                         name="genre"
-                        initialValue={props.genre}
+                        initialValue={props.genre.map((genre) => {
+                            return <Option key={genre.name}>{genre.name}</Option>
+                        })}
                         rules={[{
                             required: true,
-                            message: 'Please input a valid genre!',
+                            message: 'Please select genre!',
                         }]}
                     >
                         <Select
                             showSearch
                             mode="tags"
-                            style={{width:'%100'}}
+                            style={{width: '%100'}}
                             placeholder="Select a genre from list."
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
@@ -202,7 +172,8 @@ const EditBook = (props) => {
                         initialValue={props.pageCount}
                         rules={[{
                             required: true,
-                            message: 'Please input a valid page number!'
+                            message: 'Please input a valid number!',
+                            pattern: new RegExp('^[1-9]+[0-9]*$')
                         }]}
                     >
                         <Input/>
@@ -214,7 +185,8 @@ const EditBook = (props) => {
                         initialValue={props.rating}
                         rules={[{
                             required: true,
-                            message: 'Please input updated book rating!'
+                            message: 'Please input a valid rating!',
+                            pattern: new RegExp('^[0-9](\\.[0-9])?$')
                         }]}
                     >
                         <Input/>
@@ -226,14 +198,14 @@ const EditBook = (props) => {
                         initialValue={props.authorName}
                         rules={[{
                             required: true,
-                            message: 'Please input a valid author name!'
+                            message: 'Please input author name!'
                         }]}
-                        >
+                    >
                         <Select
                             showSearch
                             placeholder="Select an author from list."
                             allowClear
-                    >
+                        >
                             {authorOptions}
                         </Select>
                     </Form.Item>

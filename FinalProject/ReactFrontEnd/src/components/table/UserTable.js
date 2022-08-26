@@ -4,7 +4,6 @@ import {Input} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import UserService from "../../service/UserService";
 
-
 const UserTable = (props) => {
 
     const columns = [
@@ -46,16 +45,8 @@ const UserTable = (props) => {
             dataIndex: "active",
             render: (record) => String(record),
             sorter: (a,b) => a.active - b.active
-        },
-        /*{
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <EditUser id = {record.id} active={String(record.active)} render={useRender}/>
-                </Space>
-            ),
-        },*/
+        }
+
 
     ];
 
