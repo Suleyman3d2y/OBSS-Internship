@@ -51,7 +51,7 @@ public class AuthorService {
         var paged = PageRequest.of(pageNumber, pageSize);
         return authorRepository.findAll(paged);
     }
-    //TODO add pagination to this
+
     public List<Author> findAll() {
         return authorRepository.findAll();
     }

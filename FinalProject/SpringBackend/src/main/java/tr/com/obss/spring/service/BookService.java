@@ -84,21 +84,15 @@ public class BookService {
 
     }
 
-    public Page<Book> findWithAuthor(String authorName,int pageNumber, int pageSize) {
+    public List<Book> findWithAuthor(String authorName) {
         var author = authorRepository.findAuthorByName(authorName);
-        var paged = PageRequest.of(pageNumber, pageSize);
-        return bookRepository.findAllByAuthor(author,paged);
-    }
-
-    public List<Book> findAll() {
-        return bookRepository.findAllByActive(true);
+        return bookRepository.findAllByAuthor(author);
     }
 
     public Page<Book> findAllWithJpaPagination(int pageNumber, int pageSize) {
         var paged = PageRequest.of(pageNumber, pageSize);
         return bookRepository.findAll(paged);
     }
-
 
     public List<Book> findTop5ByRating() {
         return bookRepository.getNewTop5Books();
@@ -110,18 +104,6 @@ public class BookService {
 
     public Book findById(long id) {
         return bookRepository.findById(id);
-    }
-
-    public List<Optional<Book>> findPreferredBooks(String name, int pageCount, double rating, String isbn, String authorName, List<String> genres) {
-
-        var IdList = bookRepository.findAllByNameLikeAndPageCountLessThanEqualAndRatingGreaterThanEqualAndIsbnLikeAndAuthorAndActiveAndGenresIn(
-                name,pageCount,rating,isbn,authorName,true,genres);
-        List<Optional<Book>> books = new ArrayList<>();
-        for (Long id : IdList){
-            books.add(bookRepository.findById(id));
-        }
-        return books;
-
     }
 
     public Page<Book> getFavListWithPagination(long id, int pageNumber, int pageSize) {

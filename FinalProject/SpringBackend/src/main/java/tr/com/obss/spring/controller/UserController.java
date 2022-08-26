@@ -78,17 +78,4 @@ public class UserController {
     }
 
 
-    @GetMapping("/by-hql/{userId}")
-    public ResponseEntity<?> getUserByHql(@PathVariable(name = "userId") long id) {
-        return ResponseEntity.ok(userService.getById(id));
-    }
-
-    @GetMapping("/by-native-sql/{userId}")
-    public ResponseEntity<?> getUserByNativeSql(@PathVariable(name = "userId") long id) {
-        return ResponseEntity.ok(userService.getByIdNative(id));
-    }
-
-
-
-
 }

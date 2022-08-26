@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tr.com.obss.spring.model.*;
+import tr.com.obss.spring.repo.BookDao;
 import tr.com.obss.spring.service.AuthorService;
 import tr.com.obss.spring.service.BookService;
 import tr.com.obss.spring.service.UserService;
@@ -22,19 +23,20 @@ public class LibraryController {
 
     private final UserService userService;
 
+    private final BookDao bookDao;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(LibraryController.class);
 
-    public LibraryController(AuthorService authorService, BookService bookService, UserService userService) {
+    public LibraryController(AuthorService authorService, BookService bookService, UserService userService, BookDao bookDao) {
         this.authorService = authorService;
         this.bookService = bookService;
         this.userService = userService;
+        this.bookDao = bookDao;
     }
 
     @GetMapping("/author-books/{authorName}")
-    public ResponseEntity<?> getAuthorBooks(@PathVariable(name = "authorName") String authorName,
-                                            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-                                            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber) {
-        return ResponseEntity.ok(bookService.findWithAuthor(authorName,pageNumber,pageSize));
+    public ResponseEntity<?> getAuthorBooks(@PathVariable(name = "authorName") String authorName) {
+        return ResponseEntity.ok(bookService.findWithAuthor(authorName));
     }
 
     @GetMapping("/books")
@@ -69,8 +71,8 @@ public class LibraryController {
     }
 
     @PostMapping("/search-books")
-    public ResponseEntity<?> getPreferredBooks(@RequestBody SearchBookRequest req)  {
-        return ResponseEntity.ok(bookService.findPreferredBooks(req.getName(), req.getPageCount(),
+    public ResponseEntity<?> searchBooks(@RequestBody SearchBookRequest req)  {
+        return ResponseEntity.ok(bookDao.getPreferredBooks(req.getName(), req.getPageCount(),
                 req.getRating(), req.getIsbn(), req.getAuthorName(), req.getGenres()));
     }
 
@@ -100,9 +102,6 @@ public class LibraryController {
     public ResponseEntity<?> getFavList(@PathVariable(name = "userId") long id)  {
         return ResponseEntity.ok(bookService.getFavList(id));
     }
-
-
-
 
     @PostMapping("/user/addreadlist/{userId}/{bookId}")
     public ResponseEntity<?> addToReadList(@PathVariable(name = "userId") long userId,

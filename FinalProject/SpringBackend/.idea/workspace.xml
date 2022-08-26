@@ -9,9 +9,6 @@
       <change afterPath="$PROJECT_DIR$/../Spring.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Spring/Week3Spring.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../jsonParse/src/main/java/ParseJson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/package.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/App.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/Sider.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/AvatarMenu.js" beforeDir="false" />
@@ -22,21 +19,27 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/button/RemoveFavButton.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/button/RemoveReadButton.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/form/LoginForm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/form/PreferBook.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AddAuthor.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AddBook.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AddUser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AuthorBooks.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/ChangePassword.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/EditAuthor.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/EditBook.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/EditUser.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/ForgotPassword.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/SignUp.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/Home.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/LoginScreen.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/ResetPassword.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/img/largeLogo-removebg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/img/miniLogo-removebg-preview.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/img/miniLogo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/AuthorBooks.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/AuthorTable.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/BookTable.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/FavTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/PreferBook.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/ReadTable.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/TableComponent.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/UserTable.js" beforeDir="false" />
@@ -45,7 +48,6 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/service/UserService.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/axiosInstance.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/useData.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/useRender.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/compiler.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/dataSources.local.xml" beforeDir="false" />
@@ -246,6 +248,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
@@ -419,7 +422,8 @@
       <workItem from="1661149709708" duration="9456000" />
       <workItem from="1661160266882" duration="9825000" />
       <workItem from="1661241645272" duration="33575000" />
-      <workItem from="1661335054262" duration="5512000" />
+      <workItem from="1661335054262" duration="6370000" />
+      <workItem from="1661420482833" duration="13668000" />
     </task>
     <task id="LOCAL-00001" summary="JIP day 11 (SpringBoot day1)">
       <created>1659362809837</created>
@@ -507,9 +511,14 @@
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/LibraryController.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="66" />
+          <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/BookDao.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/AuthController.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

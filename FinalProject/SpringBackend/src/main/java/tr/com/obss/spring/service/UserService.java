@@ -32,10 +32,6 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
 
     public List<User> getUsersWithRole(List<String> roles) {
         return userRepository.findByRoles_NameIn(roles);
@@ -49,20 +45,6 @@ public class UserService implements UserDetailsService {
 
     public User findById(long id) {
         var userOpt = userRepository.findById(id);
-        return userOpt.orElseThrow(() -> {
-            throw new IllegalArgumentException("User not found");
-        });
-    }
-
-    public User getById(long id) {
-        var userOpt = userRepository.getById(id);
-        return userOpt.orElseThrow(() -> {
-            throw new IllegalArgumentException("User not found");
-        });
-    }
-
-    public User getByIdNative(long id) {
-        var userOpt = userRepository.getByIdNative(id);
         return userOpt.orElseThrow(() -> {
             throw new IllegalArgumentException("User not found");
         });

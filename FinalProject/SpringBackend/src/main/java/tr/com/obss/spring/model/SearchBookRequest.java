@@ -5,8 +5,8 @@ import java.util.List;
 public class SearchBookRequest {
 
     private String name;
-    private int pageCount;
-    private double rating;
+    private Integer pageCount;
+    private Double rating;
     private String isbn;
     private String authorName;
     private List<String> genres;
@@ -19,19 +19,19 @@ public class SearchBookRequest {
         this.name = name;
     }
 
-    public int getPageCount() {
+    public Integer getPageCount() {
         return pageCount;
     }
 
-    public void setPageCount(int pageCount) {
+    public void setPageCount(Integer pageCount) {
         this.pageCount = pageCount;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

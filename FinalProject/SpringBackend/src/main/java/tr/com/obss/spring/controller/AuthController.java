@@ -2,18 +2,16 @@ package tr.com.obss.spring.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import tr.com.obss.spring.model.*;
+import tr.com.obss.spring.service.EmailService;
 import tr.com.obss.spring.service.UserService;
 import tr.com.obss.spring.util.JwtUtil;
 
 import javax.validation.Valid;
-import java.util.Properties;
 
 @RestController
 public class AuthController {
@@ -24,14 +22,15 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
-    private final JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+    private final EmailService emailService;
 
 
-    public AuthController(AuthenticationManager authenticationManager, UserService userService, JwtUtil jwtUtil) {
+    public AuthController(AuthenticationManager authenticationManager, UserService userService, JwtUtil jwtUtil, EmailService emailService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.jwtUtil = jwtUtil;
 
+        this.emailService = emailService;
     }
 
 
@@ -51,7 +50,7 @@ public class AuthController {
         var username = jwtUtil.extractUsername(jwt);
         var createDate = jwtUtil.extractCreateDate(jwt);
 
-        return ResponseEntity.ok(new AuthResponse(jwt,role,id,username, createDate));
+        return ResponseEntity.ok(new AuthResponse(jwt, role, id, username, createDate));
 
     }
 
@@ -65,44 +64,35 @@ public class AuthController {
         }
         var user = userService.findByUsername(changePasswordRequest.getUsername());
         UserUpdateDTO userUpdateDTO = new UserUpdateDTO(changePasswordRequest.getNewPassword());
-        userService.update(user.getId(),userUpdateDTO);
+        userService.update(user.getId(), userUpdateDTO);
 
         return ResponseEntity.ok("Password changed successfully.");
 
     }
 
-    @PutMapping(value = "/reset-password/{userId}")
-    public ResponseEntity<?> resetPassword(@PathVariable(name = "userId") long id, @Valid @RequestBody UserUpdateDTO userDTO) {
-        return ResponseEntity.ok(userService.update(id,userDTO));
+    @PutMapping(value = "/reset-password/{token}")
+    public ResponseEntity<?> resetPassword(@PathVariable(name = "token") String jwt, @Valid @RequestBody UserUpdateDTO userDTO) {
+        var id = Long.parseLong(jwtUtil.extractId(jwt));
+        return ResponseEntity.ok(userService.update(id, userDTO));
     }
 
-    @PostMapping(value = "/forgot-password/{email}",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-    produces = {MediaType.APPLICATION_ATOM_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> forgotPassword(@PathVariable String email) throws Exception {
-        var user = userService.findByUsername(email);
-        if(user != null) {
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(email);
-            mailMessage.setSubject("BOOKSELF Password Reset!");
-            mailMessage.setFrom("suleyman.uslu3d2y@gmail.com");
-            mailMessage.setText("To complete the password reset process, please click here:"
-                    +"http://localhost:3000/reset-password?id=" + user.getId());
+    @PostMapping(value = "/forgot-password/{email}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> forgotPassword(@PathVariable String email) {
 
-            javaMailSender.setHost("smtp.gmail.com");
-            javaMailSender.setPort(587);
-            javaMailSender.setUsername("suleyman.uslu3d2y@gmail.com");
-            javaMailSender.setPassword("gombcpbjjgsyoptq");
-            Properties properties = javaMailSender.getJavaMailProperties();
-            properties.put("mail.transport.protocol","smtp");
-            properties.put("mail.smtp.auth","true");
-            properties.put("mail.smtp.starttls.enable","true");
-            properties.put("mail.debug","true");
+        try {
+            final MyUserDetails userDetails = userService.loadUserByUsername(email);
+            final String jwt = jwtUtil.generateToken(userDetails);
 
-            javaMailSender.send(mailMessage);
+            String subject = "BOOKSELF Password Reset!";
+            String from = "suleyman.uslu3d2y@gmail.com";
+            String text = "To complete the password reset process, please click here:"
+                    + "http://localhost:3000/reset-password?token=" + jwt;
+            emailService.sendEmail(email, subject, from, text);
+
             return ResponseEntity.ok("Check your inbox for the reset link.");
-        }
-        else {
-            return ResponseEntity.ok("There is no user with given email.");
+        } catch (Exception e) {
+            return ResponseEntity.ok("An error occurred please try again later.");
         }
 
     }

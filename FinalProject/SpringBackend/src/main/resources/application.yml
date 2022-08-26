@@ -17,9 +17,11 @@ spring:
     password: 16798520asd1234
     port: 587
     host: "smtp.gmail.com"
-
-
-
+    properties:
+      mail.transport.protocol : smtp
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.debug: true
 
   jpa:
     hibernate:

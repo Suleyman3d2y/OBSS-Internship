@@ -17,7 +17,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import tr.com.obss.spring.filter.JwtRequestFilter;
 import tr.com.obss.spring.service.UserService;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
