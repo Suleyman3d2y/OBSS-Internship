@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "spring.mail.properties",
+      "type": "tr.com.obss.spring.service.Impl.EmailProps",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.mail.properties.mail-debug",
+      "type": "java.lang.Boolean",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-host",
+      "type": "java.lang.String",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-password",
+      "type": "java.lang.String",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-port",
+      "type": "java.lang.Integer",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-protocol",
+      "type": "java.lang.String",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-smtp-auth",
+      "type": "java.lang.Boolean",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-smtp-starttls-enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    },
+    {
+      "name": "spring.mail.properties.mail-username",
+      "type": "java.lang.String",
+      "sourceType": "tr.com.obss.spring.service.Impl.EmailProps"
+    }
+  ],
+  "hints": []
+}

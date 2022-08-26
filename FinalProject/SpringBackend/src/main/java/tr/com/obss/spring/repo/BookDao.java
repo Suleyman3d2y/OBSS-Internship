@@ -29,7 +29,7 @@ public class BookDao {
         CriteriaQuery<Book> criteriaQuery = criteriaBuilder.createQuery(Book.class);
         Root<Book> book = criteriaQuery.from(Book.class);
         List<Predicate> predicates = new ArrayList<>();
-        if(name != null && !name.equals("")){
+        if(name != null && !name.equals("") && !name.isBlank()){
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(book.get("name")),"%"+name.toLowerCase()+"%"));
         }
         if(pageCount != null) {
@@ -41,7 +41,7 @@ public class BookDao {
         if(isbn != null && !isbn.equals("")){
             predicates.add(criteriaBuilder.equal(book.get("isbn"),isbn));
         }
-        if(authorName != null && !authorName.equals("")){
+        if(authorName != null && !authorName.equals("") && !authorName.isBlank()){
             predicates.add(criteriaBuilder.like(criteriaBuilder.lower(book.join("author").get("name")),"%"+authorName+"%"));
         }
         if(genres != null && genres.size() >= 1){

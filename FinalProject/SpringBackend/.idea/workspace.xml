@@ -10,28 +10,26 @@
       <change afterPath="$PROJECT_DIR$/../Spring/Week3Spring.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../jsonParse/src/main/java/ParseJson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/Sider.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/AvatarMenu.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/Logout.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/Top5List.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/button/AddFavButton.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/button/AddReadButton.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/button/RemoveFavButton.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/button/RemoveReadButton.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/form/LoginForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/form/ResetPassword.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AddAuthor.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AddBook.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/AddUser.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/ChangePassword.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/EditAuthor.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/EditBook.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/EditUser.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/ForgotPassword.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/Login.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/modal/SignUp.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/Home.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/LoginScreen.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/ResetPassword.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/MainPage.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/img/largeLogo-removebg.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/img/miniLogo-removebg-preview.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/page/img/miniLogo.jpg" beforeDir="false" />
@@ -39,14 +37,17 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/AuthorTable.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/BookTable.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/FavTable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/PreferBook.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/ReadTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/SearchBooks.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/TableComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/Top5List.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/components/table/UserTable.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/service/BookService.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/service/UserService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/authorUtil.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/axiosInstance.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/genreUtil.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/ReactFrontEnd/src/util/useData.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/.idea/compiler.xml" beforeDir="false" />
@@ -216,12 +217,14 @@
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/model/UserDTO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/model/UserUpdateDTO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/repo/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/AuthorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/repo/BookDao.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/repo/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/BookRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/repo/GenreRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/repo/RoleRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/repo/UserRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/service/AuthorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/AuthorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/service/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/service/EmailService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/service/UserService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/java/tr/com/obss/spring/util/JwtUtil.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../FinalProject/SpringBackend/src/main/resources/application-development.yml" beforeDir="false" />
@@ -243,6 +246,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/EntityBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/EntityBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/interceptor/RequestInInterceptor.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/MyUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/MyUserDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tr/com/obss/spring/model/UserDTO.java" afterDir="false" />
@@ -385,6 +389,9 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBootOptions">
+    <option name="showAdditionalConfigNotification" value="false" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="4cc3f260-ec81-40c8-9d07-eaa847104778" name="Changes" comment="" />
@@ -423,7 +430,9 @@
       <workItem from="1661160266882" duration="9825000" />
       <workItem from="1661241645272" duration="33575000" />
       <workItem from="1661335054262" duration="6370000" />
-      <workItem from="1661420482833" duration="13668000" />
+      <workItem from="1661420482833" duration="14986000" />
+      <workItem from="1661502395208" duration="6835000" />
+      <workItem from="1661516503005" duration="2772000" />
     </task>
     <task id="LOCAL-00001" summary="JIP day 11 (SpringBoot day1)">
       <created>1659362809837</created>
@@ -511,14 +520,9 @@
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/repo/BookDao.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tr/com/obss/spring/controller/AuthController.java</url>
-          <line>83</line>
-          <option name="timeStamp" value="80" />
+          <line>62</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

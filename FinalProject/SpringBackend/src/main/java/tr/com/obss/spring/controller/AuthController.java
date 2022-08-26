@@ -60,7 +60,7 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(changePasswordRequest.getUsername(), changePasswordRequest.getCurrentPassword()));
 
         } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+            throw new BadCredentialsException("Password is wrong",e);
         }
         var user = userService.findByUsername(changePasswordRequest.getUsername());
         UserUpdateDTO userUpdateDTO = new UserUpdateDTO(changePasswordRequest.getNewPassword());

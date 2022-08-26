@@ -6,6 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,11 +29,28 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleRuntimeException(HttpServletRequest request, BadCredentialsException ex) {
+        LOGGER.error(ex.getMessage(),ex);
+        var map = new HashMap<>();
+        map.put("error",ex.getMessage());
+        return new ResponseEntity<>(map, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public ResponseEntity<?> handleRuntimeException(HttpServletRequest request, InternalAuthenticationServiceException ex) {
+        LOGGER.error(ex.getMessage(),ex);
+        var map = new HashMap<>();
+        map.put("error","Wrong username or password");
+        return new ResponseEntity<>(map, HttpStatus.FORBIDDEN);
+    }
+
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> handleRuntimeException(HttpServletRequest request, DataIntegrityViolationException ex) {
         LOGGER.error(ex.getMessage(),ex);
         var map = new HashMap<>();
-        map.put("error","Duplicate record found");
+        map.put("error","This username is already exists.");
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -48,14 +67,14 @@ public class GlobalExceptionHandler {
         LOGGER.error(ex.getMessage(),ex);
         var map = new HashMap<>();
         map.put("error",ex.getMessage());
-        return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleRuntimeException(HttpServletRequest request, Exception ex) {
         LOGGER.error(ex.getMessage(),ex);
         var map = new HashMap<>();
-        map.put("error","Unknown error occurred");
+        map.put("error","An error occurred please try again.");
         return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
