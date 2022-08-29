@@ -12,8 +12,8 @@ async function loginUser(credentials) {
         .then(response => {
             return response.data
         })
-        .catch((error) => {
-                alert(error.response.data.error)
+        .catch(() => {
+            alert("Wrong username or password")
         })
 }
 

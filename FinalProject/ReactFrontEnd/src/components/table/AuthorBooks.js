@@ -108,7 +108,7 @@ const AuthorBooks = (props) => {
             key: 'action',
             render: (_, record) => (
                 <Space direction="vertical" size="small">
-                    <EditBook id={record.id} name={record.name} genre={record.genres} pageCount={record.pageCount}
+                    <EditBook id={record.id} name={record.name} genre={record.genre} pageCount={record.pageCount}
                               rating={record.rating} authorName={record.author.name} update={props.update} refresh = {props.refresh}/>
 
                     <AddFavButton bookId={record.id} update={props.update}/>

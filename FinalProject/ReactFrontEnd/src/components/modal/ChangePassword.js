@@ -1,14 +1,10 @@
 import {Button, Form, Input, Modal} from "antd";
-import React, {useState} from "react";
+import React from "react";
 import axiosInstance from "../../util/axiosInstance";
 
 const ChangePassword = (props) => {
 
-    const [submitText, setSubmitText] = useState({
-        text:"",
-        color:""
 
-    });
     function submit(e) {
         const data = {
             username: sessionStorage.getItem("username"),
@@ -21,19 +17,11 @@ const ChangePassword = (props) => {
             }
         )
             .then(() => {
-                setSubmitText({
-                    text:"Password is changed successfully.",
-                    color: "green"
-                })
-                setTimeout(() => {
-                    props.setVisible(false)
-                },3000)
+                alert("Password is changed.")
+                props.setVisible(false);
             })
-            .catch((error) => {
-                setSubmitText({
-                    text: error.response.data.error +".",
-                    color: "red"
-                })
+            .catch(() => {
+                alert("Password cannot be changed right now.")
             })
 
 
@@ -119,7 +107,7 @@ const ChangePassword = (props) => {
                     </Button>
                 </Form.Item>
             </Form>
-            <p style={{color:`${submitText.color}`}}>{submitText.text}</p>
+
         </Modal>
     )
 
